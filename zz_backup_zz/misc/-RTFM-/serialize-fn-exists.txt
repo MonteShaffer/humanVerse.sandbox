@@ -1,0 +1,28 @@
+
+myfn = function()
+	{
+	cat("\n CASE 1: \n");
+	exists("serialize");
+	
+	cat("\n CASE 2: \n");
+	exists("serialize", inherits=FALSE);
+	
+	serialize = FALSE;
+	
+	cat("\n CASE 3: \n");
+	exists("serialize");
+	
+	cat("\n CASE 4: \n");
+	exists("serialize", inherits=FALSE);
+	
+	}
+
+
+
+cat("\n CASE 0: \n");
+exists("serialize");  # a function exists by that name
+
+	
+myfn();
+
+

@@ -1,0 +1,51 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+# C++ 'sort'
+```{r}
+
+# C:\\_git_\\github\\MonteShaffer\\humanVerse\\cpp
+
+Rcpp::sourceCpp("C:\\_git_\\github\\MonteShaffer\\humanVerse\\HVcpp\\src\\sort.cpp");
+
+### Rcpp::sourceCpp("https://raw.githubusercontent.com/MonteShaffer/humanVerse/main/humanVerse/src/cpp/str.cpp"); # DOESN"T WORK
+
+
+
+```
+
+# PARTIAL
+```{r}
+require(stats)
+
+x <- swiss$Education[1:25]
+x[3] = -1 * x[3];
+x; 
+(x2 = sort(x)); 
+(x3 = sort(x, partial = c(9, 15)) );
+(x3b = sort(x3, partial = c(17)) );
+(x3c = sort(x, partial = c(9, 15, 17)) );
+```
+
+```{r}
+
+cpp_sort_numeric(x, dir="ASC");
+cpp_sort_numeric(x, dir="DESC");
+cpp_sort_numeric(x, partial=c(10,15));
+```
+
+
+
+```{r}
+# takes about 3 minutes to run
+x <- rnorm(1e8)
+system.time(x1 <- sort(x, method = "shell"))
+system.time(x2 <- sort(x, method = "quick"))
+system.time(x3 <- sort(x, method = "radix"))
+system.time(x4 <- cpp_sort_numeric(x))
+stopifnot(identical(x1, x2))
+stopifnot(identical(x1, x3))
+stopifnot(identical(x1, x4))
+```
+

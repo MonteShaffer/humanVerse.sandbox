@@ -1,0 +1,13 @@
+body {
+margin-top: 20px;
+margin-left: 10%;
+margin-right: 10%;
+font-family: "Trebuchet MS",Arial,Tahoma,Verdana,Sans-serif,Helvetica;
+font-size: 16px;
+}
+
+blockquote.serif {
+font-family: "Callisto MT",Georgia,"Book Antiqua",Palatino,"Times New Roman",Serif;
+font-size: 16px;
+}
+

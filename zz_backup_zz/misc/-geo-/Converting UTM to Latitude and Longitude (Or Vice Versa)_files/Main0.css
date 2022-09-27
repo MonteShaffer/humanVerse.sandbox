@@ -1,0 +1,159 @@
+﻿p, dt, dd, dl
+{font-family:calibri;
+text-color:black;
+text-align:left;
+margin-left:auto;
+margin-right:auto;
+width:700px;
+background-color:#ffffff;
+}
+blockquote
+{font-family:calibri;
+text-color:black;
+text-align:left;
+margin-left:auto;
+margin-right:auto;
+padding-left: 40 px;
+width:650px;
+background-color:#ffffff;
+}
+pre
+{font-family:courier;
+text-color:black;
+text-align:left;
+margin-left:auto;
+margin-right:auto;
+width:700px;
+background-color:#ffffff;
+}
+
+h1, h2, h3, h4
+{font-family:calibri;
+text-color:black;
+text-align:left;
+margin-left:auto;
+margin-right:auto;
+width:700px;
+background-color:#ffffff;
+}
+p
+{font-family:calibri;
+text-color:black;
+text-align:left;
+margin-left:auto;
+margin-right:auto;
+width:700px;
+background-color:#ffffff;
+}
+table
+{font-family:calibri;
+margin-left:auto;
+margin-right:auto;
+text-align:left;
+width:700px;
+background-color:#ffffff;
+border-width: 1px;
+}
+hr
+ { 	width:700px;
+	
+}
+ol
+{font-family:calibri;
+text-color:black;
+text-align:left;
+text-indent:inherit;
+list-style-position:inside;
+margin-left:auto;
+margin-right:auto;
+width:700px;
+background-color:#ffffff;
+}
+li
+{font-family:calibri;
+text-color:black;
+text-align:left;
+text-indent:inherit;
+list-style-position:inside;
+margin-left:auto;
+margin-right:auto;
+width:700px;
+background-color:#ffffff;
+}
+ul
+{font-family:calibri;
+text-color:black;
+text-align:left;
+text-indent:inherit;
+list-style-position:inside;
+margin-left:auto;
+margin-right:auto;
+width:700px;
+background-color:#ffffff;
+}
+ol
+{font-family:calibri;
+text-color:black;
+text-align:left;
+text-indent:inherit;
+list-style-position:inside;
+margin-left:auto;
+margin-right:auto;
+width:700px;
+background-color:#ffffff;
+}
+form
+{font-family:calibri;
+text-color:black;
+text-align:left;
+text-indent:inherit;
+list-style-position:inside;
+margin-left:auto;
+margin-right:auto;
+width:700px;
+background-color:#ffffff;
+}
+
+ul ul 
+width:auto
+
+td ul li
+{
+	width:auto
+}
+
+td p
+{
+	width:auto
+}
+
+table ul li
+{
+	width:auto
+}
+
+table p
+{
+	width:auto
+}
+/*
+     FILE ARCHIVED ON 10:18:27 Feb 23, 2018 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 01:13:50 Sep 18, 2022.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+*/
+/*
+playback timings (ms):
+  captures_list: 175.145
+  exclusion.robots: 0.092
+  exclusion.robots.policy: 0.084
+  RedisCDXSource: 19.221
+  esindex: 0.006
+  LoadShardBlock: 138.04 (3)
+  PetaboxLoader3.datanode: 81.719 (4)
+  CDXLines.iter: 13.135 (3)
+  load_resource: 66.81
+  PetaboxLoader3.resolve: 30.137
+*/

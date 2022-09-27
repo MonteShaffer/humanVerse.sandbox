@@ -1,0 +1,645 @@
+
+<!-- saved from url=(0102)https://web.archive.org/web/20180223073805/http://www.uwgb.edu:80/DUTCHS/UsefulData/ConvertUTMNoOZ.HTM -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252"><script src="./Convert Between Geographic and UTM Coordinates_files/analytics.js.download" type="text/javascript"></script>
+<script type="text/javascript">window.addEventListener('DOMContentLoaded',function(){var v=archive_analytics.values;v.service='wb';v.server_name='wwwb-app222.us.archive.org';v.server_ms=177;archive_analytics.send_pageview({});});</script>
+<script type="text/javascript" src="./Convert Between Geographic and UTM Coordinates_files/bundle-playback.js.download" charset="utf-8"></script>
+<script type="text/javascript" src="./Convert Between Geographic and UTM Coordinates_files/wombat.js.download" charset="utf-8"></script>
+<script type="text/javascript">
+  __wm.init("https://web.archive.org/web");
+  __wm.wombat("http://www.uwgb.edu:80/DUTCHS/UsefulData/ConvertUTMNoOZ.HTM","20180223073805","https://web.archive.org/","web","/_static/",
+	      "1519371485");
+</script>
+<link rel="stylesheet" type="text/css" href="./Convert Between Geographic and UTM Coordinates_files/banner-styles.css">
+<link rel="stylesheet" type="text/css" href="./Convert Between Geographic and UTM Coordinates_files/iconochive.css">
+<!-- End Wayback Rewrite JS Include -->
+
+<title>Convert Between Geographic and UTM Coordinates</title>
+<script type="text/JavaScript" src="./Convert Between Geographic and UTM Coordinates_files/jsDraw2D.js.download"></script> 
+<link rel="stylesheet" type="text/css" href="./Convert Between Geographic and UTM Coordinates_files/main0.css">
+
+<script language="javascript">
+
+function Declarations(){
+//Symbols as used in USGS PP 1395: Map Projections - A Working Manual
+	DatumEqRad = [6378137.0,6378137.0,6378137.0,6378135.0,6378160.0,6378245.0,6378206.4,
+	6378388.0,6378388.0,6378249.1,6378206.4,6377563.4,6377397.2,6377276.3];	
+	DatumFlat = [298.2572236, 298.2572236, 298.2572215,	298.2597208, 298.2497323, 298.2997381, 294.9786982,
+	296.9993621, 296.9993621, 293.4660167, 294.9786982, 299.3247788, 299.1527052, 300.8021499]; 
+	Item = 0;//Default
+	k0 = 0.9996;//scale on central meridian
+	a = DatumEqRad[Item];//equatorial radius, meters. 
+	f = 1/DatumFlat[Item];//polar flattening.
+	b = a*(1-f);//polar axis.
+	e = Math.sqrt(1 - b*b/a*a);//eccentricity
+	drad = Math.PI/180;//Convert degrees to radians)
+	latd = 0;//latitude in degrees
+	phi = 0;//latitude (north +, south -), but uses phi in reference
+	e0 = e/Math.sqrt(1 - e*e);//e prime in reference
+	N = a/Math.sqrt(1-Math.pow(e*Math.sin(phi)),2);
+	T = Math.pow(Math.tan(phi),2);
+	C = Math.pow(e*Math.cos(phi),2);
+	lng = 0;//Longitude (e = +, w = -) - can't use long - reserved word
+	lng0 = 0;//longitude of central meridian
+	lngd = 0;//longitude in degrees
+	M = 0;//M requires calculation
+	x = 0;//x coordinate
+	y = 0;//y coordinate
+	k = 1;//local scale
+	utmz = 30;//utm zone
+	zcm = 0;//zone central meridian
+	DigraphLetrsE = "ABCDEFGHJKLMNPQRSTUVWXYZ";
+	DigraphLetrsN = "ABCDEFGHJKLMNPQRSTUV";
+	document.getElementById("EqRadBox").value = a;
+	document.getElementById("PolRadBox").value = b;
+	document.getElementById("FlatBox").value = f;
+	document.getElementById("RecipBox").value = 1/f;
+	OOZok = false;
+	}//Close declarations
+
+function AllowOOZ(){
+	OOZok = false;
+	//if (document.getElementById("OOZBox").checked === true){OOZok=true;}
+	}
+	
+function DatumSelect(form)
+    {
+    //alert (form.Datum.selectedIndex);
+    Item = form.Datum.selectedIndex;
+    ChosenType = form.Datum.options[Item].text;
+    //alert (ChosenType);
+    DatumEqRad = [6378137.0,6378137.0,6378137.0,6378135.0,6378160.0,6378245.0,6378206.4,
+	6378388.0,6378388.0,6378249.1,6378206.4,6377563.4,6377397.2,6377276.3];	
+	DatumFlat = [298.2572236, 298.2572236, 298.2572215,	298.2597208, 298.2497323, 298.2997381, 294.9786982,
+	296.9993621, 296.9993621, 293.4660167, 294.9786982, 299.3247788, 299.1527052, 300.8021499]; 
+	k0 = 0.9996;//scale on central meridian
+	a = DatumEqRad[Item];//equatorial radius, meters. 
+	f = 1/DatumFlat[Item];//polar flattening.
+	b = a*(1-f);//polar axis.
+    document.getElementById("EqRadBox").value = a;
+	document.getElementById("PolRadBox").value = Math.floor(10*b)/10;
+	document.getElementById("FlatBox").value = Math.floor(1e+7*f)/1e+7;
+	document.getElementById("RecipBox").value = 1/f;
+ 	}
+ 	//Datum Info here: Name, a, b, f, 1/f
+ 	//WGS 84	6,378,137.0	6356752.314	0.003352811	298.2572236
+	//NAD 83	6,378,137.0	6356752.314	0.003352811	298.2572236
+	//GRS 80	6,378,137.0	6,356,752.3	0.003352811	298.2572215
+	//WGS 72	6,378,135.0	6,356,750.5	0.003352783	298.2597208
+	//Australian 1965	6,378,160.0	6,356,774.7	0.003352895	298.2497323
+	//Krasovsky 1940	6,378,245.0	6,356,863.0	0.003352333	298.2997381
+	//North American 1927	6,378,206.4	6,356,583.8	0.003390075	294.9786982
+	//International 1924	6,378,388.0	6,356,911.9	0.003367011	296.9993621
+	//Hayford 1909	6,378,388.0	6,356,911.9	0.003367011	296.9993621
+	//Clarke 1880	6,378,249.1	6,356,514.9	0.00340755	293.4660167
+	//Clarke 1866	6,378,206.4	6,356,583.8	0.003390075	294.9786982
+	//Airy 1830	6,377,563.4	6,356,256.9	0.003340853	299.3247788
+	//Bessel 1841	6,377,397.2	6,356,079.0	0.003342774	299.1527052
+	//Everest 1830	6,377,276.3	6,356,075.4	0.003324444	300.8021499
+
+
+function EraseUTM(){
+	document.getElementById("UTMzBox1").value = " ";
+	document.getElementById("SHemBox").checked = false;
+	document.getElementById("UTMeBox1").value = " ";
+	document.getElementById("UTMnBox1").value = " ";
+	}
+
+function EraseDDeg(){
+	document.getElementById("DDLatBox0").value = " ";
+	document.getElementById("DDLonBox0").value = " ";
+	}
+
+function EraseDMS(){
+	document.getElementById("DLatBox0").value = " ";
+	document.getElementById("MLatBox0").value = " ";
+	document.getElementById("SLatBox0").value = " ";
+	document.getElementById("DLonBox0").value = " ";
+	document.getElementById("MLonBox0").value = " ";
+	document.getElementById("SLonBox0").value = " ";
+	}
+	
+function EraseNATO(){
+	document.getElementById("UTMLonZoneBox2").value = " ";
+	document.getElementById("UTMLatZoneBox2").value = " ";
+	document.getElementById("UTMDgBox2").value = " ";
+	document.getElementById("UTMeBox2").value = " ";
+	document.getElementById("UTMnBox2").value = " ";
+	}
+
+function EraseDeg(){
+	EraseDDeg();
+	EraseDMS();
+	}
+
+function EraseAll(){
+	EraseDDeg();
+	EraseDMS();
+	EraseUTM();
+	EraseNATO();
+	}
+
+//List of Boxes
+//UTMzBox1
+//SHemBox
+//UTMeBox1
+//UTMnBox1
+//DDLatBox0
+//DDLonBox0
+//DLatBox0
+//MLatBox0
+//SLatBox0
+//DLonBox0
+//MLonBox0
+//SLonBox0
+//UTMLonZoneBox2
+//UTMLatZoneBox2
+//UTMDgBox2
+//UTMeBox2
+//UTMnBox2
+	
+function MakeDigraph(){
+	//Inputs y utmz
+	//alert(utmz);
+	Letr = Math.floor((utmz-1)*8 + (x)/100000);
+	Letr = Letr - 24*Math.floor(Letr/24)-1;
+	Digraph = DigraphLetrsE.charAt(Letr);
+	//alert("x=   "+x);
+	//alert(DigraphLetrsE.charAt(Letr));
+	//First (Easting) Character Found
+	Letr = Math.floor(y/100000);
+	//Odd zones start with A at equator, even zones with F
+	if (utmz/2 == Math.floor(utmz/2)){Letr = Letr+5;}
+	Letr = Letr - 20*Math.floor(Letr/20);
+	Digraph = Digraph + DigraphLetrsN.charAt(Letr);
+	}//End MakeDigraph
+	
+	
+function DigraphtoUTM(){
+	//Input Digraph, utmz
+	//Outputs Nbase Ebase
+	}//End Digraph to UTM
+	
+function DDtoDMS(){
+	//Input= xd(long) and yd(lat)
+	//Output = xdd xm xs (long) and ydd ym ys (lat)
+	ydd = Math.floor(Math.abs(yd));
+	ym = Math.floor(60*(Math.abs(yd) - ydd));
+	ys = 3600*(Math.abs(yd)-ydd - ym/60);
+	if (yd<0){ydd=-ydd;}
+	xdd = Math.floor(Math.abs(xd));
+	xm = Math.floor(60*(Math.abs(xd) - xdd));
+	xs = 3600*(Math.abs(xd)-xdd - xm/60);
+	if (xd<0){xdd=-xdd;}
+	}//End DDtoDMS
+	
+function DMStoDD(){
+	//Input = xdd xm xs (long) and ydd ym ys (lat)
+	//Output= xd(long) and yd(lat)
+	xd = Math.abs(xdd) + xm/60 + xs/3600;
+	yd = Math.abs(ydd) + ym/60 + ys/3600;
+	if (ydd<0){yd=-yd;}
+	if (xdd<0){xd=-xd;}
+	}//End DMStoDD
+
+
+function GeogToUTM(){
+	//Convert Latitude and Longitude to UTM
+	Declarations();
+	k0 = 0.9996;//scale on central meridian
+	b = a*(1-f);//polar axis.
+	//alert(a+"   "+b);
+	//alert(1-(b/a)*(b/a));
+	e = Math.sqrt(1 - (b/a)*(b/a));//eccentricity
+	//alert(e);
+	//Input Geographic Coordinates
+	//Decimal Degree Option
+    latd0 = parseFloat(document.getElementById("DDLatBox0").value);
+	lngd0 = parseFloat(document.getElementById("DDLonBox0").value);
+	latd1 = Math.abs(parseFloat(document.getElementById("DLatBox0").value));
+	latd1 = latd1 + parseFloat(document.getElementById("MLatBox0").value)/60;
+	latd1 = latd1 + parseFloat(document.getElementById("SLatBox0").value)/3600;
+	if (parseFloat(document.getElementById("DLatBox0").value)<0){latd1=-latd1;}
+	lngd1 = Math.abs(parseFloat(document.getElementById("DLonBox0").value));
+	lngd1 = lngd1 + parseFloat(document.getElementById("MLonBox0").value)/60;
+	lngd1 = lngd1 + parseFloat(document.getElementById("SLonBox0").value)/3600;
+	if (parseFloat(document.getElementById("DLonBox0").value)<0){lngd1=-lngd1;}
+
+	lngd=lngd0;
+	latd=latd0;
+	if(isNaN(latd)){
+	latd = latd1;
+	document.getElementById("DDLatBox0").value = Math.floor(1000000*latd)/1000000;
+	lngd=lngd1;
+	document.getElementById("DDLonBox0").value = Math.floor(1000000*lngd)/1000000;
+	}
+	
+	if(isNaN(lngd)){lngd = latd1;}
+		if(isNaN(latd)|| isNaN(lngd)){
+		alert("Non-Numeric Input Value");
+		}
+	if(latd <-90 || latd> 90){
+		alert("Latitude must be between -90 and 90");
+		}
+	if(lngd <-180 || lngd > 180){
+		alert("Latitude must be between -180 and 180");
+		}
+
+	xd = lngd;
+	yd = latd;
+	DDtoDMS();
+	//Read Input from DMS Boxes
+	document.getElementById("DLatBox0").value = Math.floor(ydd);
+	document.getElementById("MLatBox0").value = ym;
+	document.getElementById("SLatBox0").value = Math.floor(1000*ys)/1000;
+	document.getElementById("DLonBox0").value = Math.floor(xdd);
+	document.getElementById("MLonBox0").value = xm;
+	document.getElementById("SLonBox0").value = Math.floor(1000*xs)/1000;
+
+	
+	phi = latd*drad;//Convert latitude to radians
+	lng = lngd*drad;//Convert longitude to radians
+	utmz = 1 + Math.floor((lngd+180)/6);//calculate utm zone
+	latz = 0;//Latitude zone: A-B S of -80, C-W -80 to +72, X 72-84, Y,Z N of 84
+	if (latd > -80 && latd < 72){latz = Math.floor((latd + 80)/8)+2;}
+	if (latd > 72 && latd < 84){latz = 21;}
+	if (latd > 84){latz = 23;}
+		
+	zcm = 3 + 6*(utmz-1) - 180;//Central meridian of zone
+	//alert(utmz + "   " + zcm);
+	//Calculate Intermediate Terms
+	e0 = e/Math.sqrt(1 - e*e);//Called e prime in reference
+	esq = (1 - (b/a)*(b/a));//e squared for use in expansions
+	e0sq = e*e/(1-e*e);// e0 squared - always even powers
+	//alert(esq+"   "+e0sq)
+	N = a/Math.sqrt(1-Math.pow(e*Math.sin(phi),2));
+	//alert(1-Math.pow(e*Math.sin(phi),2));
+	//alert("N=  "+N);
+	T = Math.pow(Math.tan(phi),2);
+	//alert("T=  "+T);
+	C = e0sq*Math.pow(Math.cos(phi),2);
+	//alert("C=  "+C);
+	A = (lngd-zcm)*drad*Math.cos(phi);
+	//alert("A=  "+A);
+	//Calculate M
+	M = phi*(1 - esq*(1/4 + esq*(3/64 + 5*esq/256)));
+	M = M - Math.sin(2*phi)*(esq*(3/8 + esq*(3/32 + 45*esq/1024)));
+	M = M + Math.sin(4*phi)*(esq*esq*(15/256 + esq*45/1024));
+	M = M - Math.sin(6*phi)*(esq*esq*esq*(35/3072));
+	M = M*a;//Arc length along standard meridian
+	//alert(a*(1 - esq*(1/4 + esq*(3/64 + 5*esq/256))));
+	//alert(a*(esq*(3/8 + esq*(3/32 + 45*esq/1024))));
+	//alert(a*(esq*esq*(15/256 + esq*45/1024)));
+	//alert(a*esq*esq*esq*(35/3072));
+	//alert(M);
+	M0 = 0;//M0 is M for some origin latitude other than zero. Not needed for standard UTM
+	//alert("M    ="+M);
+	//Calculate UTM Values
+	x = k0*N*A*(1 + A*A*((1-T+C)/6 + A*A*(5 - 18*T + T*T + 72*C -58*e0sq)/120));//Easting relative to CM
+	x=x+500000;//Easting standard 
+	y = k0*(M - M0 + N*Math.tan(phi)*(A*A*(1/2 + A*A*((5 - T + 9*C + 4*C*C)/24 + A*A*(61 - 58*T + T*T + 600*C - 330*e0sq)/720))));//Northing from equator
+	yg = y + 10000000;//yg = y global, from S. Pole
+	if (y < 0){y = 10000000+y;}
+	//Output into UTM Boxes
+	document.getElementById("UTMzBox1").value = utmz;
+	document.getElementById("UTMeBox1").value = Math.round(10*(x))/10;
+	document.getElementById("UTMnBox1").value = Math.round(10*y)/10;
+	if (phi<0){document.getElementById("SHemBox").checked=true;}
+	//document.getElementById("UTMzBox1").value = utmz;
+	//document.getElementById("UTMeBox1").value = Math.round(10*(500000+x))/10;
+	document.getElementById("UTMLonZoneBox2").value = utmz;
+	document.getElementById("UTMLatZoneBox2").value = DigraphLetrsE[latz];
+	document.getElementById("UTMeBox2").value = Math.round(10*(x-100000*Math.floor(x/100000)))/10;
+	document.getElementById("UTMnBox2").value = Math.round(10*(y-100000*Math.floor(y/100000)))/10;
+//Generate Digraph
+	MakeDigraph();
+	document.getElementById("UTMDgBox2").value = Digraph;
+				
+}//close Geog to UTM
+///////////////////////////////////////////////////////////////////////
+
+function UTMtoGeog(){
+	//Convert UTM Coordinates to Geographic
+	Declarations();
+	k0 = 0.9996;//scale on central meridian
+	b = a*(1-f);//polar axis.
+	e = Math.sqrt(1 - (b/a)*(b/a));//eccentricity
+	e0 = e/Math.sqrt(1 - e*e);//Called e prime in reference
+	esq = (1 - (b/a)*(b/a));//e squared for use in expansions
+	e0sq = e*e/(1-e*e);// e0 squared - always even powers
+	x = parseFloat(document.getElementById("UTMeBox1").value);
+	if (x<160000 || x>840000){alert("Outside permissible range of easting values \n Results may be unreliable \n Use with caution");} 
+	y = parseFloat(document.getElementById("UTMnBox1").value);
+	//alert(y)
+	if (y<0){alert("Negative values not allowed \n Results may be unreliable \n Use with caution");}
+	if (y>10000000){alert("Northing may not exceed 10,000,000 \n Results may be unreliable \n Use with caution");}
+	utmz = parseFloat(document.getElementById("UTMzBox1").value);
+	zcm = 3 + 6*(utmz-1) - 180;//Central meridian of zone
+	e1 = (1 - Math.sqrt(1 - e*e))/(1 + Math.sqrt(1 - e*e));//Called e1 in USGS PP 1395 also
+	M0 = 0;//In case origin other than zero lat - not needed for standard UTM
+	M = M0 + y/k0;//Arc length along standard meridian. 
+	if (document.getElementById("SHemBox").checked === true){M=M0+(y-10000000)/k;}
+	mu = M/(a*(1 - esq*(1/4 + esq*(3/64 + 5*esq/256))));
+	phi1 = mu + e1*(3/2 - 27*e1*e1/32)*Math.sin(2*mu) + e1*e1*(21/16 -55*e1*e1/32)*Math.sin(4*mu);//Footprint Latitude
+	phi1 = phi1 + e1*e1*e1*(Math.sin(6*mu)*151/96 + e1*Math.sin(8*mu)*1097/512);
+	C1 = e0sq*Math.pow(Math.cos(phi1),2);
+	T1 = Math.pow(Math.tan(phi1),2);
+	N1 = a/Math.sqrt(1-Math.pow(e*Math.sin(phi1),2));
+	R1 = N1*(1-e*e)/(1-Math.pow(e*Math.sin(phi1),2));
+	D = (x-500000)/(N1*k0);
+	phi = (D*D)*(1/2 - D*D*(5 + 3*T1 + 10*C1 - 4*C1*C1 - 9*e0sq)/24);
+		phi = phi + Math.pow(D,6)*(61 + 90*T1 + 298*C1 + 45*T1*T1 -252*e0sq - 3*C1*C1)/720;
+		phi = phi1 - (N1*Math.tan(phi1)/R1)*phi;
+				
+//Output Latitude
+	document.getElementById("DDLatBox0").value = Math.floor(1000000*phi/drad)/1000000;
+		
+//Longitude
+	lng = D*(1 + D*D*((-1 -2*T1 -C1)/6 + D*D*(5 - 2*C1 + 28*T1 - 3*C1*C1 +8*e0sq + 24*T1*T1)/120))/Math.cos(phi1);
+	lngd = zcm+lng/drad;
+	
+//Output Longitude
+    document.getElementById("DDLonBox0").value = Math.floor(1000000*lngd)/1000000;
+//Parse DMS
+	xd = lngd;
+	yd = phi/drad;
+	DDtoDMS();
+	document.getElementById("DLatBox0").value = Math.floor(ydd);
+	document.getElementById("MLatBox0").value = ym;
+	document.getElementById("SLatBox0").value = Math.floor(1000*ys)/1000;
+	document.getElementById("DLonBox0").value = Math.floor(xdd);
+	document.getElementById("MLonBox0").value = xm;
+	document.getElementById("SLonBox0").value = Math.floor(1000*xs)/1000;
+
+	document.getElementById("UTMLonZoneBox2").value = utmz;
+	document.getElementById("UTMLatZoneBox2").value = DigraphLetrsE[latz];
+	document.getElementById("UTMeBox2").value = Math.round(10*(x-100000*Math.floor(x/100000)))/10;
+	document.getElementById("UTMnBox2").value = Math.round(10*(y-100000*Math.floor(y/100000)))/10;
+	MakeDigraph();
+	document.getElementById("UTMDgBox2").value = Digraph;
+
+	}//End UTM to Geog
+	
+function NATOtoGeog(){
+	AllDGLetrs = "ABCDEFGHJKLMNPQRSTUVABCDEFGHJKLMNPQRSTUVABCDEFGHJKLMNPQRSTUVABCDEFGHJKLMNPQRSTUVABCDEFGHJKLMNPQRSTUVABCDEFGHJKLMNPQRSTUVABCDEFGHJKLMNPQRSTUVABCDEFGHJKLMNPQRSTUVABCDEFGHJKLMNPQRSTUVABCDEFGHJKLMNPQRSTUV";
+	Latz = document.getElementById("UTMLatZoneBox2").value;
+	Latz = Latz.toUpperCase();
+	Latz = Latz.charAt(0);
+	document.getElementById("UTMLatZoneBox2").value = Latz;
+	if (Latz=="I" || Latz=="O"){alert("I and O are not permissible zone letters");
+		return;}
+	Digraph = document.getElementById("UTMDgBox2").value;
+	Digraph = Digraph.toUpperCase();
+	if (Digraph.length < 2){alert("Incomplete Digraph");
+		return;}
+	document.getElementById("UTMDgBox2").value = Digraph;
+	utmz = parseFloat(document.getElementById("UTMLonZoneBox2").value);
+	if(isNaN(utmz)){alert("Longitude zone must have a numeric value");
+		return;}
+	if(utmz <1 || utmz>60){alert("Longitude zone number must be between 1 and 60");
+		return;}
+	utmz = parseFloat(document.getElementById("UTMLonZoneBox2").value);
+	utme = parseFloat(document.getElementById("UTMeBox2").value);
+	utmn = parseFloat(document.getElementById("UTMnBox2").value);
+	if (isNaN(utme)||isNaN(utmn)){alert("Non-numeric coordinate values");
+		return;}
+	if (utme < 0 || utmn<0){alert("UTM coordinates must always be positive");
+		return;}
+	if (utme >=100000 || utmn>=100000){alert("NATO UTM coordinates must always be less than 100000");
+		return;}
+	ELetr = Digraph.charAt(0);
+	if (ELetr=="I" || ELetr=="O"){alert("I and O are not permissible digraph letters");
+		return;}
+	NLetr = Digraph.charAt(1);
+	EIndx = DigraphLetrsE.indexOf(ELetr);
+	NIndx = DigraphLetrsN.indexOf(NLetr);
+	if (NLetr=="I" || ELetr=="O"){alert("I and O are not permissible digraph letters");
+		return;}
+	if (NLetr=="W" || NLetr=="X" || NLetr=="Y" || NLetr=="Z"){alert("W,X,Y or Z are not permissible second digraph letters");
+		return;}
+	if (utmz/2 == Math.floor(utmz/2)){NIndx = NIndx-5;}//correction for even zones
+	//Check Compatibility of Zones and Digraph
+	//Check Long Zone
+	//Zone 1: 1-8; Zone 2: 9-16; Zone 3: 17-24
+	if ((Math.floor((EIndx)/8)) != ((utmz-1)-3*Math.floor((utmz-1)/3))){
+		alert("WARNING! \n Longitude zone and Digraph are inconsistent.\n Results may be unreliable.\n Use with caution");
+		}
+	EBase = 100000*(1+DigraphLetrsE.indexOf(ELetr)-8*Math.floor(DigraphLetrsE.indexOf(ELetr)/8))
+				
+	//Now Latitude Zones
+	//N Lat: 100km band = 8.88(NIndx-12) to 8.88(NIndx-11)
+	LatBand = DigraphLetrsE.indexOf(Latz);//Digraph letters E use same set as Lat zone designations
+	LatBandLow = 8*LatBand-96;
+	LatBandHigh = 8*LatBand-88;
+	//Lat Band C starts at -80 but is index 2 in the letters list, hence -80-16 = -96, etc.
+	if (LatBand<2){LatBandLow = -90;
+		LatBandHigh=-80;}
+	if (LatBand==21){LatBandLow=72;
+		LatBandHigh=84;}
+	if (LatBand>21){LatBandLow=84;
+		LatBandHigh=90;}
+	//alert(LatBandLow + "   " + LatBandHigh);
+	//One degree = 10000km/90, lat band = 8 degrees = 80000/90 = 889km
+	LowLetr=Math.floor(100+1.11*LatBandLow);
+	HighLetr=Math.round(100+1.11*LatBandHigh);
+	//Adjust for even zones
+	//alert(LowLetr + "  " + HighLetr);
+	LatBandLetrs = AllDGLetrs.slice(LowLetr,HighLetr);
+	if (utmz/2 == Math.floor(utmz/2)){LatBandLetrs = AllDGLetrs.slice(LowLetr+5,HighLetr+5);}//Deal with even zones
+	//alert(NLetr + "  " + LatBandLetrs);
+	if(LatBandLetrs.indexOf(NLetr)<0){alert("WARNING! \n Latitude zone and Digraph are inconsistent.\n Results may be unreliable.\n Use with caution");}
+	NBase = 100000*(LowLetr + LatBandLetrs.indexOf(NLetr));
+	x=EBase+utme;
+	y=NBase+utmn;
+	//alert("NATO");
+	if (y > 10000000){y=y-10000000;}
+	if (NBase>=1e+7){y=NBase+utmn-1e+7;}
+	if (NBase<1e+7){document.getElementById("SHemBox").checked = true;}//Southern Hemisphere
+	document.getElementById("UTMeBox2").value = x;
+	document.getElementById("UTMnBox2").value = y;
+	document.getElementById("UTMeBox1").value = x;
+	document.getElementById("UTMnBox1").value = y;
+	document.getElementById("UTMzBox1").value = document.getElementById("UTMLonZoneBox2").value;
+	
+	UTMtoGeog();
+	//alert(x +"  "+y);
+	}
+
+
+</script>
+<style type="text/css">
+.style0 {
+	margin-left: 40px;
+}
+</style>
+</head>
+
+<body onload="Declarations()"><!-- BEGIN WAYBACK TOOLBAR INSERT -->
+<style type="text/css">
+body {
+  margin-top:0 !important;
+  padding-top:0 !important;
+  /*min-width:800px !important;*/
+}
+</style>
+<script>__wm.rw(0);</script>
+<div id="wm-ipp-base" lang="en" style="display: block; direction: ltr;">
+</div><div id="wm-ipp-print">The Wayback Machine - https://web.archive.org/web/20180223073805/http://www.uwgb.edu:80/DUTCHS/UsefulData/ConvertUTMNoOZ.HTM</div>
+<script type="text/javascript">//<![CDATA[
+__wm.bt(675,27,25,2,"web","http://www.uwgb.edu/DUTCHS/UsefulData/ConvertUTMNoOZ.HTM","20180223073805",1996,"/_static/",["/_static/css/banner-styles.css?v=fantwOh2","/_static/css/iconochive.css?v=qtvMKcIJ"], false);
+  __wm.rw(1);
+//]]></script>
+<!-- END WAYBACK TOOLBAR INSERT -->
+
+<div align="center">
+<h1>Convert Between Geographic and UTM Coordinates</h1>
+<p>Steven Dutch, Natural and Applied Sciences,<a href="https://web.archive.org/web/20180223073805/http://weba.uwgb.edu/">University
+of Wisconsin - Green Bay</a><br>
+First-time Visitors: Please visit <a href="https://web.archive.org/web/20180223073805/http://www.uwgb.edu/DUTCHS/sitemap.htm">Site Map and Disclaimer</a>.
+Use "Back" to return here.</p>
+<hr>
+<h2>Select Datum</h2>
+<p>This is the mathematical model for the shape of the earth used on whatever map you're reading. The more recent ones are global, but many regional and local datums are in use as well. These may have values that fit the shape of the earth well over a continent, but perform less well when applied to the whole earth. Generally the datum is named somewhere on the margins of the map.<br>
+<table>
+	<tbody><tr>
+		<td style="width: 300px">Select Datum From Drop-Down List: </td>
+		<td><form name="Datums" action="https://web.archive.org/web/20180223073805/http://www.uwgb.edu/DUTCHS/Geometry/DatumSelect(this.form)" method="GET">
+<select name="Datum" size="1" onchange="DatumSelect(this.form)">
+<option>WGS 84
+</option><option>NAD 83
+</option><option>GRS 80
+</option><option>WGS 72
+</option><option>Australian 1965
+</option><option>Krasovsky 1940
+</option><option>North American 1927
+</option><option>International 1924
+</option><option>Hayford 1909
+</option><option>Clarke 1880
+</option><option>Clarke 1866
+</option><option>Airy 1830
+</option><option>Bessel 1841
+</option><option>Everest 1830
+</option></select>
+</form></td>
+	</tr></tbody></table></p>
+<table>	
+	<tbody><tr>
+		<td>Equatorial Radius (meters):&nbsp;&nbsp; </td>
+		<td> <input type="text" id="EqRadBox" size="10" maxlength="10"></td>
+		<td>&nbsp;Polar Radius (meters):&nbsp;&nbsp; </td>
+		<td> <input type="text" id="PolRadBox" size="10" maxlength="10"></td>
+	</tr>
+	<tr>
+		<td>Flattening:&nbsp; </td>
+		<td> <input type="text" id="FlatBox" size="10" maxlength="10"></td>
+		<td>1/Flattening:&nbsp;&nbsp; </td>
+		<td> <input type="text" id="RecipBox" size="10" maxlength="10"></td>
+	</tr>
+</tbody></table>
+<p><strong>Cross Check:</strong> As soon as you perform a conversion in one mode, the results are immediately entered as input into the others. For example, if you convert 44.5 N 88.5 W to UTM, you get Easting 
+380749.6, Northing 4928286.8. These values appear in the output boxes, <strong>but</strong> they also appear in the input boxes for converting UTM to geographic coordinates. You can then click the conversion button and compare the geographic coordinates with your original input. 
+Note: a discrepancy of .001 seconds equals about 3 cm.</p>
+<p><strong>Out-of-Zone Calculations:<em> </em></strong>Sometimes you have 
+adjacent points that straddle a zone boundary, and they will have wildly 
+different UTM coordinates even though they are very close together on the 
+ground. For example, 45 N 89.9 W and 45 N 90.1 W are only about 15 km apart on 
+the ground, but their UTM easting coordinates are 271428.8E and 728571.2 E. Even 
+though it's not technically correct, it's sometimes a lot more useful to extend 
+the grid across the zone boundary. For the UTM to Latitude-Longitude conversion, 
+simply enter the coordinates and the desired zone. For example, Zone 15 extends 
+from 90 to 96 W, but if you enter easting 750000, northing 5000000, zone 15, 
+you'll get latitude 45.111N, longitude 89.82W, that is, a longitude in Zone 16.</p>
+<p>If you calculate coordinates across normal zone boundaries, alert messages 
+may appear warning you that the results may be unreliable. <strong>Unless you 
+specifically intend to carry grids across zone boundaries, you should consider 
+these error messages and correct your input.</strong></p>
+<h2 style="background-color:#FFDDDD">Latitude and Longitude</h2>
+<p style="background-color:#FFDDDD">
+<b>Decimal Degrees</b><br>
+Latitude (Degrees): <input type="text" id="DDLatBox0" size="10" maxlength="10" value="40.5" onchange="EraseDMS()">
+Longitude (Degrees): <input type="text" id="DDLonBox0" size="10" maxlength="10" value="-73.5" onchange="EraseDMS()"><br>
+<b>Degrees, Minutes, Seconds</b><br>
+Latitude Degrees:  <input type="text" id="DLatBox0" size="10" maxlength="10" onchange="EraseDDeg()">
+Minutes: <input type="text" id="MLatBox0" size="10" maxlength="10" onchange="EraseDDeg()">
+Seconds: <input type="text" id="SLatBox0" size="10" maxlength="10" onchange="EraseDDeg()">
+<br>
+Longitude Degrees: <input type="text" id="DLonBox0" size="10" maxlength="10" onchange="EraseDDeg()">
+Minutes: <input type="text" id="MLonBox0" size="10" maxlength="10" onchange="EraseDDeg()">
+Seconds: <input type="text" id="SLonBox0" size="10" maxlength="10" onchange="EraseDDeg()">
+<br>
+<input type="button" id="CalculateUTM" value="Calculate UTM" onclick="GeogToUTM()">
+<input type="button" id="ClearDeg" value="Clear" onclick="EraseDeg()">
+<input type="button" id="ClearAll" value="Clear All" onclick="EraseAll()">
+
+<br>
+</p>
+<hr>
+
+<h2 style="background-color:#CCEEFF">Standard UTM</h2>
+<p style="background-color:#CCEEFF">
+<b>UTM (meters)</b> <br>
+Easting: <input type="text" id="UTMeBox1" size="10" maxlength="10" value="627106.5" onchange="EraseDeg()">
+Northing: <input type="text" id="UTMnBox1" size="10" maxlength="10" value="4484124.4" onchange="EraseDeg()">
+Zone: <input type="text" id="UTMzBox1" size="5" maxlength="2" value="18" onchange="EraseDeg()">
+South of Equator: <input type="checkbox" id="SHemBox">
+<br>
+<input type="button" id="CalculateLL" value="Calculate Latitude and Longitude" onclick="UTMtoGeog()">
+<input type="button" id="ClearUTM" value="Clear" onclick="EraseUTM()">
+<input type="button" id="ClearAll" value="Clear All" onclick="EraseAll()">
+
+<br>
+</p><hr>
+
+<h2 style="background-color:#AADD00">NATO UTM</h2>
+
+<p style="background-color:#AADD00"><b>NATO UTM (meters)</b><br>
+Because digraphs repeat every 2000 km in the north-south direction, and every 
+three zones east-west, a full zone description is necessary for an unambiguous conversion.</p>
+<p style="background-color:#AADD00">
+Long Zone: <input type="text" id="UTMLonZoneBox2" size="3" maxlength="3" value="1" onchange="EraseDeg()">
+Lat Zone: <input type="text" id="UTMLatZoneBox2" size="3" maxlength="3" value="N" onchange="EraseDeg()">
+Digraph: <input type="text" id="UTMDgBox2" size="3" maxlength="3" value="EA" onchange="EraseDeg()">
+Easting: <input type="text" id="UTMeBox2" size="10" maxlength="10" value="12345" onchange="EraseDeg()">
+Northing: <input type="text" id="UTMnBox2" size="10" maxlength="10" value="67890" onchange="EraseDeg()">
+<br>
+
+<input type="button" id="CalculateLL" value="Calculate Latitude and Longitude" onclick="NATOtoGeog()">
+<input type="button" id="ClearNATO" value="Clear" onclick="EraseNATO()">
+<input type="button" id="ClearAll" value="Clear All" onclick="EraseAll()">
+<br>
+</p><p>
+<a href="https://web.archive.org/web/20180223073805/http://www.uwgb.edu/DUTCHS/FieldMethods/UTMSystem.htm">Information on the UTM system</a><br>
+<a href="https://web.archive.org/web/20180223073805/http://www.uwgb.edu:80/DUTCHS/UsefulData/OddGrids.HTM">Help! My Data Doesn't Look Like A UTM Grid!</a></p>
+
+<hr>
+<p>
+<a href="https://web.archive.org/web/20180223073805/http://www.uwgb.edu/DUTCHS/CompTips/CompTipIndex.HTM">Return to Computer Tips Index</a><br>
+
+<a href="https://web.archive.org/web/20180223073805/http://www.uwgb.edu/DUTCHS/index.htm">Return to Professor Dutch's Home Page</a></p>
+<p><i>Created 29 November 2010, Last Update 
+<!--webbot bot="Timestamp"
+S-Type="EDITED" S-Format="%d %B %Y" startspan -->17 February 2015<!--webbot bot="Timestamp" endspan i-checksum="41192" -->
+</i></p>
+<p>Not an official UW Green Bay site</p></div>
+  
+
+<!--
+     FILE ARCHIVED ON 07:38:05 Feb 23, 2018 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 01:13:49 Sep 18, 2022.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+-->
+<!--
+playback timings (ms):
+  captures_list: 60.239
+  exclusion.robots: 0.221
+  exclusion.robots.policy: 0.208
+  RedisCDXSource: 0.817
+  esindex: 0.009
+  LoadShardBlock: 35.617 (3)
+  PetaboxLoader3.datanode: 50.675 (4)
+  CDXLines.iter: 18.394 (3)
+  load_resource: 107.085
+  PetaboxLoader3.resolve: 79.11
+--></body></html>

@@ -1,0 +1,29 @@
+setwd("{directory}");
+library(RecordLinkage);
+options("digits"=4);
+mydata = read.table("{inputdatadir}",quote="",sep="");
+nrecords = dim(mydata)[1];
+x1 = matrix(, 1, nrecords);
+for(i in 1:nrecords)
+	{
+	x1[i] = as.character(mydata[i,1]);
+	}
+	
+k=1;
+w= matrix(,nrecords,nrecords);
+string= matrix(,nrecords,nrecords);
+for (i in 1:nrecords)
+	{	
+	for (j in 1:nrecords)
+		{	
+			if ( j < i)
+				{
+					w[i,j]=w[j,i];
+				}
+			else
+				{
+					w[i,j] = jarowinkler(x1[i],x1[j]);
+				}
+		}
+	}
+write.table(w,file="{jwoutname}",sep="|",quote=F);

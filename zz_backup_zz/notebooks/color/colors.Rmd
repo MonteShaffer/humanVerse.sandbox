@@ -1,0 +1,789 @@
+---
+title: 'R Notebook: colors'
+output:
+  html_document:
+    df_print: paged
+    toc: true
+    toc_float: true
+    toc_depth: 4
+    fig_caption: true
+    number_sections: true 
+---
+
+# Setup
+
+## include-setup.R
+
+This one file has all the basic functions we need to load more functions.
+
+### source setup
+```{r}
+github.monte.raw = "https://raw.githubusercontent.com/MonteShaffer/";
+include.setup = paste0(github.monte.raw, "humanVerse/main/include.setup.R");
+source(include.setup);
+```
+
+### Custom Sourcing
+
+#### TEMP folder
+```{r}
+getSourceLocation();
+```
+
+#### source (humanVerse/R)
+```{r}
+github.monte.http = "https://github.com/MonteShaffer/";
+######## we will parse this page to get a list of the .R functions to include ########
+github.monte.humanVerse = paste0(github.monte.http, "humanVerse/tree/main/humanVerse/R/"); 
+
+######## you can pass flag `force.download = TRUE` if you want to make certain it is not coming from cache ########
+
+###### R::humanVerse #####
+includeGithubFolder(github.monte.humanVerse, force.download = TRUE); 
+```
+
+#### source (humanVerse/misc)
+```{r}
+######## we will parse this page to get a list of the .R functions to include ########
+github.monte.misc = paste0(github.monte.http, "humanVerse/tree/main/misc/"); 
+
+######## you can pass flag `force.download = TRUE` if you want to make certain it is not coming from cache ########
+
+###### R::humanVerse #####
+includeGithubFolder(github.monte.misc, force.download = TRUE);
+```
+
+
+# Color Theory
+
+Color is an important aspect of visualization and storytelling with data.  As I am not an "artist", I have to rely on mathematics to generate colors that look nice together.
+
+## colors.mshaffer.com
+Here was a color tool I developed in 2007:
+
+<https://colors.mshaffer.com/>
+
+<https://colors.mshaffer.com/?debug=monte>
+
+## Color formats
+
+The primary color scheme we use today is called "hexadecimal" colors.  It is a form of "RGB" color that is converted to a string.  RGB stands for (R)ed, (G)reen, (B)lue where each value can be [0-255] which converted to hexadecimal as a string is "00" to "FF".
+
+#### === War-story Tangential ===
+When you play with RGB addressable lights in electronics, you can get two types, RGB and RGBw.  (And sometimes the manufactures decide to follow different ordering protocols [GRBw] which makes the embedded-C programming even a bit more challenging.)  
+
+The ability to create mixture of light by having 3 or 4 small LEDs light up is the basic function of how light emission works.  Here is a short video clip <https://www.youtube.com/watch?v=DBRJ0KbI1Hk> of an application, which was programmed in embedded C as part of a research grant to develop automated technologies to engage the mind and body of persons with Parkinson's disease <https://www.nsf.gov/awardsearch/showAward?AWD_ID=1819997>.  [We also had a nice punch-detection algorithm that would use the statistic called MAD to perform real-time signal processing.  Some details of how I used the Statistics of MAD is documented in an older "mastery" notebook.]
+
+Obviously, the color schema presented herein is a function of light emission (which is how computers operate) and the aesthetics would be different for a paint-schema for color, as that is a function of how light reflects off a tangible surface.
+
+
+### dechex (dec2hex)
+Convert a number (technically an integer, don't know why they call it decimal, I guess it means base 10) to a hexadecimal.
+```{r}
+###### R::humanVerse #####
+dechex(204);
+```
+I wrote the function to allow for mistakes with the integer thing.
+```{r}
+###### R::humanVerse #####
+dechex(204.33);
+```
+It works for any size, I just use a 2-digit as that is what we need for colors.
+```{r}
+###### R::humanVerse #####
+dechex(123456789, 1234);
+```
+```{r}
+###### R::humanVerse #####
+dechex(c(123456789, 1234));
+```
+
+
+Here is the entire range.
+```{r}
+###### R::humanVerse #####
+dechex( 0:255);
+```
+
+### hexdec (hex2dec)
+This is the inverse function, converts from hexadecimal string to a base-10 integer.
+```{r}
+###### R::humanVerse #####
+hexdec("CC");
+cat("\n", "===============", "\n\n");
+dechex( hexdec("CC") );
+cat("\n", "===============", "\n\n");
+hexdec( dechex( hexdec("CC") ) );
+cat("\n", "===============", "\n\n");
+dechex( hexdec( dechex( hexdec("CC") ) ) );
+```
+
+```{r}
+###### R::humanVerse #####
+hexdec("Albuquerque");
+```
+
+### hex2rgb
+The base format in my code is an RGB vector.  I can convert color in different formats, but the HEX and RGB are the basic engines.
+
+```{r}
+###### R::humanVerse #####
+hex2rgb("Albuquerque");
+```
+
+You are supposed to pass in an HEXADECIMAL VALUE.
+#### = WSU COLORS =
+```{r}
+# https://brand.wsu.edu/visual/colors/
+wsu.crimson = "#981e32";
+wsu.gray    = "#717171";
+```
+
+```{r}
+###### R::humanVerse #####
+hex2rgb( wsu.crimson );
+```
+You can unlist and simplify the result.
+
+```{r}
+# https://brand.wsu.edu/visual/colors/
+wsu.crimson = "#981e32";
+wsu.gray    = "#717171";
+
+###### R::humanVerse #####
+hex2rgb( wsu.crimson );
+cat("\n", "===============", "\n\n");
+unlist ( hex2rgb( wsu.crimson ) )
+cat("\n", "===============", "\n\n");
+as.integer( unlist ( hex2rgb( wsu.crimson ) ) );
+```
+
+```{r}
+###### R::humanVerse #####
+hex2rgb( wsu.gray );
+cat("\n", "===============", "\n\n");
+unlist ( hex2rgb( wsu.gray ) )
+cat("\n", "===============", "\n\n");
+as.integer( unlist ( hex2rgb( wsu.gray ) ) );
+```
+
+### rgb2hex
+Of course, we need to be able to reverse it.
+```{r}
+###### R::humanVerse #####
+rgb = hex2rgb( wsu.crimson );
+rgb = cleanupRGB(rgb);
+rgb;
+cat("\n", "===============", "\n\n");
+rgb2hex(rgb);
+```
+
+```{r}
+###### R::humanVerse #####
+rgb = hex2rgb( wsu.gray );
+rgb = cleanupRGB(rgb);
+rgb;
+cat("\n", "===============", "\n\n");
+rgb2hex(rgb);
+```
+
+## Other conversions
+In color theory, there are other color formats.  RGB we normally associate with color emitted from light.  CMYK: (C)yam, (M)agenta, (Y)ellow, Blac(k) we normally associate with printing (printer cartridges).  Other formats include HSL / HSV which are useful for picking "harmonious colors" on the "color wheel".
+
+To minimize the number of conversion functions, everything that is converted anchors to RGB.
+
+### CMYK:  rgb2cmyk and cmyk2rgb
+Notice, we may get some "rounding" error.  Or it could be a bug.
+```{r}
+###### R::humanVerse #####
+(rgb = unlist ( hex2rgb( wsu.crimson ) ) );
+cat("\n", "===============", "\n\n");
+(cmyk = unlist( rgb2cmyk(rgb) ) );
+cat("\n", "===============", "\n\n");
+unlist ( cmyk2rgb( cmyk ) );
+```
+
+### HSL:  rgb2hsl and hsl2rgb
+Notice, we may get some "rounding" error.  Or it could be a bug.  This one seems to be a "rounding" error.
+```{r}
+###### R::humanVerse #####
+(rgb = unlist ( hex2rgb( wsu.crimson ) ) );
+cat("\n", "===============", "\n\n");
+(hsl = unlist(rgb2hsl(rgb) ) );
+cat("\n", "===============", "\n\n");
+unlist ( hsl2rgb( hsl ) );
+```
+
+### HSV:  rgb2hsv and hsv2rgb
+Notice, we may get some "rounding" error.  Or it could be a bug.
+HSV and HSL are very similar.  They will create slightly different results, as two lines of code are different in the formulas.  This one seems to be a "bug" (TODO).
+```{r}
+###### R::humanVerse #####
+(rgb = unlist ( hex2rgb( wsu.crimson ) ) );
+cat("\n", "===============", "\n\n");
+(hsv = unlist(rgb2hsv(rgb) ) );
+cat("\n", "===============", "\n\n");
+unlist ( hsv2rgb( hsv ) );
+```
+
+## = Helper functions =
+Above are the "engine functions" to make the color functions operate.  One layer up are "helper functions" to enable you to do stuff.  If you have other ideas for a "helper function", please share.
+
+Remember it is about "git R done!"
+
+### Random Color
+```{r}
+###### R::humanVerse #####
+(rgb = unlist ( color.randomRGB() ) );
+```
+
+```{r}
+###### R::humanVerse #####
+(rgb = unlist ( color.randomRGB(key="key.to.remember.seed") ) );
+```
+
+
+```{r}
+###### R::humanVerse #####
+(hex = color.randomHEX() ) ;
+```
+
+```{r}
+###### R::humanVerse #####
+(hex = color.randomHEX(3, key="another.memory") ) ;
+```
+To access the "remembered" seeds, use the following:
+
+```{r}
+key = "another.memory";
+.humanVerse[["colors"]][["random"]][[key]];
+```
+We generated 3 rgb colors and need 3 seeds for each: r,g,b ... so we had to store 9 different seeds.
+
+### Opacity
+RGB has a relationship to RGBa where the (a)lpha represents an opacity of the color based on some background (default: white).  So I wrote a function `color.setOpacity` where opacity is [0,100].  100% would be its full color capability.  It is anchored to `R::base` so it is using "hexadecimal" as its input.  It will render internally well on graphics.
+
+```{r}
+###### R::humanVerse #####
+wsu.crimson.50 = color.setOpacity(wsu.crimson, 50);
+  # this function assumes we have a well-formed HEX vector
+
+
+# This RGBa format (HEX form): #981e3280  
+#   ... is about equal to HEX: #cb8e98
+# hex2rgb(wsu.crimson)    ... 152  30  50
+# hex2rgb(wsu.crimson.50) ... 203 142 152
+# IT APPEARS TO BE BLENDING WITH WHITE
+#  +15 EASTER EGG:  write a function that 
+#       converts #981e3280 to #cb8e98 [ hexdec(80) = 128 ... 50% is 128/255 colors]
+#        AND
+#       write its inverse function #cb8e98 => #981e3280 where the opacity = 50 would have to be passed into the function 
+# THE OPACITY on BLACK WENT FROM #000000 [0,0,0] to #7F7F7F [127, 127, 127] ... it now looks gray, almost wsu.gray: #717171 [113, 113, 113] ... so what is the exact opacity % for WSU gray from black?
+
+str = '
+      <TABLE width=500 border=1 style="color: black; background-color: white;">
+        <TR>
+          <TH>CRIMSON</TH>
+          <TD valign="middle" align="center"> 100% </TD>
+          <TD align="center">{wsu.crimson}</TD>
+        </TR>
+        <TR>
+          <TD colspan=3 style="background-color: {wsu.crimson}; opacity: 1.0; text-align: center;"> WSU COUGARS </TD>
+        </TR>
+        <TR>
+          <TH>CRIMSON</TH>
+          <TD valign="middle" align="center"> 50% </TD>
+          <TD align="center">{wsu.crimson.50} =?= #cb8e98</TD>
+        </TR>
+        <TR>
+          <TD colspan=3 style="background-color: {wsu.crimson}; opacity: 0.50; text-align: right;"> WSU COUGARS </TD>
+        </TR>
+      </TABLE>
+      ';
+
+str = str_replace( "{wsu.crimson.50}", wsu.crimson.50, str);
+str = str_replace( "{wsu.crimson}", wsu.crimson, str);
+
+cat(str);
+castStringAsHTML(str);
+```
+
+ 
+### Web-safe
+"In my day", the web had 216 colors, so we had to round colors down to these choices.
+```{r}
+###### R::humanVerse #####
+wsu.crimson;
+cat("\n", "===============", "\n\n");
+(rgb = unlist ( hex2rgb( wsu.crimson ) ) );
+cat("\n", "===============", "\n\n");
+color.webSafeHEX(rgb);
+```
+```{r}
+###### R::humanVerse #####
+wsu.gray;
+cat("\n", "===============", "\n\n");
+(rgb = unlist ( hex2rgb( wsu.gray ) ) );
+cat("\n", "===============", "\n\n");
+color.webSafeHEX(rgb);
+```
+
+Based on that property, I wrote a generic `color.roundHEX` that will help prettify results, such as my rounding error in the section above.  It is a work in progress, which means "definitely buggy" ... `color.roundHEX ( hsl2rgb( hsl ), 1 );`
+
+### Color Chromatics
+Chromatics means shades of white, black and gray.  It is a gradient of the input color to white AND black respectively.  I did not port my old `C-based` code, but rather am plugging into `R::base` to make this simple.
+
+
+```{r}
+###### R::humanVerse #####
+###### humanVerse::color.chromatics
+wsu.crimson;
+cat("\n", "===============", "\n\n");
+(rgb = unlist ( hex2rgb( wsu.crimson ) ) );
+cat("\n", "===============", "\n\n");
+(wsu.chromatics = color.chromatics(rgb) );
+cat("\n", "===============", "\n\n");
+(wsu.chromatics.6 = color.chromatics(rgb, 6) );
+
+# EASTER + 10:  There is a way to manipulate how RStudio "plugs in"
+#  and prints a dataframe like below.  Figure out how to "colorize"
+#  this dataframe so one of the columns has a background color of 
+#  the hex.color value
+#  e.g., `df = color.chromatics(rgb, 6); df$color.me = df$index;1
+#         somehow make the `color.me` column have the 
+#         background-color of df$hex.color
+```
+
+For simplicity, I am choosing, by default "6" colors on the way to white, and "6" colors on the way to black.
+
+I can print as a static image, but that is not as cool (and you can't copy/paste).
+
+```{r}
+###### R::humanVerse #####
+###### humanVerse::color.displayColorOptions
+color.displayColorOptions(wsu.chromatics.6$hex.color);
+```
+
+### Colors in Gradient
+
+`R::base` has a nice color gradient feature with some quirky syntax, so I cleaned it up a bit.
+
+#### (rgb2col)
+
+
+`R::base` has a nice function `col2rgb` ... yet does not have the inverse function `rgb2col` (ARGH!); the `col` represents a COLOR (name), a HEX (RGB) or a HEX (RGBa).  
+
+It is bad software design to not have an obvious inverse function, so I wrote one.  It is included in my `functions-colors.R` file.
+
+```{r}
+###### R::humanVerse #####
+rgb2col = function(x)
+  {
+  # reverses col2rgb function in ###### R::base #####
+  x.n = dim(x)[1];
+  if(x.n == 4)
+    {
+    x.rgb = t(x[1:4,]) /255;
+    grDevices::rgb(   as.numeric(x.rgb[,1]),
+                      as.numeric(x.rgb[,2]),
+                      as.numeric(x.rgb[,3]),
+                      as.numeric(x.rgb[,4]),
+      names=rownames(x.rgb) );
+    } else {
+            x.rgb = t(x[1:3,]) /255;
+            grDevices::rgb( x.rgb, names=rownames(x.rgb) );
+            }
+  }
+```
+
+
+```{r}
+###### R::base #####
+###### R::humanVerse #####
+###### humanVerse::color.colorsInGradient
+(wsu.gradient = color.colorsInGradient(10, 
+                    c( wsu.crimson,wsu.gray)  ) );
+
+
+color.displayColorOptions(wsu.gradient);
+
+# (wsu.gradient = color.colorsInGradient(10, 
+#                     c( rgb2hex( col2rgb(wsu.crimson) ),
+#                        rgb2hex( col2rgb(wsu.gray)  ) ) ) );
+```
+
+### Color Grays
+
+`R::base` has a built-in function to display a gradient of grays.
+
+See <http://applied-r.com/grey-scales/> for an example. 
+
+
+```{r}
+###### R::base #####
+(my.grays = gray.colors(12, start = 0, end = 1, gamma = 1) );
+
+color.displayColorOptions(my.grays);
+
+## gamma changes the output significantly.  
+
+```
+The above is a bit different than colors in gradient.
+
+```{r}
+###### R::humanVerse #####
+(my.grays.2 = color.colorsInGradient(12, 
+                    c( "black", "white")  ) );
+
+
+color.displayColorOptions(my.grays.2);
+```
+
+
+### Color Wheel
+There are traditionally 12 colors on the color wheel, every 30 degrees of the circle.
+
+```{r}
+library(plotrix);
+###### R::humanVerse #####
+color.plotWheel();  # pass in a flag to include "nearest name"
+```
+
+
+```{r}
+###### R::humanVerse #####
+wsu.crimson;
+cat("\n", "===============", "\n\n");
+(rgb = unlist ( hex2rgb( wsu.crimson ) ) );
+cat("\n", "===============", "\n\n");
+(wsu.wheel = color.buildWheel(rgb) );
+```
+There is a complement, split-complement, split, triad, square, rectangle, and so on.  There are just in reference to the focal color on the wheel.
+
+```{r}
+###### R::humanVerse #####
+color.displayColorOptions(wsu.wheel$hex.color);
+```
+```{r}
+###### R::humanVerse #####
+color.plotWheel(wsu.wheel);  # pass in a flag to include "nearest name"
+```
+
+# Color Features (R::base)
+
+`R::base` has good color features built in. 
+
+## Get colors by name
+
+```{r}
+###### R::base #####
+(all.colors = colors() );
+```
+
+```{r}
+###### R::base #####
+(unique.colors = colors(TRUE) );  # removes "duplicates" ... two names with same 
+```  
+
+```{r}
+###### R::base #####
+setdiff(all.colors, unique.colors);
+```  
+
+
+## Data Frame: COLOR, HEX, R,G,B
+
+I have written a function that will be a dataframe of colors with name, HEX, and RGB.
+
+```{r}
+###### R::humanVerse #####
+color.buildTable(unique.colors);
+# Wouldn't that EASTER EGG above be a nice way to display this 
+#   as a reference!
+```
+
+## Search by color name (wildcard)
+
+```{r}
+color.nameSearch("*blue*");
+```
+
+
+## Find color from HEX
+Using some multivariate statistics, I can compute the nearest name(s) of a color by inputing its hex.
+
+This function looks for an exact match and returns it, or returns `how.many` based on some distance metric (difference, distance, cosine similarity).
+
+```{r}
+###### R::humanVerse #####
+( wsu.crimson.neighbors = color.findNearestName( wsu.crimson, 10, how="difference" ) );
+color.displayColorOptions( c(wsu.crimson.neighbors, rep(wsu.crimson,10)),
+                                                  showHEX = TRUE);
+```
+
+```{r}
+###### R::humanVerse #####
+( wsu.crimson.neighbors = color.findNearestName( wsu.crimson, 10, how="distance" ) );
+color.displayColorOptions( c(wsu.crimson.neighbors, rep(wsu.crimson,10)),
+                                                  showHEX = TRUE);
+```
+
+
+```{r}
+###### R::humanVerse #####
+( wsu.crimson.neighbors = color.findNearestName( wsu.crimson, 10, how="cosine" ) );
+color.displayColorOptions( c(wsu.crimson.neighbors, rep(wsu.crimson,10) ),
+                                                  showHEX = TRUE);
+```
+
+`how="distance"` seems to be the "best" based on accuracy/speed, although `how="cosine"` may be slightly better on accuracy.  I need to see if I can write my own function to replace the library and speed this method up.
+
+```{r}
+###### R::humanVerse #####
+( wsu.gray.neighbors = color.findNearestName( wsu.gray, 10, how="distance" ) );
+color.displayColorOptions( c(wsu.gray.neighbors, rep(wsu.gray,10)),
+                                                  showHEX = TRUE);
+```
+
+
+## Built-in Palettes
+`R::base` has a lot of color choices.
+
+### `rainbow`
+
+The code below generates 40 contiguous colors using the `?rainbow` function.  These values are hexadecimal RGB format <https://www.w3schools.com/colors/colors_hexadecimal.asp>.
+```{r}
+###### R::base #####
+colors.rainbow = rainbow(40, s = 0.6, v = 0.75);
+###### R::humanVerse #####
+  color.displayColorOptions(colors.rainbow, ncol=4);
+```
+
+
+
+#### Transparency: `rainbow`
+
+The true RGB color has another element appended, "alpha transparency" also in hexadecimal form, providing a RGBa color <https://www.w3schools.com/Css/css_colors_rgb.asp>.
+
+```{r}
+###### R::base #####
+colors.rainbow = rainbow(40, s = 0.6, v = 0.75,
+                      alpha=0.5);
+###### R::humanVerse #####
+  color.displayColorOptions(colors.rainbow, ncol=4);
+```
+
+
+
+### `heat.colors`
+
+The code below generates 40 contiguous colors using the `?heat.colors` function.  
+
+```{r}
+###### R::base #####
+colors.heat.colors = heat.colors(40);
+###### R::humanVerse #####
+  color.displayColorOptions(colors.heat.colors, ncol=4);
+```
+
+#### Transparency: `heat.colors`
+
+The code below generates 40 contiguous colors using the `?heat.colors` function.  
+
+```{r}
+###### R::base #####
+colors.heat.colors = heat.colors(40, alpha=0.5);
+###### R::humanVerse #####
+  color.displayColorOptions(colors.heat.colors, ncol=4);
+```
+
+
+
+### `terrain.colors`
+
+The code below generates 40 contiguous colors using the `?terrain.colors` function.  
+
+```{r}
+###### R::base #####
+colors.terrain.colors = terrain.colors(40);
+###### R::humanVerse #####
+  color.displayColorOptions(colors.terrain.colors, ncol=4);
+```
+
+
+#### Transparency: `terrain.colors`
+
+The code below generates 40 contiguous colors using the `?terrain.colors` function.  
+
+```{r}
+###### R::base #####
+colors.terrain.colors = terrain.colors(40, alpha=0.5);
+###### R::humanVerse #####
+  color.displayColorOptions(colors.terrain.colors, ncol=4);
+```
+
+
+
+### `topo.colors`
+
+The code below generates 40 contiguous colors using the `?topo.colors` function.  
+
+```{r}
+###### R::base #####
+colors.topo.colors = topo.colors(40);
+###### R::humanVerse #####
+  color.displayColorOptions(colors.topo.colors, ncol=4);
+```
+
+
+#### Transparency: `topo.colors`
+
+The code below generates 40 contiguous colors using the `?topo.colors` function.  
+
+```{r}
+###### R::base #####
+colors.topo.colors = topo.colors(40, alpha=0.5);
+###### R::humanVerse #####
+  color.displayColorOptions(colors.topo.colors, ncol=4);
+```
+
+
+### `cm.colors`
+
+The code below generates 40 contiguous colors using the `?cm.colors` function.  
+
+```{r}
+###### R::base #####
+colors.cm.colors = cm.colors(40);
+###### R::humanVerse #####
+  color.displayColorOptions(colors.cm.colors, ncol=4);
+```
+
+
+#### Transparency: `cm.colors`
+
+The code below generates 40 contiguous colors using the `?cm.colors` function.  
+
+```{r}
+###### R::base #####
+colors.cm.colors = cm.colors(40, alpha=0.5);
+###### R::humanVerse #####
+  color.displayColorOptions(colors.cm.colors, ncol=4);
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## More Palettes (`hcl.colors`)
+
+```{r}
+plotPalettes = FALSE;   # set TRUE to build graphics
+                        # Rendered with TRUE, is 48 MB [Knit to HTML]
+###### R::base #####
+hcl.palette.list = hcl.pals();
+
+as.data.frame( hcl.palette.list );
+
+for(i in 1:length(hcl.palette.list))
+  {
+  hcl = hcl.palette.list[i];
+  colors.hcl.colors = hcl.colors(40, palette=hcl);
+  
+  print(paste0("Palette: ", hcl));
+  
+###### R::humanVerse #####
+  if(plotPalettes)
+    {
+    color.displayColorOptions(colors.hcl.colors, ncol=4);
+    }
+  print(paste0("   ---> alpha: ", 0.5));
+  colors.hcl.colors = hcl.colors(40, palette=hcl,
+                                        alpha=0.5);
+###### R::humanVerse #####
+  if(plotPalettes)
+    {
+    color.displayColorOptions(colors.hcl.colors, ncol=4);
+    }
+  }
+
+
+
+```
+
+# Conclusion
+
+Online, you can read about all these special/cool palettes developed by others libraries (e.g.,  "RColorBrewer" or "wesanderson").  There is nothing new or novel in these libraries.  RGB and specifically RGBa are how colors are built in R (and in most user interfaces).  You can do some research, and build your own palette using the information contained herein.  The "pretty colors" are often a function of an "alpha" level of RGBa.  And it is related to the psychological perceptions we have as to why the color is "pretty".
+
+## Build Your Own
+Here is me showing the official brand colors for WSU as a custom list.  A few of the colors, UGH!
+```{r}
+# build a custom palette ...
+# https://brand.wsu.edu/visual/colors/
+
+colors.list = list();
+colors.list[["monte_shaffer@wsu.edu"]] = list();
+
+colors.list[["monte_shaffer@wsu.edu"]][["crimson"]] = "#981e32";
+colors.list[["monte_shaffer@wsu.edu"]][["crimson-accent"]] = "#c60c30";
+colors.list[["monte_shaffer@wsu.edu"]][["gray"]] = "#5e6a71";
+colors.list[["monte_shaffer@wsu.edu"]][["gray-darker1"]] = "#464e54";
+colors.list[["monte_shaffer@wsu.edu"]][["gray-darker2"]] = "#2a3033";
+colors.list[["monte_shaffer@wsu.edu"]][["gray-black"]] = "#000000";
+colors.list[["monte_shaffer@wsu.edu"]][["gray-lighter1"]] = "#8d959a";
+colors.list[["monte_shaffer@wsu.edu"]][["gray-lighter2"]] = "#b5babe";
+colors.list[["monte_shaffer@wsu.edu"]][["gray-lighter3"]] = "#d7dadb";
+colors.list[["monte_shaffer@wsu.edu"]][["gray-lighter4"]] = "#eff0f1";
+colors.list[["monte_shaffer@wsu.edu"]][["gray-white"]] = "#FFFFFF";
+colors.list[["monte_shaffer@wsu.edu"]][["gray-lighter1"]] = "#8d959a";
+
+
+colors.list[["monte_shaffer@wsu.edu"]][["orange"]] = "#b67233";
+colors.list[["monte_shaffer@wsu.edu"]][["orange-accent"]] = "#f6861f";
+
+colors.list[["monte_shaffer@wsu.edu"]][["green"]] = "#8f7e35";
+colors.list[["monte_shaffer@wsu.edu"]][["green-accent"]] = "#ada400";
+
+colors.list[["monte_shaffer@wsu.edu"]][["blue"]] = "#4f868e";
+colors.list[["monte_shaffer@wsu.edu"]][["blue-accent"]] = "#00a5bd";
+
+colors.list[["monte_shaffer@wsu.edu"]][["yellow"]] = "#c69214";
+colors.list[["monte_shaffer@wsu.edu"]][["yellow-accent"]] = "#ffb81c";
+
+# to practice, build out your own color scheme ... 
+mycolors = unlist(colors.list$`monte_shaffer@wsu.edu`);
+color.displayColorOptions(mycolors, showHEX=TRUE, ncol=2);
+```
+
+
+## TODO list
+
+- Build some palette manager with a memory to make the visualization process more meaningful.
+- Build an JSON import of a color dictionary using `library(rjson);`
+- Import the "RColorBrewer" and "wesanderson" palettes using this JSON import option.  HOST JSON files on Github
+- Easter Eggs are obvious TODOs.
+
+
+
+

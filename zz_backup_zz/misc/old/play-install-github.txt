@@ -1,0 +1,43 @@
+
+	
+	# install.packages("C:/_git_/humanVerseWSU/humanVerseWSU_0.1.4.zip", repos=NULL, type="source");
+	
+	
+### TODO ###
+# install.packages("C:/_git_/humanVerseWSU/humanVerseWSU_0.1.4.zip", repos=NULL, type="source");
+	#
+	# {
+  # "id": 294247360,
+  # "node_id": "MDEwOlJlcG9zaXRvcnkyOTQyNDczNjA=",
+  # "name": "humanVerseWSU",
+  # "full_name": "MonteShaffer/humanVerseWSU",
+  # "private": false,
+
+
+	# https://api.github.com/
+	# "repository_url": "https://api.github.com/repos/{owner}/{repo}",
+	# "repository_url": "https://api.github.com/repos/MonteShaffer/humanVerseWSU",
+
+	# check out remotes ...
+
+	# remote_download.github_remote <- function(x, quiet = FALSE) {
+  # if (!quiet) {
+    # message("Downloading GitHub repo ", x$username, "/", x$repo, "@", x$ref)
+  # }
+
+  # dest <- tempfile(fileext = paste0(".tar.gz"))
+  # src_root <- build_url(x$host, "repos", x$username, x$repo)
+  # src <- paste0(src_root, "/tarball/", utils::URLencode(x$ref, reserved = TRUE))
+
+  # download(dest, src, auth_token = x$auth_token)
+
+
+
+
+
+  # github_remote <- function(repo, ref = "HEAD", subdir = NULL,
+                       # auth_token = github_pat(), sha = NULL,
+                       # host = "api.github.com", ...) {
+
+  # meta <- parse_git_repo(repo)
+  # meta <- github_resolve_ref(meta$ref %||% ref, meta, host = host, auth_token = auth_token)

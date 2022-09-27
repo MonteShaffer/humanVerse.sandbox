@@ -1,0 +1,47 @@
+setwd("{directory}");
+mydata = read.table("{cossiminfilename}",quote="",sep="|");
+options("digits"=4);
+n=dim(mydata)[1];
+m=dim(mydata)[2];
+cossim= matrix(,n,n);
+filename=matrix(,1,n);
+colfilename=matrix(,1,(n+1));
+colfileyear=matrix(,1,(n+1));
+colfileyear[1]="X|X";
+ddata=matrix(,n,(m-2));
+colfilename=as.matrix(mydata[1:n,1]);
+colfilename=cbind("X|X",t(colfilename));
+for (i in 1:n)
+{
+	filename[i]=paste(mydata[i,1],mydata[i,2],sep="|");
+	colfileyear[i+1]=mydata[i,2];
+	for (j in 3:(m))
+	{
+		ddata[i,j-2]=mydata[i,j];
+	}
+
+}
+lengthd=(n*n-n)/2;
+distribution=matrix(,lengthd,1);
+z=0;
+for (i in 1:n)
+{
+	for (j in 1:n)
+		{
+		if(j<i)
+			{
+			cossim[i,j]=cossim[j,i];
+			z=z+1;
+			distribution[z]=cossim[i,j];
+			}
+		else
+			{
+			cossim[i,j]=crossprod(ddata[i,1:(m-2)],ddata[j,1:(m-2)])/(sqrt(crossprod(ddata[i,1:(m-2)]))*sqrt(crossprod(ddata[j,1:(m-2)])));
+			}
+		}
+}
+newcos = cbind(as.vector(filename),cossim);
+newcos = rbind(as.vector(colfileyear),newcos);
+colnames(newcos)=colfilename;
+write.table(newcos,file="{cossimoutfilename}",row.names=FALSE,sep="|",quote=F);
+write.table(distribution,file="{cossimdistribution}",col.names=FALSE, row.names=FALSE,sep="|",quote=F);

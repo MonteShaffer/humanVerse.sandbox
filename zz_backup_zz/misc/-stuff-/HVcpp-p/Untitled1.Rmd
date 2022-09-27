@@ -1,0 +1,51 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+
+```{r}
+
+Rcpp::sourceCpp("C:\\_git_\\github\\MonteShaffer\\humanVerse\\HVcpp\\src\\matrix.cpp");
+
+```
+
+
+```{r}
+
+
+calling = function()
+	{
+	a = 25;
+	cat("\n ...CALLING... a = ", a, "\n");
+	assign("a", a, envir=parent.frame(1) );  # ?sys.calls
+	}
+
+
+caller = function()
+	{
+	a = 15;
+	cat("\n ...CALLER... a = ", a, "\n");
+	
+	pf = parent.frame(); ## how to say THIS current FRAME
+	cat("\n ...CALLER_FRAME... pf = \n");
+	print(pf);
+	
+	cat("\n\n\n");
+	
+	calling();
+	cat("\n ...CALLER*... a = ", a, "\n");
+	}
+
+a = 5;
+cat("\n ...GLOBAL... a = ", a, "\n");
+caller();
+# scope, should mess with GLOBAL = 5
+cat("\n ...GLOBAL*... a = ", a, "\n");
+
+
+
+
+```
+

@@ -1,0 +1,200 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+```{r}
+
+library(magick);
+
+
+image_content <- function(x, ...){
+  x <- image_data(x, ...)  # binary 
+  as.integer(x)
+}
+
+tiger <- image_read_svg('http://jeroen.github.io/images/tiger.svg', width = 350);
+tiger_png <- image_convert(tiger, "png");
+
+tiger_matrix = image_content(tiger_png);
+dim(tiger_matrix);
+# 3D matrix
+# tiger_matrix[,,1];  # x,y, z ... z is likely RGBa
+
+tiger;
+
+```
+
+
+```{r}
+
+
+path.to.nascent = "C:/Users/Monte J. Shaffer/Dropbox/WSU-419/Fall 2020/__student_access__/unit_02_confirmatory_data_analysis/nascent/";
+
+
+folder.mnist = "mnist-png/";
+path.to.mnist = paste0(path.to.nascent, folder.mnist);
+
+setwd(path.to.mnist);
+
+# list.files("./training/6")
+img.png = paste0(path.to.mnist, "training/6/20087.png");
+
+img =  image_read(img.png);
+img.matrix = image_content(img);
+
+dim(img.matrix);
+
+
+
+```
+
+```{r}
+
+
+nine.remainder = function(n, casting=9)
+	{
+	# not multivariate 
+	zeroes = which(n == 0);
+	rem = n %% casting;	
+	nines = which(rem == 0);
+	
+	rem[nines] = casting; 
+	rem[zeroes] = 0;   # if there are zeroes coming in ...
+	# above is object assignment 
+	rem;
+}
+
+printImageMatrix = function(matr)
+  {
+  matr = as.matrix(matr);
+  rs = nrow(matr);
+  nmatr = matrix(NA, nrow=rs,ncol=1);
+  #info = ceiling(as.matrix(matr));  # maybe allow 0 => 9
+  
+  info= as.numeric(matr);
+  myMax = as.integer(max(matr));
+  nfactor = 9; 
+  if(myMax == 1) { nfactor = 1; }
+  
+  info2 = ceiling( nfactor*info / myMax ); # scale to MAX, 0 to 9 ... maybe extend to A-Z
+  
+  
+  info3 = matrix(info2, nrow=rs);
+    
+  for(r in 1:rs)
+    {
+    # row as one string 
+    nmatr[r] = paste0(info3[r,],collapse="");
+    }
+  print(nmatr);
+  }
+
+
+```
+
+
+
+```{r}
+
+img.matrix.2D = as.matrix(img.matrix[,,1]); # black and white image ... only one layer  
+
+
+
+
+printImageMatrix(img.matrix.2D);
+
+```
+
+
+```{r}
+
+# ceiling vs round ... 
+img.matrix.2D.s = ceiling(img.matrix.2D/255);  # scale to 0 or 1 
+
+printImageMatrix(img.matrix.2D.s);
+
+```
+
+
+
+```{r}
+
+path.github = "https://raw.githubusercontent.com/MonteShaffer/humanVerseWSU/master/";
+
+include.me = paste0(path.github, "misc/functions-mnist.R");
+
+source(include.me);
+```
+
+
+
+```{r}
+# trim to 24 x 24 ... or expand to 30 x 30 ... both divisible by 3
+
+
+img.matrix = img.matrix.2D.s;
+  
+
+
+
+img.matrix.t = mnist.trimMatrix(img.matrix);
+im.printImageMatrix(img.matrix.t);
+dim(img.matrix.t);
+
+img.matrix.c = mnist.centerMatrix(img.matrix, c(24,24)); # this may truncate "as-is"
+im.printImageMatrix(img.matrix.c, 3); # split into sub-grids
+im.printImageMatrix(img.matrix.c, 6); 
+im.printImageMatrix(img.matrix.c, 6, raw=TRUE); 
+im.printImageMatrix(img.matrix.c, 6, raw=TRUE, raw.r="I"); 
+  # numbers are 0.1 = 1; 0.2 = 2; ... 1.0 = "X"
+dim(img.matrix.c);
+
+
+mine.sweep = mnist.countMineSweepMoves(img.matrix.c);
+mine.sweep$count;
+im.printImageMatrix(mine.sweep$matrix, 3);
+
+```
+
+
+
+
+```{r}
+
+png = "https://w7.pngwing.com/pngs/114/326/png-transparent-carmageddon-youtube-call-of-duty-modern-warfare-2-fortnite-game-others-game-heart-xbox-one.png";
+
+
+v <- image_read( png );
+
+# https://rdrr.io/cran/magick/man/color.html
+?
+(vg = image_quantize(v, max=10, colorspace="gray"));
+
+v.matrix = image_content(vg);
+
+dim(v.matrix);
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

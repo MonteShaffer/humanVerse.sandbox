@@ -1,0 +1,94 @@
+---
+title: 'R Notebook sandbox: IMDB data load (Sept 2020)'
+output:
+  html_document:
+    df_print: paged
+    toc: true
+    toc_float: true
+    toc_depth: 4
+    fig_caption: true
+    number_sections: true
+my-var: "monte"  # https://bookdown.org/yihui/rmarkdown/html-document.html
+---
+
+
+
+# Setup
+
+
+### source setup
+```{r}
+github.monte.raw = "https://raw.githubusercontent.com/MonteShaffer/";
+include.setup = paste0(github.monte.raw, "humanVerse/main/include.setup.R");
+source(include.setup);  # Maybe comment this out, if error 
+ 
+github.monte.http = "https://github.com/MonteShaffer/";
+######## we will parse this page to get a list of the .R functions to include ########
+github.monte.humanVerse = paste0(github.monte.http, "humanVerse/tree/main/humanVerse/R/"); 
+
+######## you can pass flag `force.download = TRUE` if you want to make certain it is not coming from cache ########
+
+getSourceLocation();
+###### R::humanVerse #####
+includeGithubFolder(github.monte.humanVerse, force.download = TRUE); 
+```
+
+```{r}
+github.monte.humanVerse.misc = paste0(github.monte.http, "humanVerse/tree/main/misc/"); 
+
+includeGithubFolder(github.monte.humanVerse.misc, force.download = TRUE); 
+```
+
+### load imdb data from dataWar
+
+```{r}
+main = "https://github.com/DataWar/imdb/";
+raw = "https://raw.githubusercontent.com/DataWar/imdb/";
+
+imdb.data = data.load("2020-Sept", "imdb", mode="rds", main=main, raw=raw, sub="");
+```
+
+It is globalized and the "older" functions will work.
+```{r}
+.GlobalEnv$imdb.data = imdb.data;
+```
+#Heading (IE: Currency in US Dollars Adjusted)
+```{r}
+
+idf= currentInflationData()
+```
+# Will is Better
+## Will Smith Search
+
+```{r}
+IMDB.searchPersonName("Bruce*Willis")
+```
+
+
+
+```{r}
+bruce = list();
+
+bruce$nmid = "nm0000246"
+```
+
+
+```{r}
+## Will Movie Search
+
+bruce$bio= IMDB.getPersonInfo(bruce$nmid)
+```
+
+
+```{r}
+bruce$movies = IMDB.getMoviesForPerson(bruce$nmid)
+```
+
+```{r}
+bruce$movies = standardizeDollarsInDataFrame(bruce$movies, 2010, "millions", "year" , "millions2010");
+
+```
+
+
+
+

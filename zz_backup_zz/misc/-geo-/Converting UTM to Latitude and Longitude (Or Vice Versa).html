@@ -1,0 +1,591 @@
+
+<!-- saved from url=(0099)https://web.archive.org/web/20180216112824/http://www.uwgb.edu:80/dutchs/UsefulData/UTMFormulas.htm -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252"><script src="./Converting UTM to Latitude and Longitude (Or Vice Versa)_files/analytics.js.download" type="text/javascript"></script>
+<script type="text/javascript">window.addEventListener('DOMContentLoaded',function(){var v=archive_analytics.values;v.service='wb';v.server_name='wwwb-app225.us.archive.org';v.server_ms=323;archive_analytics.send_pageview({});});</script>
+<script type="text/javascript" src="./Converting UTM to Latitude and Longitude (Or Vice Versa)_files/bundle-playback.js.download" charset="utf-8"></script>
+<script type="text/javascript" src="./Converting UTM to Latitude and Longitude (Or Vice Versa)_files/wombat.js.download" charset="utf-8"></script>
+<script type="text/javascript">
+  __wm.init("https://web.archive.org/web");
+  __wm.wombat("http://www.uwgb.edu:80/dutchs/UsefulData/UTMFormulas.htm","20180216112824","https://web.archive.org/","web","/_static/",
+	      "1518780504");
+</script>
+<link rel="stylesheet" type="text/css" href="./Converting UTM to Latitude and Longitude (Or Vice Versa)_files/banner-styles.css">
+<link rel="stylesheet" type="text/css" href="./Converting UTM to Latitude and Longitude (Or Vice Versa)_files/iconochive.css">
+<!-- End Wayback Rewrite JS Include -->
+
+<title>Converting UTM to Latitude and Longitude (Or Vice Versa)</title>
+
+<link rel="stylesheet" type="text/css" href="./Converting UTM to Latitude and Longitude (Or Vice Versa)_files/Main0.css">
+
+<style type="text/css">
+.auto-style1 {
+	font-weight: normal;
+}
+.st{line-height:1.4;word-wrap: break-word}
+</style>
+
+</head>
+
+<body><!-- BEGIN WAYBACK TOOLBAR INSERT -->
+<style type="text/css">
+body {
+  margin-top:0 !important;
+  padding-top:0 !important;
+  /*min-width:800px !important;*/
+}
+</style>
+<script>__wm.rw(0);</script>
+<div id="wm-ipp-base" lang="en" style="display: block; direction: ltr;">
+</div><div id="wm-ipp-print">The Wayback Machine - https://web.archive.org/web/20180216112824/http://www.uwgb.edu:80/dutchs/UsefulData/UTMFormulas.htm</div>
+<script type="text/javascript">//<![CDATA[
+__wm.bt(675,27,25,2,"web","http://www.uwgb.edu/dutchs/UsefulData/UTMFormulas.htm","20180216112824",1996,"/_static/",["/_static/css/banner-styles.css?v=fantwOh2","/_static/css/iconochive.css?v=qtvMKcIJ"], false);
+  __wm.rw(1);
+//]]></script>
+<!-- END WAYBACK TOOLBAR INSERT --><div align="center">
+
+<h1>Converting UTM to Latitude and Longitude (Or Vice Versa)</h1>
+
+<p>Steven Dutch, Natural and Applied Sciences, <a href="https://web.archive.org/web/20180216112824/http://weba.uwgb.edu/">University
+of Wisconsin - Green Bay</a><br>
+First-time Visitors: Please visit <a href="https://web.archive.org/web/20180216112824/http://www.uwgb.edu/dutchs/SITEMAP.HTM">Site Map and Disclaimer</a>. Use
+"Back" to return here </p>
+
+
+<hr>
+
+<p><a href="https://web.archive.org/web/20180216112824/http://www.uwgb.edu/dutchs/FieldMethods/UTMSystem.htm">Information on the UTM system</a><br>
+<a href="https://web.archive.org/web/20180216112824/http://www.uwgb.edu:80/dutchs/UsefulData/ConvertUTMNoOZ.HTM"><strong>New! Javascript-Convert Between Geographic and UTM 
+Coordinates</strong></a><br>
+<a href="https://web.archive.org/web/20180216112824/http://www.uwgb.edu:80/dutchs/UsefulData/UTMConversion2015m.xls">Spreadsheet For UTM Conversion</a><br>
+<a href="https://web.archive.org/web/20180216112824/http://www.uwgb.edu:80/dutchs/UsefulData/OddGrids.HTM">Help! My Data Doesn't Look Like A UTM Grid!</a></p>
+<p>I get enough inquiries on this subject that I decided to create a page for
+it.</p>
+<p>Caution! Unlike latitude and longitude, there is no physical frame of
+reference for UTM grids. Latitude is determined by the earth's polar axis.
+Longitude is determined by the earth's rotation. If you can see the stars and
+have a sextant and a good clock set to Greenwich time, you can find your
+latitude and longitude. But there is no way to determine your UTM coordinates
+except by calculation.</p>
+<p>UTM grids, on the other hand, are created by laying a square grid on the
+earth. This means that different maps will have different grids depending on the
+datum used (model of the shape of the earth). I saw US military maps of Germany
+shift their UTM grids by about 300 meters when a more modern datum was used for
+the maps. Also, old World War II era maps of Europe apparently used a single grid
+for all of Europe and grids in some areas are wildly tilted with respect to
+latitude and longitude.</p>
+<p>Previously, the two basic references for converting UTM and geographic coordinates 
+were
+U.S. Geological
+Survey Professional Paper 1395 and U. S. Army
+Technical Manual TM 5-241-8 (complete citations below). Each has advantages and
+disadvantages.&nbsp;These have been entirely superseded by Charles F. F. Karney (2010)
+<em>Transverse Mercator with an accuracy of a few nanometers</em>. 
+(arXiv:1002.1417)</p>
+<h2>Converting Between Decimal Degrees, Degrees, Minutes and Seconds, and
+Radians</h2>
+<p><b>(dd + mm/60 +ss/3600) to Decimal degrees (dd.ff)</b></p>
+<p>dd = whole degrees, mm = minutes, ss = seconds</p>
+<p>dd.ff = dd + mm/60 + ss/3600</p>
+<p>Example: 30 degrees 15 minutes 22 seconds = 30 + 15/60 + 22/3600 = 30.2561</p>
+<p><b>Decimal degrees (dd.ff) to (dd + mm/60 +ss/3600)</b></p>
+<p>For the reverse conversion, we want to convert dd.ff to dd mm ss. Here ff =
+the fractional part of a decimal degree.</p>
+<p>mm = 60*ff</p>
+<p>ss = 60*(fractional part of mm)</p>
+<p>Use only the whole number part of mm in the final result.</p>
+<p>30.2561 degrees = 30 degrees</p>
+<p>.2561*60 = 15.366 minutes</p>
+<p>.366 minutes = 22 seconds, so the final result is 30 degrees 15 minutes 22
+seconds</p>
+<p><b>Decimal degrees (dd.ff) to Radians</b></p>
+<p>Radians = (dd.ff)*pi/180</p>
+<p><b>Radians to Decimal degrees (dd.ff)</b></p>
+<p>(dd.ff) = Radians*180/pi</p>
+<p><b>Degrees, Minutes and Seconds to Distance</b></p>
+<p>A degree of longitude at the equator is 111.2 kilometers. A minute is 1853
+meters. A second is 30.9 meters. For other latitudes multiply by cos(lat).
+Distances for degrees, minutes and seconds<b> </b>in latitude are very similar
+and differ very slightly with latitude. (Before satellites, observing those
+differences was a principal method for determining the exact shape of the
+earth.)</p>
+<h2>Converting Latitude and Longitude to UTM</h2>
+<p>Okay, take a deep breath. This will get <i>very</i>  complicated, but the
+math, although tedious, is only algebra and trigonometry.&nbsp;It would sure be
+nice if someone wrote a spreadsheet to do this. Or 
+better yet, a <a href="https://web.archive.org/web/20180216112824/http://www.uwgb.edu:80/dutchs/UsefulData/ConvertUTMNoOZ.HTM">Javascript page.</a></p>
+<table border="1" width="100%">
+  <tbody><tr>
+    <td><img border="0" src="./Converting UTM to Latitude and Longitude (Or Vice Versa)_files/UTMConvert.gif" width="300" height="300"></td>
+    <td>P = point under consideration<br>
+      F = foot of perpendicular from P to the central meridian. The latitude of
+      F is called the <i>footprint latitude</i>.<br>
+      O = origin (on equator)<br>
+      OZ = central meridian<br>
+      LP = parallel of latitude of P<br>
+      ZP = meridian of P<br>
+      OL = k<sub>0</sub>S = meridional arc from equator<br>
+      LF = ordinate of curvature<br>
+      OF = N = grid northing<br>
+      FP = E = grid distance from central meridian<br>
+      GN = grid north<br>
+      C = convergence of meridians = angle between true and grid north</td>
+  </tr>
+</tbody></table>
+<p>Another thing you need to know is the datum being used:</p>
+<table border="1" width="100%">
+  <tbody><tr>
+    <td width="20%"><b>Datum</b></td>
+    <td width="20%"><b>Equatorial Radius, meters (a)</b></td>
+    <td width="20%"><b>Polar Radius, meters (b)</b></td>
+    <td width="20%"><b>Flattening (a-b)/a</b></td>
+    <td width="20%"><b>Use</b></td>
+  </tr>
+  <tr>
+    <td width="20%">NAD83/WGS84</td>
+    <td width="20%">6,378,137</td>
+    <td width="20%">6,356,752.3142</td>
+    <td width="20%">1/298.257223563</td>
+    <td width="20%">Global</td>
+  </tr>
+  <tr>
+    <td width="20%">GRS 80</td>
+    <td width="20%">6,378,137</td>
+    <td width="20%">6,356,752.3141</td>
+    <td width="20%">1/298.257222101</td>
+    <td width="20%">US</td>
+  </tr>
+  <tr>
+    <td width="20%">WGS72</td>
+    <td width="20%">6,378,135</td>
+    <td width="20%">6,356,750.5</td>
+    <td width="20%">1/298.26</td>
+    <td width="20%">NASA, DOD</td>
+  </tr>
+  <tr>
+    <td width="20%">Australian 1965</td>
+    <td width="20%">6,378,160</td>
+    <td width="20%">6,356,774.7</td>
+    <td width="20%">1/298.25</td>
+    <td width="20%">Australia</td>
+  </tr>
+  <tr>
+    <td width="20%">Krasovsky 1940</td>
+    <td width="20%">6,378,245</td>
+    <td width="20%">6,356,863.0</td>
+    <td width="20%">1/298.3</td>
+    <td width="20%">Soviet Union</td>
+  </tr>
+  <tr>
+    <td width="20%">International (1924) -Hayford (1909)</td>
+    <td width="20%">6,378,388</td>
+    <td width="20%">6,356,911.9</td>
+    <td width="20%">1/297</td>
+    <td width="20%">Global except as listed</td>
+  </tr>
+  <tr>
+    <td width="20%">Clake 1880</td>
+    <td width="20%">6,378,249.1</td>
+    <td width="20%">6,356,514.9</td>
+    <td width="20%">1/293.46</td>
+    <td width="20%">France, Africa</td>
+  </tr>
+  <tr>
+    <td width="20%">Clarke 1866</td>
+    <td width="20%">6,378,206.4</td>
+    <td width="20%">6,356,583.8</td>
+    <td width="20%">1/294.98</td>
+    <td width="20%">North America</td>
+  </tr>
+  <tr>
+    <td width="20%">Airy 1830</td>
+    <td width="20%">6,377,563.4</td>
+    <td width="20%">6,356,256.9</td>
+    <td width="20%">1/299.32</td>
+    <td width="20%">Great Britain</td>
+  </tr>
+  <tr>
+    <td width="20%">Bessel 1841</td>
+    <td width="20%">6,377,397.2</td>
+    <td width="20%">6,356,079.0</td>
+    <td width="20%">1/299.15</td>
+    <td width="20%">Central Europe, Chile, Indonesia</td>
+  </tr>
+  <tr>
+    <td width="20%">Everest 1830</td>
+    <td width="20%">6,377,276.3</td>
+    <td width="20%">6,356,075.4</td>
+    <td width="20%">1/300.80</td>
+    <td width="20%">South Asia</td>
+  </tr>
+</tbody></table>
+<p>Don't interpret the chart to mean there is radical disagreement about the
+shape of the earth. The earth isn't perfectly round, it isn't even a perfect 
+ellipsoid, and slightly different
+shapes work better for some regions than for the earth as a whole. The top three
+are based on worldwide data and are truly global. Also, you are very unlikely to
+find UTM grids based on any of the earlier projections.</p>
+<p>The most modern datums (jars my Latinist sensibilities since the plural of <i>datum</i>
+in Latin is <i>data</i>, but that has a different meaning to us) are NAD83 and
+WGS84. These are based in turn on GRS80. Differences between the three systems
+derive mostly from redetermination of station locations rather than differences 
+in the datum. Unless you are locating a first-order station to sub-millimeter 
+accuracy (in which case you are way beyond the scope of this page) you can 
+probably regard them as essentially identical.</p>
+<h3>The NAD83 and WGS84 datums</h3>
+	<p>NIMA Technical Report 8350.2 states:</p>
+	<blockquote>The WGS 84 Ellipsoid is for all practical purposes identical to the GRS 
+	80 ellipsoid. They use the same value for the semi-major axis and have the 
+	same orientation with respect to the center of mass and the coordinate 
+	system origin. .... The difference between the GRS 80 and WGS 84 values for 
+	f creates a difference of 0.1 mm in the derived semi-minor [polar] axes of 
+	the two ellipsoids. </blockquote>
+	<blockquote>Based on these definitions, geodetic positions determined with respect to 
+	NAD 83 or WGS 84 have uncertainties of about one meter in each component. 
+	For mapping, charting and navigation, the two systems are 
+	indistinguishable at scales of 1:5,000 or smaller and with accuracies of 
+	about 2 m.</blockquote>
+<h2>Formulas For Converting Latitude and Longitude to UTM</h2>
+<p>Earlier versions of this page were written based on Army and USGS references. 
+It has been updated according to the 
+formulas of Karney (2010), which are accurate to within nanometers. The Army and 
+USGS references are now obsolete. Refer to the Appendix for the Army and USGS formulas.</p>
+	<p>First step, project the ellipsoid onto a sphere and compute the <em>
+	conformal latitude </em>(lat'). In the formulas below, sinh and tanh are <em>
+	hyperbolic functions</em>, which behave much like regular trigonometric 
+	functions. They are pretty docile and do not bite if not provoked. 
+	"Argsinh," etc. are analogous to arcsin, etc and are <em>inverse hyperbolic 
+	functions.</em> 
+	The hyperbolic and inverse hyperbolic functions are standard in pretty much 
+	all programming languages. The quantity e = SQRT(f(2-f), where f is the 
+	flattening of the ellipsoid.</p>
+	<p>argsinh tan lat′ = argsinh tan lat − e argtanh(e sin lat).</p>
+	<p>We can solve for tan lat': tan lat' = sinh(argsinh tan lat − e argtanh(e 
+	sin lat))</p>
+	<p>It's convenient to work with tangents, so define tau = tan lat and tau' = 
+	tan lat'</p>
+	<p>Define sigma = sinh(e argtanh(e tau/SQRT(1 + tau^2)))</p>
+	<p>tau' = tau SQRT(1 + sigma^2) - sigma SQRT(1 + tau^2) </p>
+	<p>Now we can define xi' = arctan(tau'/cos long) and eta' = argsinh(sin 
+	(long/SQRT(tau'^2 + (cos long)^2)))</p>
+	<p>Somewhat confusingly, xi refers to the north south direction</p>
+	<p>The next step requires some series computations. We need to define:</p>
+	<p>A = a/( 1 + n ) (1 + (¼) n^2 + (1/64)n^4 + (1/256)n^6 + (25/16384)n^8 + (49/65536)n^10 + ...), 
+	defines the scale of the ellipse. 
+	2piA= circumference of meridian.</p>
+		<p class="MsoNormal">
+		α1 = (1/2)n − (2/3)n^2 + (5/16)n^3 + 
+		(41/180)n^4 - (127/288)n^5 + (7891/37800)n^6 + (72161/387072)n^7 - 
+		(18975107/50803200)n^8 + (60193001/290304000)n^9 + 
+		(134592031/1026432000)n^10 + ...<o:p></o:p></p>
+		<p class="MsoNormal">
+		α2 = (13/48)n^2 - (3/5)n^3 + 
+		(557/1440)n^4 + (281/630)n^5 - (1983433/1935360)n^6 + 
+		(13769/28800)n^7 + (148003883/174182400)n^8 - 
+		(705286231/465696000)n^9 + (1703267974087/3218890752000)n^10 + ...<o:p></o:p></p>
+		<p class="MsoNormal">
+		α3 = (61/240)n^3 - (103/140)n^4 + 
+		(15061/26880)n^5 + (167603/181440)n^6 - (67102379/29030400)n^7 + 
+		(79682431/79833600)n^8 + (6304945039/2128896000)n^9 - 
+		(6601904925257/1307674368000)n^10 + ...<o:p></o:p></p>
+		<p class="MsoNormal">
+		α4 = (49561/161280)n^4 - (179/168)n^5 + 
+		(6601661/7257600)n^6 + (97445/49896)n^7 - (40176129013/7664025600)n^8 
+		+ (138471097/66528000)n^9 + (48087451385201/5230697472000)n^10 + ...<o:p></o:p></p>
+		<p class="MsoNormal">
+		α5 = (34729/80640)n^5 - 
+		(3418889/1995840)n^6 + (14644087/9123840)n^7 + 
+		(2605413599/622702080)n^8 - (31015475399/2583060480)n^9 + 
+		(5820486440369/1307674368000)n^10 + ...<o:p></o:p></p>
+		<p class="MsoNormal">
+		α6 = (212378941/319334400)n^6 - 
+		(30705481/10378368)n^7 + (175214326799/58118860800)n^8 + 
+		(870492877/96096000)n^9 - (1328004581729009/47823519744000)n^10 + ...<o:p></o:p></p>
+		<p class="MsoNormal">
+		α7 = (1522256789/1383782400)n^7 - 
+		(16759934899/3113510400)n^8 + (1315149374443/221405184000)n^9 + 
+		(71809987837451/3629463552000)n^10 + ...<o:p></o:p></p>
+		<p class="MsoNormal">
+		α8 = (1424729850961/743921418240)n^8 - 
+		(256783708069/25204608000)n^9 + (2468749292989891/203249958912000)n^10 
+		+ ...<o:p></o:p></p>
+		<p class="MsoNormal">
+		α9 = (21091646195357/6080126976000)n^9 - 
+		(67196182138355857/3379030566912000)n^10 + ...<o:p></o:p></p>
+		<p class="MsoNormal">
+		α10 = 
+		(77911515623232821/12014330904576000)n^10 + ...(24)/a)n^d/<o:p></o:p></p>
+	
+	<p>Now we calculate:</p>
+	<p>xi = xi' + SUM(αj sin 2j xi' cosh 2j eta') and eta = eta' + SUM(αj cos 2j 
+	xi' sinh 2j eta'),&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; or:</p>
+	<p>xi = xi' + α1 sin 2xi' cosh 2eta' + α2 sin 4xi' cosh 4eta' + α3 sin 6xi' 
+	cosh 6eta' + α4 sin8xi' cosh 8eta' etc.</p>
+	<p>xi = xi' + α1 sin 2xi' cosh 2eta' + α2 sin 4xi' cosh 4eta' + α3 sin 6xi' 
+	cosh 6eta' + α4 sin8xi' cosh 8eta' etc.</p>
+	<p>finally scale xi and eta to obtain easting = k0Aeta and northing = k0Axi.</p>
+	<p>Since these formulas are derived from elliptic functions, they are both 
+	more rigorous and easier to troubleshoot than the Army and USGS references.</p>
+<h2>Converting UTM to Latitude and Longitude</h2>
+	<p>Earlier versions of this page were written based on Army and USGS 
+	references. It has been updated according to the 
+formulas of Karney (2010), which are accurate to within nanometers. The Army and 
+	USGS references are obsolete. Refer to the Appendix for the Army and USGS formulas.</p>
+	<p>The process involves inverting the procedure above. </p>
+	<p>xi' = xi + SUM(βj sin 2j xi cosh 2j eta) and eta' = eta + SUM(βj cos 2j 
+	xi sinh 2j eta).</p>
+	<p>Since the sums involve xi and eta instead of x' and eta', the 
+	coefficients are not the same:</p>
+		<p class="MsoNormal">
+		β1 = (1/2)n - (2/3)n^2 + (37/96)n^3 - 
+		(1/360)n^4 - (81/512)n^5 + (96199/604800)n^6 - (5406467/38707200)n^7 
+		+ (7944359/67737600)n^8 - (7378753979/97542144000)n^9 + 
+		(25123531261/804722688000)n^10 + ...<o:p></o:p></p>
+		<p class="MsoNormal">
+		β2 = (1/48)n^2 + (1/15)n^3 - 
+		(437/1440)n^4 + (46/105)n^5 - (1118711/3870720)n^6 + 
+		(51841/1209600)n^7 + (24749483/348364800)n^8 - 
+		(115295683/1397088000)n^9 + (5487737251099/51502252032000)n^10 + ...<o:p></o:p></p>
+		<p class="MsoNormal">
+		β3 = (17/480)n^3 - (37/840)n^4 - 
+		(209/4480)n^5 + (5569/90720)n^6 + (9261899/58060800)n^7 - 
+		(6457463/17740800)n^8 + (2473691167/9289728000)n^9 - 
+		(852549456029/20922789888000)n^10 + ...<o:p></o:p></p>
+		<p class="MsoNormal">
+		β4 = (4397/161280)n^4 - (11/504)n^5 - 
+		(830251/7257600)n^6 + (466511/2494800)n^7 + (324154477/7664025600)n^8 
+		- (937932223/3891888000)n^9 - (89112264211/5230697472000)n^10 + ...<o:p></o:p></p>
+		<p class="MsoNormal">
+		β5 = (4583/161280)n^5 - 
+		(108847/3991680)n^6 - (8005831/63866880)n^7 + (22894433/124540416)n^8 
+		+ (112731569449/557941063680)n^9 - (5391039814733/10461394944000)n^10 
+		+ ...<o:p></o:p></p>
+		<p class="MsoNormal">
+		β6 = (20648693/638668800)n^6 - 
+		(16363163/518918400)n^7 - (2204645983/12915302400)n^8 + 
+		(4543317553/18162144000)n^9 + (54894890298749/167382319104000)n^10 + 
+		...<o:p></o:p></p>
+		<p class="MsoNormal">
+		β7 = (219941297/5535129600)n^7 - 
+		(497323811/12454041600)n^8 - (79431132943/332107776000)n^9 + 
+		(4346429528407/12703122432000)n^10 + ...<o:p></o:p></p>
+		<p class="MsoNormal">
+		β8 = (191773887257/3719607091200)n^8 - 
+		(17822319343/336825216000)n^9 - (497155444501631/1422749712384000)n^10 
+		+ ...<o:p></o:p></p>
+		<p class="MsoNormal">
+		β9 = (11025641854267/158083301376000)n^9 
+		- (492293158444691/6758061133824000)n^10 + ...<o:p></o:p></p>
+		<p class="MsoNormal">
+		β10 = 
+		(7028504530429621/72085985427456000)n^10 + ...<o:p></o:p></p>
+	
+	<p>We can then obtain tau' = sin xi'/SQRT(sinh(eta')^2 + cos(xi')^2) and 
+	long = arctan(sinh eta'/cos xi')</p>
+	<p>We can invert the forward formulas to obtain: tau SQRT(1 + sigma^2) - 
+	sigma SQRT(1 + tau^2) - tau' = 0. </p>
+	<p>There are two problems: tau is the unknown and sigma is a function of 
+	tau. So we have to resort to approximation methods. Newton's Method works 
+	nicely. </p>
+	<p>f = tau SQRT(1 + sigma^2) - sigma SQRT(1 + tau^2) - tau' = 0. </p>
+	<p>Start with tau' as the initial guess for tau. Compute sigma = sinh(e 
+	argtanh(e tau/SQRT(1 + tau^2)))</p>
+	<p>Now we need the defivative of f. <br>df/dtau =(SQRT((1 + sigma^2)(1 + 
+	tau^2)) - sigma tau)(1 - e^2)SQRT(1+tau^2)/(1 + (1 - e^2)tau^2)</p>
+	<p>Estimate f using tau' as the initial guess, calculate sigma and df/dtau. 
+	Estimate a new value for tau<br>tau = tau - (df/dtau)/tau, compute a new 
+	value for f and keep going until f converges to zero and tau stops changing. 
+	Three iterations were sufficient for me.</p>
+	<p>Just to check your formulas, Karney generated a huge number of test 
+	values. Here are the first ten</p>
+	<table>
+		<tbody><tr>
+			<td>Latitude</td>
+			<td>Longitude</td>
+			<td>Easting </td>
+			<td>Northing</td>
+		</tr>
+		<tr>
+			<td>70.57927709 </td>
+			<td>45.59941973 </td>
+			<td>1548706.792 </td>
+			<td>8451449.199&nbsp;</td>
+		</tr>
+		<tr>
+			<td>10.01889371 </td>
+			<td>23.31332382 </td>
+			<td>2624150.741 </td>
+			<td>1204434.042</td>
+		</tr>
+		<tr>
+			<td>19.47989559 </td>
+			<td>75.66204923 </td>
+			<td>9855841.233 </td>
+			<td>6145496.115</td>
+		</tr>
+		<tr>
+			<td>21.07246482 </td>
+			<td>29.82868439 </td>
+			<td>3206390.692 </td>
+			<td>2650745.4</td>
+		</tr>
+		<tr>
+			<td>5.458957393 </td>
+			<td>36.38523737 </td>
+			<td>4328154.084 </td>
+			<td>749647.6237</td>
+		</tr>
+		<tr>
+			<td>70.1754537 </td>
+			<td>22.86535023 </td>
+			<td>847598.2665 </td>
+			<td>7947180.962</td>
+		</tr>
+		<tr>
+			<td>61.96560497 </td>
+			<td>58.93137085 </td>
+			<td>2727657.338&nbsp;</td>
+			<td>&nbsp;8283916.696 </td>
+		</tr>
+		<tr>
+			<td>11.11604988 </td>
+			<td>20.90106919 </td>
+			<td>2331001.752 </td>
+			<td>1313608.225&nbsp;</td>
+		</tr>
+		<tr>
+			<td>32.21054315	&nbsp;</td>
+			<td>60.70584911 </td>
+			<td>6035557.239 </td>
+			<td>5791770.792 </td>
+		</tr>
+		<tr>
+			<td>79.1874509&nbsp;
+&nbsp;</td>
+			<td>61.53238249 </td>
+			<td>1064553.126 </td>
+			<td>9417273.737</td>
+		</tr>
+	</tbody></table>
+<p>Note that all longitudes and eastings are with respect to a central meridian 
+of zero degrees and zero easting. <em>Yes, these formulas are accurate to more 
+than 75 degrees from the central meridian</em>. However, beyond 80 degrees, and 
+at low latitudes, they can blow up in Excel.</p>
+
+
+
+
+
+
+
+<p><strong>In response to innumerable e-mails, you <em>cannot</em> use UTM grid 
+coordinates without knowing your zone. There are sixty points on the earth's 
+surface that have the same numerical UTM coordinates, 120 if you consider that 
+northing is duplicated in both hemispheres.</strong></p>
+
+
+<h2><a href="https://web.archive.org/web/20180216112824/http://www.uwgb.edu:80/dutchs/UsefulData/UTMConversion2015m.xls">A Spreadsheet Program</a></h2>
+<p>This program was recently updated using the formulas of Charles Karney 
+(2010). His paper claims accuracy of a few nanometers. Excel has 15-digit 
+accuracy, so the spreadsheet doesn't achieve that level, but is accurate to 
+about 0.01mm. Most importantly, Karney's paper provides links to a site that has 
+a huge set of test data. The spreadsheet has been tested against the data in 
+both directions. Before linking to the program, note (<strong class="auto-style1">especially the last item</strong>):</p>
+<ul>
+  <li>It is an Excel spreadsheet. If you have Excel on your computer, it will
+    (or should) open when you click the link. Most major spreadsheet programs
+    can read spreadsheets in other formats.</li>
+	<li>A spreadsheet is not an applet or program. In particular, you can't 
+	manually enter data into a cell and preserve any formulas that are there. 
+	That's why some aspects of data entry are clunkier than they might otherwise 
+	be with, say, a Visual Basic program.</li>
+  <li>There are three computation pages, one for single conversions, the other two
+    for batch conversions. Other pages contain information on datums, test data and the 
+	specific conversion formulas. To use the batch conversions you need to be somewhat
+    proficient in spreadsheets as you will have to copy data and cell formulas.</li>
+  <li>For our mutual peace of mind, run a virus check. The spreadsheet has a 
+  couple of simple macros.</li>
+  <li>You may copy the program for your own non-commercial use and for
+    non-commercial distribution to others, but not for commercial use. Please 
+	give appropriate credit when citing your calculations. You may
+    also modify it as needed for your personal use. In Internet Explorer, right 
+	click on the link and select Save Target As... to save the spreadsheet to 
+	your own disk.</li>
+	<li>There is now a Javascript Page which I hope is free of bugs. Since it's a program, it should handle complex 
+	what-ifs a lot better than a spreadsheet can. All the permissions for the 
+	spreadsheet apply here, too. Persistent bugs caused me to delete links 
+	to the older spreadsheet.</li>
+	<li>These pages are somewhat OBE (overtaken by events).
+	<a href="https://web.archive.org/web/20180216112824/http://www.earthpoint.us/Convert.aspx">
+	http://www.earthpoint.us/Convert.aspx</a> can convert between a variety of 
+	coordinate systems and has many links to other useful pages. The National 
+	Geodetic Survey has a site at
+	<a href="https://web.archive.org/web/20180216112824/http://www.ngs.noaa.gov/TOOLS/spc.shtml">
+	http://www.ngs.noaa.gov/TOOLS/spc.shtml</a> with that converts latitude and 
+	longitude to State Plane Coordinates.</li>
+</ul>
+<p><a href="https://web.archive.org/web/20180216112824/http://www.uwgb.edu:80/dutchs/UsefulData/ConvertUTMNoOZ.HTM">JavaScript Page to Convert Between Geographic and UTM Coordinates</a></p>
+<h2><b>References</b></h2>
+	<p><strong>Yay! Most of these are on-line now.</strong></p>
+<p>Snyder, J. P., 1987; Map Projections - A Working Manual. U.S. Geological
+Survey Professional Paper 1395, 383 p. <b>If you are at all serious about maps
+you need this book. </b>On-line at
+<a href="https://web.archive.org/web/20180216112824/http://pubs.er.usgs.gov/publication/pp1395">
+http://pubs.er.usgs.gov/publication/pp1395</a></p>
+<p>Army, Department of, 1973; Universal Transverse Mercator Grid, U. S. Army
+Technical Manual TM 5-241-8, 64 p. Superseded by DMATM 8358.2 <span class="st">
+The Universal Grids: Universal Transverse Mercator (UTM) and Universal Polar 
+Stereographic (UPS). </span>&nbsp;<br>On-line at
+<a href="https://web.archive.org/web/20180216112824/http://earth-info.nga.mil/GandG/publications/tm8358.2/TM8358_2.pdf">
+http://earth-info.nga.mil/GandG/publications/tm8358.2/TM8358_2.pdf</a></p>
+
+<p>NIMA Technical Report 8350.2, "Department of Defense World Geodetic
+System 1984, Its Definition and Relationships with Local Geodetic Systems,"
+Second Edition, 1 September 1991 and its supplements. The report is available
+from the NIMA Combat Support Center and its stock number is DMATR83502WGS84.
+Non-DoD requesters may obtain the report as a public sale item from the U.S.
+Geological Survey, Box 25286, Denver Federal Center, Denver, Colorado 80225 or
+by phone at 1-800-USA-MAPS. On-line at
+<a href="https://web.archive.org/web/20180216112824/http://earth-info.nga.mil/GandG/publications/tr8350.2/wgs84fin.pdf">
+http://earth-info.nga.mil/GandG/publications/tr8350.2/wgs84fin.pdf</a> </p>
+	<p>Karney, Charles F.F., 2010, Transverse Mercator with an accuracy of a few 
+	nanometers, <a href="https://web.archive.org/web/20180216112824/http://arxiv.org/abs/1002.1417v3">
+	http://arxiv.org/abs/1002.1417v3</a>. Provides accuracy to within nanometers 
+	(a few atoms). Supersedes Snyder and Army, above. His test data and numerous 
+	other programs are at <a href="https://web.archive.org/web/20180216112824/http://geographiclib.sourceforge.net/">
+	http://geographiclib.sourceforge.net/</a>.</p>
+
+<hr>
+<p>
+
+
+<a href="https://web.archive.org/web/20180216112824/http://www.uwgb.edu/dutchs/index.htm">Return to Professor Dutch's Home Page</a><br>
+
+
+<i>Created 12 September 2003, Last Update 
+<!--webbot bot="Timestamp"
+S-Type="EDITED" S-Format="%d %B %Y" startspan -->21 January 2016<!--webbot bot="Timestamp" endspan i-checksum="32520" -->
+</i><br>
+
+Not an official UW Green Bay site<br></p>
+</div>
+<!--
+     FILE ARCHIVED ON 11:28:24 Feb 16, 2018 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 01:13:49 Sep 18, 2022.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+-->
+<!--
+playback timings (ms):
+  captures_list: 72.398
+  exclusion.robots: 0.212
+  exclusion.robots.policy: 0.203
+  RedisCDXSource: 0.76
+  esindex: 0.008
+  LoadShardBlock: 43.28 (3)
+  PetaboxLoader3.datanode: 70.434 (4)
+  CDXLines.iter: 19.028 (3)
+  load_resource: 238.334
+  PetaboxLoader3.resolve: 125.58
+--></body></html>

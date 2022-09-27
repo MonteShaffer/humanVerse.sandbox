@@ -1,0 +1,16 @@
+	html.content = sliceDiceContent(html.str, direction="beginning",
+						start = '<div class="include-fragment',
+						end   = '</include-fragment>');
+					
+		# /MonteShaffer/humanVerse/blob/main/humanVerse/R/globals.R		
+		# https://github.com/MonteShaffer/humanVerse/blob/main/humanVerse/R/globals.R
+	html.hrefs = explodeMe('href="', html.content);
+	n = length(html.hrefs);
+	
+	links = c();
+	for(i in 2:n)
+		{
+		str = html.hrefs[i];
+			link = explodeMe('">', str);
+		links = c(links, link);		
+		}

@@ -1,0 +1,98 @@
+/*  styles.css  */
+/*  last mod.: 2017-10-13  */
+
+body {
+margin-top: 20px;
+margin-left: 10%;
+margin-right: 10%;
+font-family: "Trebuchet MS",Arial,Tahoma,Verdana,Sans-serif,Helvetica;
+font-size: 16px;
+}
+
+
+img {
+padding: 0;
+display: block;
+margin: 0 auto;
+max-height: 100%;
+max-width: 100%;
+}
+
+img.margin {
+margin: 5px 5px 5px 5px;
+}
+
+table {
+margin: 5px 5px 5px 5px;
+}
+
+tt {
+font-family: monospace;
+font-size: 14px;
+}
+
+blockquote.serif {
+font-family: "Callisto MT",Georgia,"Book Antiqua",Palatino,"Times New Roman",Serif;
+font-size: 16px;
+}
+
+td.new {
+text-align: left;
+vertical-align: top;
+font-family: "trebuchet ms",arial,tahoma,verdana,sans-serif,geneva,helvetica;
+font-size: 16px;
+color: #000000;
+}
+
+td.trans {
+text-align: left;
+vertical-align: top;
+font-family: "trebuchet ms",arial,tahoma,verdana,sans-serif,geneva,helvetica;
+font-size: 14px;
+color: #000000;
+}
+
+td.menu {
+text-align: left;
+vertical-align: top;
+font-family: Lucida Sans Unicode, Verdana, Tahoma, Trebuchet MS, Sans Serif;
+font-size: 16px;
+color: #000000;
+}
+
+h1
+{
+text-align: center;
+color: #000000;
+font-family: "trebuchet ms",arial,tahoma,verdana,sans-serif,geneva,helvetica;
+font-size: 20px;
+text-decoration: none;
+}
+
+
+h2
+{
+text-align: center;
+color: #000000;
+font-family: "trebuchet ms",arial,tahoma,verdana,sans-serif,geneva,helvetica;
+font-size: 18px;
+text-decoration: none;
+}
+
+h3
+{
+text-align: center;
+color: #000000;
+font-family: "trebuchet ms",arial,tahoma,verdana,sans-serif,geneva,helvetica;
+font-size: 16px;
+text-decoration: none;
+}
+
+h4
+{
+text-align: center;
+color: #000000;
+font-family: "trebuchet ms",arial,tahoma,verdana,sans-serif,geneva,helvetica;
+font-size: 14px;
+text-decoration: none;
+}

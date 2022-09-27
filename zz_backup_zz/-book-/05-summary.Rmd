@@ -1,0 +1,39 @@
+# Final Words
+
+We have finished a nice book.
+
+<div>MONTE says HI</div>
+
+```{r, eval=knitr::is_html_output(excludes = "epub"), results = 'asis', echo = F}
+# https://shhdharmen.medium.com/announcing-keyboard-css-show-off-your-keyboard-shortcuts-with-style-a83f488c6ecb
+# <link rel="stylesheet" href="https://unpkg.com/keyboard-css@1.2.4/dist/css/main.min.css" />
+  
+cat(
+    '<p>Press <kbd class="kbc-button">Ctrl</kbd> + <kbd class="kbc-button">Shift</kbd> + <kbd class="kbc-button">R</kbd> to re-render this page.</p>'
+  );
+
+
+```
+
+
+```{r, eval=knitr::is_html_output(excludes = "epub"), results = 'asis', echo = F}
+# https://stackoverflow.com/questions/63354509/conditionally-embed-video-in-r-markdown-bookdown
+
+cat(
+    '<iframe width="560" height="315" 
+        src="https://www.youtube.com/embed/9AI3BkKQhn0"
+        frameborder="0" allow="accelerometer; autoplay; encrypted-media;
+        gyroscope; picture-in-picture" allowfullscreen>
+    </iframe>'
+  );
+
+
+```
+
+
+
+
+
+
+
+

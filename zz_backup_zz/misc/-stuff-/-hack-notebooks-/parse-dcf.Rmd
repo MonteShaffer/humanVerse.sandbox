@@ -1,0 +1,195 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+```{r}
+desc_path <- system.file("DESCRIPTION", package = "stringi")
+raw_github = "https://raw.githubusercontent.com/gagolews/stringi/master/DESCRIPTION";
+
+CRAN = "https://CRAN.R-project.org/package=stringi" # info, not description
+
+github_issues = "https://github.com/gagolews/stringi/issues"
+github_overview = "https://github.com/gagolews/stringi" ## watchers, latest release date, fork, star
+# https://github.com/gagolews/stringi/graphs/contributors
+
+# https://docs.github.com/en/rest
+
+
+Sys.getenv("RSTUDIO")
+
+
+property.get("RSTUDIO", property.type="system");
+property.set("RSTUDIO", 2,  property.type="system");
+
+r"{c:\Program files\R}"
+
+
+
+Build Status RStudio CRAN mirror downloads RStudio CRAN mirror downloads RStudio CRAN mirror downloads
+
+
+
+```
+
+
+
+```{r}
+
+desc_path <- system.file("DESCRIPTION", package = "stringi");
+
+
+
+str = file.readFrom(desc_path, method="str");
+```
+
+
+```{r}
+
+tmp = str.explode("\n", str);
+res = list();
+n.tmp = length(tmp);
+for(i in 1:n.tmp)
+{
+  row = str.trim(tmp[i]);
+  
+  
+  # https://regex101.com/r/KPk5c5/1
+  pattern = "(^[^:]+):(.+)"
+  strsplit(row, pattern, perl=TRUE);
+  
+  # https://d-rug.github.io/blog/2015/regex.fick
+  r = regexec(pattern, row);
+  s = regmatches(row, r);
+  
+  m = gregexpr(pattern, row);
+  q = regmatches(row, m);
+
+  
+  tmp2 = str.explode("", tmp[i]);  # how standard is this ... we have http:// and multiline for description/author
+  if(length(tmp2) == 2)
+  {
+  key = str.trim(tmp2[1]);
+  val = str.trim(tmp2[2]);
+  
+  res[[key]] = val;
+    # multiline
+  } else {
+    # previous key ...
+    res[[key]] = paste0(res[[key]], str.trim(tmp2[1]), collapse = " ");
+  }
+  
+}
+
+
+
+str(res);
+
+```
+
+
+```{r}
+library('ProjectTemplate')
+
+## Not run: translate.dcf(file.path('config', 'global.dcf'))
+
+# desc_path <- system.file("DESCRIPTION", package = "stringi");
+# translate.dcf(desc_path);
+
+
+translate.dcf = function (filename) 
+{
+    settings <- read.dcf(filename)
+    settings <- setNames(as.list(as.character(settings)), colnames(settings))
+    for (s in names(settings)) {
+        if (grepl("^#", s)) {
+            settings[[s]] <- NULL
+            next
+        }
+        value <- settings[[s]]
+        r_code <- gsub("^`(.*)`$", "\\1", value)
+        if (nchar(r_code) != nchar(value)) {
+            settings[[s]] <- eval(parse(text = r_code))
+        }
+    }
+    settings
+}
+
+
+```
+
+
+
+# GOOD
+```{r}
+
+tmp = str.explode("\n", str);
+res = list();
+n.tmp = length(tmp);
+for(i in 1:n.tmp)
+{
+  row = str.trim(tmp[i]);
+
+  pattern = "(^[^:]+):(.+)";
+  # https://d-rug.github.io/blog/2015/regex.fick
+  r = regexec(pattern, row, perl=TRUE);
+  
+  nr = length(r[[1]]);
+  
+  if(nr == 1 && r == -1)
+  {
+    res[[key]] = paste0(res[[key]], row, collapse = " ");
+    next;
+  }
+  s = list.return( regmatches(row, r) );
+  
+  
+  cat(paste0("\n","###################### ---> ", i));
+  print(s);
+  print(row);
+  
+  key = str.trim(s[2]);
+  val = str.trim(s[3]);
+  cat(paste0("\n KEY: ", key, " ===> ", val));
+    res[[key]] = val;
+  
+  
+  
+  
+  
+}
+
+
+
+str(res);
+
+```
+
+
+
+
+
+```{r}
+
+semicolon = c("Archs", "ExperimentalWindowsRuntime", "Built", "Date/Publication", "Repository",
+              "Packaged", "NeedsCompilation", "Encoding", "RoxygenNote", "License", "Biarch",
+              "", "", ""
+              );
+
+
+test = res[["SystemRequirements"]]
+```
+
+
+
+
+
+
+
+```{r}
+search = ""
+
+
+```
+

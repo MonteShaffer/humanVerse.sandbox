@@ -1,0 +1,137 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+# C++ Functions 'str.cpp'
+
+
+## TRIM
+```{r}
+
+s_trim(" monte ");
+# s_trim(c(" monte ", " dkljsaklj "));
+cpp_trim(c(" monte ", " dkljsaklj "));
+
+```
+
+## LENGTH
+```{r}
+
+s_strlen(" monte ");
+# s_strlen(c(" monte ", " dkljsaklj "));
+cpp_strlen(c(" monte ", " dkljsaklj "));
+
+```
+
+
+## REPEAT
+```{r}
+
+s_str_repeat(" monte ", 10);
+# s_str_repeat(c(" monte ", " dkljsaklj "), 10);
+cpp_str_repeat(c(" monte ", " dkljsaklj "), 10);
+
+```
+
+
+## explode
+```{r}
+
+s_explode("{monte}", "Here is {monte} template");
+# s_str_repeat(c(" monte ", " dkljsaklj "), 10);
+cpp_explode("{monte}", c("Here is {monte} template", "Here is another {monte} template"));
+
+```
+
+
+## explode
+```{r}
+
+( x = s_explode("{monte}", "Here is {monte} template") );
+( y = s_implode("{monte}", x) );
+```
+
+```{r}
+# s_str_repeat(c(" monte ", " dkljsaklj "), 10);
+(x = cpp_explode("{monte}", c("Here is {monte} template", "Here is another {monte} template")) );
+( y = cpp_implode("{monte}", x) );
+# strsplit(c("Here is {monte} template", "Here is another {monte} template", "Here is {monte} template", "Here is another {monte} template"), c("{monte}", "pla", "ere"), fixed=TRUE);
+# strsplit does some weird pairwise loop ... 
+
+```
+
+
+
+
+
+## replace
+```{r}
+
+# should be same length or of type N:1 ... 
+
+
+s_str_replace("{monte}", "MONTE", "Here is {monte} template");
+s_str_replace(c("{monte}", "{for}"), "MONTE", "Here is {monte} template {for} sure");
+s_str_replace(c("{monte}", "{for}"), c("MONTE","FOR"), "Here is {monte} template {for} sure");
+# this one works, but is bad ... "FOR" is doing nothing
+s_str_replace(c("{monte}"), c("MONTE","FOR"), "Here is {monte} template {for} sure");
+# unequal throws error, as I would want ... unless 1:n ratio
+# s_str_replace(c("{monte}", "{for}", "ere"), c("MONTE","FOR"), "Here is {monte} template {for} sure");
+
+
+```
+
+## replace
+```{r}
+
+# should be same length or of type N:1 ... 
+
+
+cpp_str_replace("{monte}", "MONTE", c("Here is {monte} template", "Here is another {for} sure template {monte}!") );
+cpp_str_replace(c("{monte}", "{for}"), "MONTE", c("Here is {monte} template", "Here is another {for} sure template {monte}!") );
+cpp_str_replace(c("{monte}", "{for}"), c("MONTE","FOR"), c("Here is {monte} template", "Here is another {for} sure template {monte}!") );
+# this one works, but is bad ... "FOR" is doing nothing
+## since MONTE, FOR is the same length as SUBJECT, it should do:
+#{monte},MONTE, subject 1
+#{monte},FOR, subject 2
+## if subject is only 1, 
+#{monte},MONTE, subject 1
+#{monte},FOR, subject 1
+
+## 
+Rcpp::sourceCpp("C:\\_git_\\github\\MonteShaffer\\humanVerse\\HVcpp\\src\\str.cpp");
+
+cpp_str_replace(c("{monte}"), c("MONTE","FOR"), c("Here is {monte} template", "Here is another {for} sure template {monte}!") );
+
+# unequal throws error, as I would want ... unless 1:n ratio
+# s_str_replace(c("{monte}", "{for}", "ere"), c("MONTE","FOR"), "Here is {monte} template {for} sure");
+
+
+
+
+```
+
+
+```{r}
+
+
+# 
+## Rcpp::sourceCpp("C:\\_git_\\github\\MonteShaffer\\humanVerse\\HVcpp\\src\\str.cpp");
+
+
+str.replace("{monte}", "MONTE", c("Here is {monte} template", "Here is another {for} sure template {monte}!") ) == 
+cpp_str_replace("{monte}", "MONTE", c("Here is {monte} template", "Here is another {for} sure template {monte}!") );
+
+str.replace(c("{monte}", "{for}"), "MONTE", c("Here is {monte} template", "Here is another {for} sure template {monte}!") ) == cpp_str_replace(c("{monte}", "{for}"), "MONTE", c("Here is {monte} template", "Here is another {for} sure template {monte}!") );
+
+
+str.replace(c("{monte}", "{for}"), c("MONTE","FOR"), c("Here is {monte} template", "Here is another {for} sure template {monte}!") ) == 
+cpp_str_replace(c("{monte}", "{for}"), c("MONTE","FOR"), c("Here is {monte} template", "Here is another {for} sure template {monte}!") );
+
+str.replace(c("{monte}"), c("MONTE","FOR"), c("Here is {monte} template", "Here is another {for} sure template {monte}!") ) == cpp_str_replace(c("{monte}"), c("MONTE","FOR"), c("Here is {monte} template", "Here is another {for} sure template {monte}!") );
+
+
+```
+
+

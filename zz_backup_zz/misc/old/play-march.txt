@@ -1,0 +1,84 @@
+if(normal.test)
+		{
+		# https://www.youtube.com/watch?v=dRAqSsgkCUc
+		# SLOPE OF QQPLOT 
+		# https://stats.stackexchange.com/questions/92374/testing-large-dataset-for-normality-how-and-is-it-reliable
+		# shapiro is basically worthless ... 
+		isNormal = stats::shapiro.test(x);
+			
+		p.cut = list( 	"0.10" = isTRUE(isNormal$p.value > 0.10), 
+						"0.05" = isTRUE(isNormal$p.value > 0.05), 
+						"0.01" = isTRUE(isNormal$p.value > 0.01) );
+						
+		print(isNormal);
+		cat("\n", " === NORMALITY AT ALPHA LEVELS === ", "\n\n");
+		print( unlist(p.cut) );
+		
+		invisible( list("isNormal" = isNormal, "p.cut" = p.cut) );
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## normality
+	result$shapiro = stats::shapiro.test(xx);
+	result$shapiro.is.normal = list("0.10" = isTRUE(result$shapiro$p.value > 0.10), "0.05" = isTRUE(result$shapiro$p.value > 0.05), "0.01" = isTRUE(result$shapiro$p.value > 0.01) );
+
+
+
+# 7. Golf in the Kingdom (2010)
+# 17. The Man Who Knew Too Little (1997)
+# 18. A Good Man in Africa (1994)  # not available ... 
+
+26. Scandal (1989)
+ 
+27. Kill Me Again (1989)
+31. The Good Father (1985)
+
+	癸丑年
+
+Radical :癸 => 癶 (footsteps), 一 (one), 大 (big) # ten ?
+Radical :丑 => 刀 (knife), 二 (two)  # shameful/ugly/disgraceful ? ISAIAH
+Radical :年 => 丿 (bend), 一 (one), 十 (ten), ㇗ (N/A), 丨 (line) # turn time 
+
+壬子年
+
+Radical :壬 => ㇒ (N/A), 士 (scholar)  # nine
+Radical :子 => 子 (child)  # son, child, seed, egg
+Radical :年 => 丿 (bend), 一 (one), 十 (ten), ㇗ (N/A), 丨 (line) # year, bend time
+
+Radical :乙 => 乙 (second)
+Radical :丑 => 刀 (knife), 二 (two)
+Radical :年 => 丿 (bend), 一 (one), 十 (ten), ㇗ (N/A), 丨 (line)
+
+
+Radical :辛 => 辛 (bitter)
+Radical :丑 => 刀 (knife), 二 (two)
+Radical :年 => 丿 (bend), 一 (one), 十 (ten), ㇗ (N/A), 丨 (line)
+
+
+
+http://127.0.0.1:25266/library/base/html/weekday.POSIXt.html
+
+weekdays(.leap.seconds)
+months(.leap.seconds)
+quarters(.leap.seconds)
+
+## Julian Day Number (JDN, https://en.wikipedia.org/wiki/Julian_day)
+## is the number of days since noon UTC on the first day of 4317 BC.
+## in the proleptic Julian calendar.  To more recently, in
+## 'Terrestrial Time' which differs from UTC by a few seconds
+## See https://en.wikipedia.org/wiki/Terrestrial_Time
+julian(Sys.Date(), -2440588) # from a day
+floor(as.numeric(julian(Sys.time())) + 2440587.5) # from a date-time
+

@@ -1,0 +1,89 @@
+$(function(){
+    if($('div.zebra table').is('table')){
+        $('div.zebra table tr:nth-child(odd)').addClass('odd');
+    }
+    if($('div.missing_week').is('div')){
+        $('div.missing_week table tr:first').next('tr').next('tr').addClass('odd');
+    }
+    if($('div.timeline_table').is('div')){
+        $('div.timeline_table table tr td').each(function(i){
+            if(i%2) $(this).css({'border-right':'none', 'background-position':'top left'});
+            if(i==0 || i==1) $(this).css('background','none');
+        });
+    }
+	 if($('#navigation').is('div')){
+		  if($('#navigation').height() < $('#main_content').height()){
+				$('#main_content').addClass('grey_left');
+				$('#navigation').removeClass('grey_right');
+		  }
+	 }
+    $('p').each(function(i){
+        if(!$(this).html()) $(this).remove();
+    });
+    var title = '';
+    $('a.lightbox-enabled').each(function(){
+      title = $(this).attr('title');
+		title = $(this).parent('div').parent('div.lightbox-box').next('div.caption').text();
+      title ? $(this).attr('title', title) : '';      
+	})
+    //$('#w3chack').load('http://www.webexhibits.org/calendars/w3chack.php');
+    var id = '';
+    if($('#calendar-chinese').attr('class') == 'active'){
+        id = $('#calendar-chinese').attr('id') + '-active';
+        $('#calendar-chinese').attr('id', id);
+    }
+    if($('#calendar-ancient').attr('class') == 'active'){
+        id = $('#calendar-ancient').attr('id') + '-active';
+        $('#calendar-ancient').attr('id', id);
+    }
+});
+/**/
+var defaultFontSize = 76;
+var currentFontSize = defaultFontSize;
+
+function revertStyles(){
+    currentFontSize = defaultFontSize;
+	changeFontSize(0);
+}
+
+function changeFontSize(sizeDifference){
+	currentFontSize     = parseInt(currentFontSize) + parseInt(sizeDifference * 7);
+	if(currentFontSize > 100){
+		currentFontSize = 100;
+	}else if(currentFontSize < 36){
+		currentFontSize = 36;
+	}
+	setFontSize(currentFontSize);
+};
+
+function setFontSize(fontSize){
+	$('body').css('font-size', fontSize + '%');
+};
+
+function createCookie(name,value,days)
+{
+	if (days)
+	{
+		var date = new Date();
+		date.setTime(date.getTime()+(days*24*60*60*1000));
+		var expires = "; expires="+date.toGMTString();
+	}
+	else var expires = "";
+	document.cookie = name+"="+value+expires+"; path=/";
+}
+function readCookie(name)
+{
+	var nameEQ = name + "=";
+	var ca = document.cookie.split(';');
+	for(var i=0;i < ca.length;i++)
+	{
+		var c = ca[i];
+		while (c.charAt(0)==' ') c = c.substring(1,c.length);
+		if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+	}
+	return null;
+}
+function eraseCookie(name)
+{
+	createCookie(name,"",-1);
+}

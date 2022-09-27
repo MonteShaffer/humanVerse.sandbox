@@ -1,0 +1,533 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+# INCLUDE
+
+## HELPER
+```{r}
+
+setAttribute = function(myAttribute, myValue, myObj)
+	{
+	attributes(myObj)[[myAttribute]] = myValue;
+	myObj;  # no object referencing, so I must return
+	}
+
+# stats.median
+doMedian = function(x, type=1)
+  {
+  xx = stats::na.omit(x);
+  as.numeric(stats::quantile(xx, prob=c(0.5), type=type));
+  }
+
+
+
+benchmark.efficiency = function(mb.res, digits=5)
+	{
+	mb.names = levels(mb.res$expr);
+	
+	out = NULL;
+
+	A.name 		= mb.names[1];
+	A 			= subset(mb.res, expr==A.name)$time;
+	A.median 	= doMedian(A);
+
+	# nano is 10^-9
+	row = c(1,A.name,A.median, signif(A.median / 10^9, digits), 0); # BENCHMARK, delta efficiency is 0
+	out = rbind(out, row);
+
+	n.names = length(mb.names);
+	if(n.names > 1)
+		{
+		for(i in 2:n.names)
+			{
+			B.name 		= mb.names[i];
+			B 			= subset(mb.res, expr==B.name)$time;
+			B.median 	= doMedian(B);
+	
+			B.eff 		= round(100* (A.median-B.median)/A.median , 2);
+
+			row = c(i,B.name,B.median,signif(B.median / 10^9, digits),B.eff);
+			out = rbind(out, row);
+			}
+		}
+
+	out = data.frame(out);
+	colnames(out)=c("Index","Name","Median","Seconds", "Delta.Efficiency");
+	# rownames(out)=out$Name;
+	rownames(out) = NULL;
+		out$Median = as.numeric(out$Median);
+		out$Delta.Efficiency = as.numeric(out$Delta.Efficiency);
+		#out$Ranking = order(out$Delta.Efficiency, decreasing=TRUE); # not to be confused with 'rank'
+		out$Rank = rank(out$Median, ties="first");
+	
+	out = setAttribute("microbenchmark.unit",.Options$microbenchmark.unit,out);
+		
+	out;
+	}
+
+md5.object = function(list)
+	{
+	str = listToString(list);
+	md5(str);	
+	}
+
+```
+
+## LIBRARY
+```{r}
+
+library(HVcpp);
+Rcpp::sourceCpp("C:\\_git_\\github\\MonteShaffer\\humanVerse\\HVcpp\\src\\str.cpp");
+
+
+functions.cleanKey = function(key, n=1)
+	{
+	substr(tolower(key),1,n);
+	}
+
+str.tolower = function(str, method="cpp", locale="en_US.UTF-8")
+	{
+# l10n_info();      # NON-TRIVIAL
+# Sys.getlocale();
+# stri_trans_tolower(string, locale = locale)
+
+	# necessary overhead
+	m = functions.cleanKey(method, 1);
+
+	if(m == "s" && isTRUE(requireNamespace("stringi", quietly = TRUE)) )
+		{		
+		return ( stringi::stri_trans_tolower(str, locale) );
+		}
+
+	if(m == "c" && exists("cpp_strtolower"))
+		{
+		return( cpp_strtolower(str) );
+		} 
+
+
+	tolower(str);
+	}
+
+
+```
+
+# BENCHMARK 'str.tolower'
+
+## Use Case
+```{r}
+str_ = c(" jdfldDFLKJLKDSJdasj djslkfDFJK j     ", "KDkdolaDK") ;
+
+A = cpp_strtolower(str_);
+B = str.tolower(str_);
+C = tolower(str_);
+D = s_tolower(str_[1]);
+
+stopifnot( identical(A,B) );
+stopifnot( identical(A,C) );
+stopifnot( identical(A[1],D) );
+
+```
+
+
+## MB
+```{r}
+
+str = rep(str_, 25);
+# str = str[1];  # s_tolower(str),
+
+
+# The available units are nanoseconds ("ns"), microseconds ("us"), milliseconds ("ms"), seconds ("s") and evaluations per seconds ("eps") and relative runtime compared to the best median time ("relative").
+#.Options$microbenchmark.unit = "eps";
+options(microbenchmark.unit="ns");
+
+mb.res = microbenchmark::microbenchmark(
+                                        
+                                        stringi::stri_trans_tolower(str),
+                                        tolower(str),
+                                        cpp_strtolower(str),
+                                        str.tolower(str),
+                                        stringr::str_to_lower(str),
+                                        str.tolower(str, "stringi"),
+                                        str.tolower(str, "base"),
+                                        
+                                        
+                                        
+                                        times=1000,
+                                        control=list("order"="random","warmup"=10)
+                                        );
+
+mb.res = setAttribute("microbenchmark.unit",as.character(options("microbenchmark.unit")),mb.res);
+
+mb.res;
+```
+
+### boxplot
+```{r}
+boxplot(mb.res, horizontal=TRUE);
+```
+
+### efficiency
+```{r}
+mb.eff = benchmark.efficiency(mb.res);
+mb.eff;
+```
+
+My C++ function is not performing well.  Why?
+
+
+
+# BENCHMARK 'str.toupper'
+```{r}
+
+str.toupper = function(str, method="cpp", locale="en_US.UTF-8")
+	{
+	# necessary overhead
+	m = functions.cleanKey(method, 1);
+
+	if(m == "s" && isTRUE(requireNamespace("stringi", quietly = TRUE)) )
+		{		
+		return ( stringi::stri_trans_toupper(str, locale) );
+		}
+
+	if(m == "c" && exists("cpp_strtoupper"))
+		{
+		return( cpp_strtoupper(str) );
+		} 
+
+	toupper(str);
+	}
+
+```
+
+
+## Use Case
+
+```{r}
+str_ = c(" jdfldDFLKJLKDSJdasj djslkfDFJK j     ", "KDkdolaDK") ;
+
+A = cpp_strtoupper(str_);
+B = stringi::stri_trans_toupper(str_);
+C = toupper(str_);
+
+stopifnot( identical(A,B) );
+stopifnot( identical(A,C) );
+
+```
+
+## MB
+```{r}
+
+str = rep(str_, 25);
+
+
+# The available units are nanoseconds ("ns"), microseconds ("us"), milliseconds ("ms"), seconds ("s") and evaluations per seconds ("eps") and relative runtime compared to the best median time ("relative").
+#.Options$microbenchmark.unit = "eps";
+options(microbenchmark.unit="ns");
+
+mb.res = microbenchmark::microbenchmark(
+                                        stringi::stri_trans_toupper(str),
+                                        toupper(str),
+                                        cpp_strtoupper(str),
+                                        str.toupper(str),
+                                        stringr::str_to_upper(str),
+                                        str.toupper(str, "stringi"),
+                                        str.toupper(str, "base"),
+                                        
+                                        
+                                        times=1000,
+                                        control=list("order"="random","warmup"=10)
+                                        );
+
+mb.res = setAttribute("microbenchmark.unit",as.character(options("microbenchmark.unit")),mb.res);
+
+mb.res;
+```
+
+### boxplot
+```{r}
+boxplot(mb.res, horizontal=TRUE);
+```
+
+### efficiency
+```{r}
+mb.eff = benchmark.efficiency(mb.res);
+mb.eff;
+```
+
+My C++ function is not performing well.  Why?
+
+
+
+
+# BENCHMARK 'str.trim'
+```{r}
+
+str.trim = function(str, side="both", method="cpp", pattern="", ...)
+  {
+	# necessary overhead
+	s = functions.cleanKey(side, 1);
+	m = functions.cleanKey(method, 1);
+	if(m == "c" && exists("cpp_trim"))
+		{
+		t = " \t\n\r\f\v";
+		if(pattern != "") { t = pattern; }
+		res = switch(s,
+						  "l"  	= cpp_ltrim(str, t),
+						  "r" 	= cpp_rtrim(str, t),
+						  "b"  	= cpp_trim (str, t),
+					cpp_trim(str, t)
+					);
+		return (res);
+		}
+
+	if(m == "s" && isTRUE(requireNamespace("stringi", quietly = TRUE)) )
+		{
+		p = "\\P{Wspace}";
+		if(pattern != "") { p = pattern; }
+		res = switch(s,
+						  "l"	= stringi::stri_trim_left (str, p, ...),
+						  "r" 	= stringi::stri_trim_right(str, p, ...),
+						  "b"  	= stringi::stri_trim_both (str, p, ...),
+					stringi::stri_trim_both(str, p, ...)
+					);
+		return (res);
+		}
+	
+	g = "\\s+";
+	if(pattern != "") { g = pattern; }
+	res = switch(s,
+						  "l" 	= gsub( paste0("^",g), "", str),
+						  "r" 	= gsub( paste0(g,"$"), "", str),
+						  "b"  	= gsub( paste0("^",g,"|",g,"$"), "", str),
+                  gsub( paste0("^",g,"|",g,"$"), "", str)
+                  );
+    return (res);
+	}
+
+```
+
+
+## Use Case
+
+```{r}
+str_ = c(" jdfldDFLKJLKDSJdasj djslkfDFJK j     ", "\n\t KDkdolaDK \n\r\n\t ") ;
+
+A = cpp_trim(str_);
+B = str.trim(str_, "both", "base");
+C = stringi::stri_trim_both(str_);
+
+stopifnot( identical(A,B) );
+stopifnot( identical(A,C) );
+
+```
+
+
+## MB
+```{r}
+
+str = rep(str_, 25);
+
+
+# The available units are nanoseconds ("ns"), microseconds ("us"), milliseconds ("ms"), seconds ("s") and evaluations per seconds ("eps") and relative runtime compared to the best median time ("relative").
+#.Options$microbenchmark.unit = "eps";
+options(microbenchmark.unit="ns");
+
+
+mb.res = microbenchmark::microbenchmark(
+                                        stringi::stri_trim_both(str),
+                                        cpp_trim(str),
+                                        str.trim(str, "both", "cpp"),
+                                        str.trim(str, "both", "base"),
+                                        stringr::str_trim(str),
+                                        stringr::str_trim(str, "both"),
+                                        str.trim(str, "both", "stringi"),
+                                        
+                                        
+                                        times=1000,
+                                        control=list("order"="random","warmup"=10)
+                                        );
+
+mb.res = setAttribute("microbenchmark.unit",as.character(options("microbenchmark.unit")),mb.res);
+
+mb.res;
+```
+
+### boxplot
+```{r}
+boxplot(mb.res, horizontal=TRUE);
+```
+
+### efficiency
+```{r}
+mb.eff = benchmark.efficiency(mb.res);
+mb.eff;
+```
+
+My C++ function is not performing well.  Why?  I have VECTORIZED them.
+
+
+# BENCHMARK 'str.split'
+```{r}
+str.split = function(sep = " ", str = "hello friend", method="cpp", ...)
+	{
+	# necessary overhead
+	m = functions.cleanKey(method, 1);
+
+	if(m == "s" && isTRUE(requireNamespace("stringi", quietly = TRUE)) )
+		{
+		return (stringi::stri_split_fixed(str, sep, ...));
+		}
+
+	if(m == "c" && exists("cpp_explode"))
+		{
+		return( cpp_explode(sep, str) );
+		}
+	
+	res = strsplit(str, sep, fixed=TRUE);
+	res[[1]];
+	}
+
+
+```
+
+
+## Use Case
+
+```{r}
+str_ = c("   jdfldDFLKJLKDSJdasj djslkfDFJK j", "   jdfldDFLKJLKDSJdasj djslkfDFJK j") ;
+sep = " ";
+
+A = cpp_explode(" ",str_)[[1]];
+B = str.split(" ",str_, method="stringi", return.list=FALSE);
+C = str.split(" ",str_, method="base", return.list=FALSE);
+
+stopifnot( identical(A,B) );
+stopifnot( identical(A,C) );
+
+```
+
+
+## MB
+```{r}
+
+str = str_;
+sep = " ";
+
+
+# The available units are nanoseconds ("ns"), microseconds ("us"), milliseconds ("ms"), seconds ("s") and evaluations per seconds ("eps") and relative runtime compared to the best median time ("relative").
+#.Options$microbenchmark.unit = "eps";
+options(microbenchmark.unit="ns");
+
+
+mb.res = microbenchmark::microbenchmark(
+                                        stringi::stri_split_fixed(str, sep),
+                                        strsplit(str, sep, fixed=TRUE)[[1]],
+                                        cpp_explode(sep,str),
+                                        str.split(sep,str, "cpp"),
+                                        str.split(sep,str, "base"),
+                                        str.split(sep,str, "stringi"),
+                                        
+                                        
+                                        times=10000,
+                                        control=list("order"="random","warmup"=10)
+                                        );
+
+mb.res = setAttribute("microbenchmark.unit",as.character(options("microbenchmark.unit")),mb.res);
+
+mb.res;
+```
+
+### boxplot
+```{r}
+boxplot(mb.res, horizontal=TRUE);
+```
+
+### efficiency
+```{r}
+mb.eff = benchmark.efficiency(mb.res);
+mb.eff;
+```
+
+My C++ function is not performing well.  Why?  I have VECTORIZED them.
+
+
+
+# BENCHMARK 'str.contains'
+```{r}
+str.contains = function(haystack = "hello friend", needle = " ", ...)
+	{
+	# grepl(needle, haystack, fixed = TRUE);
+	tmp = str.split(needle, haystack);
+	n = length(tmp);
+	res = logical(n);
+	for(i in 1:n)
+		{
+		res = if( length(tmp[[i]]) > 1 ) { TRUE } else { FALSE }
+		}
+	res;
+	}
+
+
+```
+
+
+## Use Case
+
+```{r}
+haystack_ = c("   jdfldDFLKJLKDSJdasj djslkfDFJK j") ;
+needle = " ";
+
+A = str.contains(haystack_, needle, method="cpp");
+B = str.contains(haystack_, needle, method="base");
+C = grepl(needle, haystack_, fixed = TRUE);
+
+stopifnot( identical(A,B) );
+stopifnot( identical(A,C) );
+
+```
+
+
+## MB
+```{r}
+
+haystack = rep(haystack_, 5);
+needle = " ";
+
+
+
+# The available units are nanoseconds ("ns"), microseconds ("us"), milliseconds ("ms"), seconds ("s") and evaluations per seconds ("eps") and relative runtime compared to the best median time ("relative").
+#.Options$microbenchmark.unit = "eps";
+options(microbenchmark.unit="ns");
+
+
+mb.res = microbenchmark::microbenchmark(
+                                        grepl(needle, haystack, fixed = TRUE),
+                                        is.substring(needle, haystack),
+                                        str.contains(haystack, needle, method="cpp"),
+                                        str.contains(haystack, needle, method="base"),
+                                        str.contains(haystack, needle, method="stringi"),
+                                        
+                                        
+                                        times=1000,
+                                        control=list("order"="random","warmup"=10)
+                                        );
+
+mb.res = setAttribute("microbenchmark.unit",as.character(options("microbenchmark.unit")),mb.res);
+
+mb.res;
+```
+
+### boxplot
+```{r}
+boxplot(mb.res, horizontal=TRUE);
+```
+
+### efficiency
+```{r}
+mb.eff = benchmark.efficiency(mb.res);
+mb.eff;
+```
+
+My C++ function is not performing well.  Why?  I have VECTORIZED them.

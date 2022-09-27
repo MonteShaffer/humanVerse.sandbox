@@ -1,0 +1,36 @@
+setwd("{directory}");
+reduce = {reduceSVD};
+options("digits"=4);
+mydata = read.table("A-term-document-matrix-no-header.txt",sep = "|");
+m=dim(mydata)[1];
+n=dim(mydata)[2];
+filename=matrix(,1,m);
+year=matrix(,1,m);
+ddata=matrix(,m,(n-3));
+for (i in 1:m)
+{
+	filename[i]=paste(mydata[i,1],mydata[i,2],sep="|");
+	for (j in 3:(n-1))
+	{
+		ddata[i,j-2]=mydata[i,j];
+	}
+
+}
+
+X = t(ddata);
+y = svd(X);
+orignaldim=length(y$d);
+d=min(orignaldim,reduce);
+S = matrix(0,d,d);
+for(i in 1:d)
+	{
+	S[i,i]=y$d[i];
+	}
+r=dim(y$v)[1];
+v=matrix((y$v),r,d);
+sim = v %*%  S;
+rownames(sim)=filename;
+write.table(sim,file="svd-document-term-matrix.txt",col.names = FALSE,sep="|",quote=F);
+u=matrix((y$u),dim(y$u)[1],d);
+tsim = u %*% S;
+write.table(tsim,file="svd-term-concept-matrix.txt",col.names = FALSE,row.names=FALSE,sep="|",quote=F);

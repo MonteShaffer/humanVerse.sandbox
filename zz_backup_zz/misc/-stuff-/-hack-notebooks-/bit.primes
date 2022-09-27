@@ -1,0 +1,438 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+```{r}
+
+##################################################
+#'
+#' timer.start
+#'
+#'
+#' @param key (what is the unique storage 'key')
+#'
+#' @export
+#'
+#' @examples
+timer.start = function(key="DEFAULT")
+	{
+	memory.init();
+	# this overwrites without any checks?
+	.GlobalEnv$.humanVerse[["timer"]][[key]] = list();
+	.GlobalEnv$.humanVerse[["timer"]][[key]]$start = Sys.time();  # vs. proc.time()
+	}
+
+##################################################
+#'
+#' timer.stop
+#'
+#'
+#' @param key (what is the unique storage 'key')
+#'
+#' @export
+#'
+#' @examples	
+timer.stop = function(key="DEFAULT")
+	{
+	memory.init();
+	if(!exists(key, .GlobalEnv$.humanVerse[["timer"]]))
+		{
+		stop(paste0("Nothing to stop as timer.start for key: ", key, " not called yet!"));
+		}
+	.GlobalEnv$.humanVerse[["timer"]][[key]]$stop = Sys.time();
+	
+	.GlobalEnv$.humanVerse[["timer"]][[key]]$diff = as.numeric(.GlobalEnv$.humanVerse[["timer"]][[key]]$stop)-as.numeric(.GlobalEnv$.humanVerse[["timer"]][[key]]$start);
+	}
+
+##################################################
+#'
+#' timer.print
+#'
+#'
+#' @param key (what is the unique storage 'key')
+#' @param format (how to return the timer time)
+#'
+#' @return
+#' @export
+#'
+#' @examples
+timer.print = function(key="DEFAULT", format="seconds", digits=2)
+	{
+	memory.init();
+	# seconds, pretty-seconds, pretty ...
+	if(!exists(key, .GlobalEnv$.humanVerse[["timer"]]))
+		{
+		stop(paste0("Nothing to print as timer.start/timer.stop for key: ", key, " not called yet!"));
+		}
+	
+	seconds = .GlobalEnv$.humanVerse[["timer"]][[key]]$diff;
+
+	# wrap into SWITCH?
+		
+	if(format == "pretty-seconds") { return( timer.formatPrettySeconds(seconds, digits) ); }
+	
+	if(format == "pretty") { return( timer.formatPretty(seconds, digits) ); }
+	
+	# DEFAULT
+	seconds;
+	}
+	
+
+##################################################
+#'
+#' timer.formatPrettySeconds
+#'
+#'
+#' @param seconds 
+#'
+#' @return
+#' @export
+#'
+#' @examples	
+timer.formatPrettySeconds = function(seconds, digits=2)
+	{
+	paste0( round(seconds, digits), " seconds");	
+	}
+
+##################################################
+#'
+#' timer.formatPretty
+#'
+#'
+#' @param seconds 
+#'
+#' @return
+#' @export
+#'
+#' @examples	
+# https://stackoverflow.com/questions/572049/convert-seconds-to-days-minutes-and-hours-in-obj-c
+timer.formatPretty = function(seconds, digits=2)
+	{
+				str = "";
+	days = floor( seconds / (60 * 60 * 24) );
+		seconds = seconds - days * (60 * 60 * 24);
+				dstr = "days"; if(days == 1) { dstr = "day"; }
+				if(days > 0) { str = paste0(str, days," ",dstr,", "); }
+	hours = floor( seconds / (60 * 60) );
+				hstr = "hours"; if(hours == 1) { hstr = "hour"; }
+				if(days > 0 | hours > 0) { str = paste0(str, hours," ",hstr,", "); }
+		seconds = seconds - hours * (60 * 60);
+	minutes = floor( seconds / 60 );
+				mstr = "minutes"; if(minutes == 1) { mstr = "minute"; }
+				if(days > 0 | hours > 0 | minutes > 0) { str = paste0(str, minutes," ",mstr,", "); }
+		seconds = seconds - minutes * (60);
+
+	paste0( str, round(seconds, digits), " seconds");		
+	}
+
+
+
+
+
+
+
+
+
+memory.init = function(purge.memory = FALSE, verbose = TRUE)
+  {
+  if(!exists(".humanVerse") || purge.memory)
+    {
+    if(verbose)
+      {
+      cat("humanVerse::memory.init; ... initializing HIDDEN list '.humanVerse'", "\n");
+      }
+
+    .GlobalEnv$.humanVerse = list();
+	}
+  }
+
+
+
+```
+
+
+
+# ALL
+```{r}
+
+# https://stackoverflow.com/questions/2908822/speed-up-the-loop-operation-in-r
+
+timer.start("begin");
+
+n = 10^8;
+n.sqrt = ceiling( sqrt(n) );
+library(bit);
+
+timer.start("load-bits");
+
+# bits.prime = bit(n);
+
+# bits.prime[1:n] = TRUE;
+bits.prime = bitwhich(n, TRUE);
+
+
+timer.stop("load-bits");
+timer.print("load-bits", format="pretty");
+
+##########################################
+
+
+timer.start("evens");
+
+i = 4;
+while(i < n)
+{
+bits.prime[i] = FALSE;
+i = 2 + i; 
+}
+
+timer.stop("evens");
+timer.print("evens", format="pretty");  # 0.2812049388885498046875 ==> 0.2552111148834228515625
+
+
+
+##########################################
+
+
+timer.start("threes+");
+
+
+i = 3;
+while(i < n.sqrt)
+{
+if(bits.prime[i] == TRUE)
+{
+k = i * 2;
+j = i * i;
+while(j < n)
+  {
+  bits.prime[j] = FALSE;
+  j = k + j;
+  }
+}
+i = 2+i;
+}
+
+
+
+timer.stop("threes+");
+timer.print("threes+", format="pretty");  # 0.3890550136566162109375
+
+
+
+saveRDS(bits.prime, file=paste0("primes-",n,".rds") )
+
+
+timer.stop("begin");
+timer.print("begin", format="pretty");
+
+```
+
+
+
+
+## TAKE TWO
+# ALL
+```{r}
+
+# https://stackoverflow.com/questions/2908822/speed-up-the-loop-operation-in-r
+
+timer.start("begin");
+
+n = 10^5;
+n.sqrt = ceiling( sqrt(n) );
+library(bit);
+
+timer.start("load-bits");
+
+# bits.prime = bit(n);
+
+# bits.prime[1:n] = TRUE;
+bits.prime = bitwhich(n, TRUE);
+# bitwhich(n, 2);  # evens already TRUE
+
+
+timer.stop("load-bits");
+timer.print("load-bits", format="pretty");
+
+##########################################
+
+
+timer.start("evens");
+
+for(i in seq(from=4, to=n, by=2) )
+{
+  bits.prime[i] = FALSE;
+}
+
+
+timer.stop("evens");
+timer.print("evens", format="pretty");  # 0.2812049388885498046875 ==> 0.2552111148834228515625
+
+
+
+##########################################
+
+
+timer.start("threes+");
+
+
+for(i in seq(from=3, to=n.sqrt, by=2) )
+{
+  if(bits.prime[i] == TRUE)
+    {
+    k = i * 2;
+    
+    for(j in seq(from= i*i, to=n, by=k) )
+    {
+      bits.prime[j] = FALSE;
+    }
+
+    }
+}
+
+timer.stop("threes+");
+timer.print("threes+", format="pretty");  # 0.3890550136566162109375
+
+
+
+saveRDS(bits.prime, file=paste0("primes-",n,".rds") )
+
+
+timer.stop("begin");
+timer.print("begin", format="pretty");
+
+```
+
+# START BITS
+```{r}
+
+
+n = 10^3;
+n.sqrt = ceiling( sqrt(n) );
+library(bit);
+
+timer.start("load-bits");
+
+bits.prime = bit(n);
+
+bits.prime[1:n] = TRUE;
+
+timer.stop("load-bits");
+timer.print("load-bits");
+
+# [1] 32.1053829193115234375   ## RStudio
+```
+
+## EVENS
+```{r}
+timer.start("evens");
+
+i = 4;
+while(i < n)
+{
+bits.prime[i] = FALSE;
+i = 2 + i; 
+}
+
+timer.stop("evens");
+timer.print("evens");  # 0.2812049388885498046875 ==> 0.2552111148834228515625
+
+```
+
+## THREES
+```{r}
+
+timer.start("threes+");
+
+
+i = 3;
+while(i < n.sqrt)
+{
+if(bits.prime[i] == TRUE)
+{
+k = i * 2;
+j = i * i;
+while(j < n)
+  {
+  bits.prime[j] = FALSE;
+  j = k + j;
+  }
+}
+i = 2+i;
+}
+
+
+
+timer.stop("threes+");
+timer.print("threes+");  # 0.3890550136566162109375
+
+```
+
+
+```{r}
+p1 = which(bits.prime == TRUE);
+p2 = as.integer( c(1, pracma::primes(1000)) );
+identical(p1, p2);
+
+# primes in range (density)
+sum(bits.prime[  1:100]);
+sum(bits.prime[101:200]);
+sum(bits.prime[201:300]);
+sum(bits.prime[301:400]);
+sum(bits.prime[401:500]);
+
+
+
+```
+
+
+
+
+```{r}
+
+bits.prime[1] = TRUE; # optimus prime
+bits.prime[2] = TRUE;
+bits.prime[3] = TRUE;
+
+
+```
+
+
+```{r}
+int Limit = 10000; 
+      int SqrtLimit = (int) Math.Sqrt((double) Limit); 
+ 
+      BitArray Primes = new BitArray(Limit+1, true); 
+ 
+      int i, j, k; 
+       
+      // Clear all even values from 4 onwards 
+      for (i = 4; i < Limit; i+=2) 
+           Primes.Set(i,false); 
+       
+      // Run the sieve against the remaining odd numbers 
+      // up to the square root of the Limit 
+ 
+      for (i = 3; i < SqrtLimit; i+=2) 
+      { 
+        if (Primes.Get(i)) 
+        { 
+          k = i*2; 
+          for (j = i * i; j < Limit; j += k) 
+            Primes.Set(j, false); 
+        } 
+      } 
+ 
+      // Done. Print out the sieve.. 
+      Console.Write(2.ToString().PadLeft(5)); 
+      for(i = 3; i< Limit; i+=2) 
+        if(Primes.Get(i)) 
+          Console.Write(i.ToString().PadLeft(5)); 
+ 
+      Console.Write("\n\n"); 
+```
+
+

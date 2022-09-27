@@ -1,0 +1,407 @@
+# Using R, where is the functional inverse of `set.seed`; that is, `get.seed`
+
+A few days ago, I posted a question on stackoverflow "Using R, how to get.seed()?"
+
+<https://stackoverflow.com/questions/66271604/using-r-how-to-get-seed/>
+
+It was, of course, marked as a duplicate, redirecting to a question from 7 years, 3 months ago:  "Can I get.seed() somehow?"
+
+<https://stackoverflow.com/questions/19614314/can-i-get-seed-somehow/>
+
+The first issue is the "bump" protocol is being suppressed by stackoverflow.  I realized the so-called duplicate existed, yet it doesn't answer the question.
+
+The intentional "bump" is to emphasize that this issue has been raised over **7 years ago** and still has not received the appropriate attention.
+
+## The Law of the Inverse
+
+In software design, a function that has an inverse logically, should also have an inverse.
+
+For example,consider the function `deg2rad` that exists in C-based languages around the world.  What good would this function be if the inverse function `rad2deg` did not exist.
+
+In this world of too-much-information (TMI), CRAN now has over 17,000 packages, it is difficult to find a core package to "marry to", so I wrote my own functions:
+
+<https://github.com/MonteShaffer/humanVerseWSU/blob/master/humanVerseWSU/R/functions-maths.R />
+
+```
+deg2rad = function(degrees)
+  {
+  radians = degrees * (pi/180);
+  radians;
+  }
+  
+rad2deg = function(radians)
+  {
+  degrees = radians * (180/pi);
+  degrees;
+  }
+```
+
+After spending the last 6 months or so immersed in "R", I have vetted packages and feel like `pracma::deg2rad` is sufficient.  So I will not need my own functions in this regard, as I can assess that pracma is a well-written, mathematically-sound package.
+
+## Mathematics informs the inverse
+
+Addition has an inverse called subtraction.
+
+Multiplication has an inverse called division.
+
+This concept should also be applied in software engineering.
+
+Ergo, `set.seed` should have an inverse `get.seed`.
+
+Why it doesn't is part of the mystic that makes `R` so amazing and so frustrating.
+
+In the forums, many `R` gurus share the small "why" and not the big "why".
+
+## A rising tide raising all boats: solution-driven discussion
+
+So I have decided that it may be easier to demonstrate the solution, then have CRAN review it and ask themselves the bigger why.  This solution is limited because it is not in the `base` and each call to some random event could have the `seed` appended to the resulting numeric vector using a simple "add attribute" protocol.
+
+### The rationale
+When you call `set.seed(123)` you are passing in an integer that goes through one of a multiple of pseudo-random number generators.  These are not encryption-secure level generators, but are sufficient for simulation purposes.  If you call `rnorm(5)` without setting the seed, under the hood it has to set the seed, and does so in a way that is equivalent to `set.seed(NULL);`.  
+
+This single integer (which can be negative), many times turns into an array of random vectors.  When I run a simulation that I want to be random, it would be nice to store in the result dataframe the seed that built that data so the result is replicable?  Is that not a primary goal of good data analysis?
+
+### Mersenne Twister Random Number Generator
+
+The "Mersenne Twister Random Number Generator" is the default protocol implemented in `R`.  Others have implemented it, and bugs have been found.  For example `mt_rand` replaced `rand` in `PHP`, a bug was found, so legacy code needs to use that "buggy edition" moving forward.
+
+### Statistical Foundations of Random Generation
+I took a course from the amazing Ron Mittelhammer.  His textbook "Mathematical Statistics for Economics and Business" is an important treatise for any serious readers of this domain.
+
+In this course, a main take-away I learned in the first few weeks of the semester was that any distribution can be randomly generated from the uniform distribution.  The function `runif` is the engine that can run them all.
+
+## C-based solution
+Following good `C` protocols, you can see the necessary code includes below:
+
+```
+utils::globalVariables(c(".random.seed.memory"));
+github.monte = "https://raw.githubusercontent.com/MonteShaffer/";
+include.me = paste0(github.monte, "humanVerse/main/humanVerse/R/functions-str.R");  
+source(include.me); # trimMe function
+
+include.me = paste0(github.monte, "humanVerse/main/humanVerse/R/functions-random.R");  
+source(include.me); # getSeed, setSeed, and so on.
+```
+
+The `.random.seed.memory` is a global list where I keep a memory of my seeds.  It would be ideal if this was tied to each `rnorm` call, but I can't fix `base`.  There is a "recursive issue" in an ideal `base` solution that would have to be noodled, my "linear solution" does not have the problem.
+
+### So I began by writing an `rand` function:
+
+Using `runif` I created a `rand` function.  Most just use `sample` but under the hood (see above), likely it is calling `runif`.  Also, sample has to create all elements between two values which is an unnecessary memory waste.
+
+```
+rand = function(min = -1*as.integer(Sys.time()), max = as.integer(Sys.time()), n = 1, method = "high-low", sample.replace = TRUE, seed = NULL)
+    {
+	}
+```
+A minimum (`min`) value is automatically defined as the negative "current" time.  
+
+A maxium (`max`) value is automatically defined as the positive "current" time. 
+
+How many random numbers (`n`) to generate is one by default.
+
+The fastest `method` is the classic "high-low" method.  I included "sample" as a method so added `sample.replace` as a possible parameter.
+
+The recursive issue is in the `seed` parameter that calls `setSeed` that calls an infinite loop if `NULL` were not my friend; which it is.
+
+```
+rand = function(min = -1*as.integer(Sys.time()), max = as.integer(Sys.time()), n = 1, method = "high-low", sample.replace = TRUE, seed = NULL)
+    {
+    # pracma::primes ... maybe seed with primes, using sieve attributed to Erasthostenes
+    if(!is.null(seed)) { setSeed(seed); }
+    me = substr( trimMe( tolower(method) ), 1, 2);
+	n = as.integer ( n );
+	if(is.na(n) || n < 1)
+		{
+		warning( paste0('Bad value for n "', n, '" in function [rand]', "\n", "Setting n=1") );
+		n = 1;
+		}
+    if(me == "hi")  # high-low method
+      {
+      return( as.integer(( (max + 1) - min) * runif(n) + min) );
+      }
+    if(me == "fl")  # floor method
+      {
+      return( as.integer( floor( runif(n, min = min, max = (max + 1) ) ) ) );
+      }
+    if(me == "sa")  # sample method
+      {
+      if(!sample.replace)
+        {
+        len = (max - min) + 1;
+        if(len < n)
+          {
+          warning( "sample.replace forced to TRUE" );
+          sample.replace = TRUE;
+          }
+        }
+      return( sample(min:max, n, replace = sample.replace) );
+      }
+    stop( paste0('Unknown method "', method, '" in function [rand]') );
+    }
+
+```
+The error checking has to deal with edge cases on bad inputs.  Stricter typing may eliminate the need for so much additional coding.
+
+**Note: The `trimMe` function is just allowing the user to enter a noisy `method` and is a required custom function found amazingly in an include called `functions-str.R`.**
+
+
+So a basic rand function.  Some examples:
+```
+rand();            # positive or negative integer
+rand(1);           # positive integer only
+rand(1, n=3);      # returns 3 positive integers
+rand(1,10, n=5, method="floor");  # Uses the floor method
+rand(1,10, n=5, method="sample"); # Uses the sample method (available, but why?)
+rand(1,10, n=5, method="sample", sample.replace=FALSE); # min, max, n must be comformable "with replacement = FALSE"
+```
+
+### A memory needs `initSeedMemory`
+By default, the functions currently have verbosity high, as I want to understand the mechanics.  Eventually, I will change the default option to lower the verbosity.
+
+```
+initSeedMemory = function(purge.memory = FALSE, verbose = TRUE)
+  {
+  if(!exists(".random.seed.memory") || purge.memory)
+    {
+    if(verbose)
+      {
+      cat("initSeedMemory :: initializing list '.random.seed.memory'", "\n");
+      }
+    .GlobalEnv$.random.seed.memory = list();
+    }
+  }
+```
+
+Creates an empty list, if not available yet.
+
+### Setting and storing seed `setSeed`
+There is a lot of lines of code for the two required lines.
+
+- store the seed in the memory
+- run the internal `set.seed`
+
+```
+setSeed = function(seed, force.new = FALSE, key = "last", ..., args.set = list(), verbose = TRUE )
+  {
+  # can I have two ellipses in a single function?
+    # one for initSeed
+    # one for set.seed
+    # nope, argslist
+  if(is.null(seed) || force.new == TRUE)
+    {
+    seed = initSeed(...);
+    if(verbose)
+      {
+      cat("setSeed :: generating new integer seed ... ", "\t", seed, "\n");
+      }
+    initSeedMemory();
+    }
+  .GlobalEnv$.random.seed.memory[[key]] = seed;
+  if(verbose)
+      {
+      cat("setSeed :: global value stored [key] = ",key," ... [seed] = ",seed, "\n");
+      }
+  if( !exists("kind", args.set) )         { kind = NULL; }
+  if( !exists("normal.kind", args.set) )  { normal.kind = NULL; }
+  if( !exists("sample.kind", args.set) )  { sample.kind = NULL; }
+  if(verbose)
+      {
+      cat("setSeed :: calling base::set.seed with seed ... ", seed, "\n");
+      }
+  set.seed(seed, kind=kind, normal.kind=normal.kind, sample.kind=sample.kind);
+  }
+```
+
+### Getting the stored value `get.seed` as `getSeed`
+Now I can get the inverse of `set.seed` with `get.seed` now cast as `setSeed` and `getSeed` as they are not part of the `base` internals.
+
+```
+getSeed = function(key, verbose = TRUE)
+  {
+  if( missing(key) ) { key = "last"; }
+  if(verbose) { cat("getSeed :: looking up key ... ", "\t", key); }
+  if(exists(key, .random.seed.memory))
+    {
+    if(verbose) { cat("\n\t ... found with value: ", "\t", .GlobalEnv$.random.seed.memory[[key]], "\n"); }
+    .GlobalEnv$.random.seed.memory[[key]];
+    } else { FALSE; }
+  }
+```
+
+### Initialize a `NULL` seed
+So what if I have a `NULL` value for `set.seed` or `setSeed`?
+
+Well, I can initialize with `initSeed` that is just calling `rand`.  I use the ellipses `...` in setSeed to allow parameters to be passed forward to `initSeed` which would just be passed along into `rand`.  Since I only want one result, I just grab the first element even if the `...` parameters specified a larger `n`.
+
+## Testing out the solution
+So it is of note to recognize that the timing of `set.seed` and a call to `rnorm` is not well documented.  I find it to be good practice to call them immediately together.
+
+```
+set.seed(123); rnorm(5);
+set.seed(123); runif(5);
+```
+
+Some of you may just call the first one, and assume the seed is still set.  That is an "assumption" and should be carefully considered.
+
+### Basic solution
+```
+print("random 5"); rnorm(5);
+
+setSeed(NULL);  # this will automatically call initSeedMemory() if necessary
+setSeed(.random.seed.memory$last); rnorm(5);
+setSeed(getSeed()); rnorm(5);
+
+print("random 5"); rnorm(5);
+
+setSeed(getSeed()); rnorm(5);
+```
+
+It just by default stores the last value in the global variable with a key literally called `last`.  We have the inverse `get.seed` for `set.seed`.  But since the "bump" has been ignored for over *7 years*, the solution is my current hack (which may have bugs) using `getSeed` and `setSeed`.
+
+### A few keys of memory
+
+We have added a key `nsim` as a secondary memory element.  The basic calls are retrieving `last` from memory; this new call with `nsim` is returning its key from memory.
+
+```
+print("random 5"); rnorm(5);
+
+initSeedMemory( purge.memory = TRUE);
+setSeed(NULL); 
+setSeed(.random.seed.memory$last); rnorm(5);
+setSeed(getSeed()); rnorm(5);
+getSeed(); # accessor to .random.seed.memory
+.random.seed.memory;
+
+print("random 5"); rnorm(5);
+
+setSeed(NULL, key="nsim"); rnorm(5);  # setSeed(NULL, "nsim"); rnorm(5);
+setSeed(.random.seed.memory$nsim, key="nsim"); rnorm(5);
+setSeed(getSeed("nsim"), key="nsim"); rnorm(5);
+setSeed(getSeed("nsim"), "nsim"); rnorm(5);
+getSeed("nsim"); # accessor to .random.seed.memory
+.random.seed.memory;
+
+print("random 5"); rnorm(5);
+
+setSeed(.random.seed.memory$last); rnorm(5);
+setSeed(getSeed()); rnorm(5);
+.random.seed.memory;
+
+set.seed(.random.seed.memory$last); rnorm(5);
+set.seed(.random.seed.memory$nsim); rnorm(5);
+
+.random.seed.memory;
+
+print("random 5"); rnorm(5);
+```
+
+Since the purpose of this post is to discuss the mechanics, I will let you copy/paste into RGui or RStudio and see the verbose outputs for yourself.  Enjoy!
+
+# Conclusion
+
+`R` is amazing.  The work of the original `S` team to build a robust programming language for statistics is phenomenal.  As users of `R` we just want some evolution and progress to make the tools more transparent so we can get onto the statistical stuff as the programming becomes easier and easier.
+
+This example is a basic "getter-setter" type function used in modern programming.  I don't want to say OOP because it doesn't have to be.  But returning basic values are simple wrapper functions that would make the world of `R` a better place.
+
+## Get and set `attributes`
+This is a simple example of creating some wrapper functions which reduces my personal cognitive load:
+
+```
+getAttribute = function(myAttribute, myObj)
+	{
+	attributes(myObj)[[myAttribute]];	
+	}
+	
+setAttribute = function(myAttribute, myValue, myObj)
+	{
+	attributes(myObj)[[myAttribute]] = myValue;	
+	myObj;  # no object referencing, so I must return
+	}
+```
+Please note that the `setAttribute` is not in an OOP environment, so we have to return the object.
+
+```
+setSeed(NULL); x = rnorm(5);
+x = setAttribute("seed", getSeed(), x);
+```
+I believe it is time to say `et oila`.  Imagine if `base` took care of this for you, so you didn't have to.  Every time you called a `rnorm` or `sample`, appended to the result was an attribute with a single-integer `seed` (and of course, the entire `call` could be included if necessary).
+
+## Get and Set `par`
+For example the parameter options `par` has a quirky difference between getting and setting.
+
+<https://stackoverflow.com/questions/66291816/using-r-how-to-getpar-and-setpar-to-access-the-guts-of-par/66291959?noredirect=1#comment117206587_66291959/>
+
+Shout out to `r2evans` for his solution:  <https://stackoverflow.com/users/3358272/r2evans/>
+
+This just emphasizes the `quirkiness` of R and its need for a bit more maturation in its evolution.  A few simple wrapper functions will reduce the strain.  One person has to figure out the quirks, and the average user doesn't get interrupted on the quest for good data analytics by going down one of these `R`abbit holes.
+
+```
+# save memory ... restoreState ... pdf 
+# par(mar=c(0.25, 0.25, 0.25, 0.25)
+	# R.O. indicates read-only arguments: These may only be used in queries and cannot be set. ("cin", "cra", "csi", "cxy", "din" and "page" are always read-only.)
+	# https://www.rdocumentation.org/packages/graphics/versions/3.6.2/topics/par
+setParKey = function(myKey, myValue)
+	{	
+	pnames = names( par(no.readonly = TRUE) );
+	if(is.element(myKey, pnames))
+		{
+		# par()[[myKey]] = myValue;
+		par(setNames(list(myValue), myKey))
+		}
+	}
+	
+getParKey = function(myKey)
+	{	
+	pnames = names( par(no.readonly = FALSE) );
+	if(is.element(myKey, pnames))
+		{
+		# par()[[myKey]];	
+		par(myKey);
+		}
+	}
+```
+
+## Wrapping into `C` grammar
+
+`R` doesn't need a new grammar.  It just needs more `C` wrapper functions to make it more transparent in the data-analytics process.  I was very intentional calling my core function above `rand`.  <https://www.cplusplus.com/reference/cstdlib/rand/>  (I could have gone down the `srand` path, but at the moment `set.seed` is the only `R` protocol.  But a wrapper may be in order at some point.)
+
+Consider `strlen` from the `C99` standard:
+
+```
+#' strlen
+#'
+#' @param str the character string
+#'
+#' @return the numeric length of said string
+#' @export
+#'
+#' @examples
+#' strlen("3.1415926535897932384626");
+#' strlen( pi );
+#' strvec = c("hi","how","are","you"); strlen(strvec);
+strlen = function(str)
+  {
+  # history :: # https://en.cppreference.com/w/c/string/byte/strlen
+  # http://www.cplusplus.com/reference/cstring/
+  # https://en.wikipedia.org/wiki/C99
+  # https://www.programiz.com/c-programming/library-function/string.h/strlen
+  # vectorized ... already
+  nchar( as.character(str), type="chars");
+  }
+```
+A simple wrapper function.  And it follows a standard.  So if I am programming in one of several `C` based languages, I am not doing a lot of extraneous "cognitive mapping" and I can just get to writing code: `git R done`!
+
+The goal should be to wrap `R` functions in common `C` grammar.  We don't need a new language.  We need to cleanup and organize our current language.
+
+Beyond the C99 standards (which covers `C` and `C++`), the other two popular `C`-based interpreted languages to consider would be `PHP` and `Javascript` (ECMA).  `PHP` was literally a `CGI` wrapper to enable a web server (e.g., Apache) to access `C` code.  (Is that "Common Gateway Interface" or "C Gateway Interface").
+
+The goal should not turn `R` into any of these languages.  If I want to scrap websites, I could use `R`.  Last fall, I did as an experiement.  It took about 30 days to download a million pages on twelve instances.  This month, I installed `XAMPP` and used APACHE/PHP (which has 20+ years of http-socket enhancements in their codebase).  I downloed 1.5 million pages in less than 4 days using twelve instances.  The fastest 'interpreted' parsing language in the `C` universe in `PHP`.  So I can build a few functions to demonstrate that `R` can do some of the things, but you choose the right tool for the job.  `PHP` harvests, parses, and cleanses the data (following good data provenance protocols). `PHP` builds a "pipe-delimited" set of text files that I can read into `R` and do the analysis. Interdependence is the key to optimal data analytics.  (I will demonstrate this process in an upcoming blog where I analyze the 17,000 CRAN packages and perform a packageRank and authorRank using eigenvector network centrality, plus building some custom ranking indexes.)
+
+## Last word
+As you can see, I have a certain style of programming and writing functions.  The `argmax` I am trying to optimize is overall efficiency.  Whitesmith indentation is the fastest way to read code; extra `{}` braces and semicolons `;` allows the code to work when transported a bit hincky, and `namingFunctionsThatMeanWhatTheyDoAsHumansRead` is also very intentional.
+
+Welcome to the `R::humanVerse`!
+
+
+

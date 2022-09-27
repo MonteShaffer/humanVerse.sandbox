@@ -1,0 +1,22 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+# C++ str
+```{r}
+
+# C:\\_git_\\github\\MonteShaffer\\humanVerse\\cpp
+
+Rcpp::sourceCpp("C:\\_git_\\github\\MonteShaffer\\humanVerse\\HVcpp\\src\\str.cpp");
+
+### Rcpp::sourceCpp("https://raw.githubusercontent.com/MonteShaffer/humanVerse/main/humanVerse/src/cpp/str.cpp"); # DOESN"T WORK
+
+
+
+```
+
+
+```{r}
+
+```
+

@@ -1,0 +1,27 @@
+
+#menu,
+#navigation,
+.magnify-right,
+.magnify-left,
+#footer_link,
+#footer
+{
+    display:none
+}
+.classImage{
+    /**/
+}
+h2.print{
+    display:block;
+    padding:10px 0;
+    border-bottom:1px solid #000;
+}
+#main_content{
+   margin-left:0;
+}
+.grey_right{
+	border-right:none;
+}
+.grey_left{
+	border-left:none;
+}

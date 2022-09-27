@@ -1,0 +1,99 @@
+
+data.cacheRDS = function(main, raw, rdsfile, access.remotely = FALSE, force.download = FALSE)
+	{
+	if(access.remotely)
+			{
+			my.file = paste0(main, rdsfile, "?raw=true");
+			return ( readRDS.url(my.file) );			
+			} else 	{
+					# my.file = paste0(main, rdsfile);
+					# my.file = str_replace("blob/main", "raw/main", my.file);
+					
+					my.file = paste0(raw, rdsfile);
+					my.file = str_replace("blob/main", "main", my.file);
+					
+					# https://raw.githubusercontent.com/MonteShaffer/imdb/main/imdb/inst/extdata/all.actors.rds
+					
+					local = getRemoteAndCache(my.file, force.download = force.download);
+					return( readRDS(local) );
+					}	
+	
+	}
+	
+	
+data.prepare.imdb = function()
+	{
+	# https://github.com/MonteShaffer/imdb/blob/main/imdb/inst/extdata/actors.byyear.gem50.rds
+	
+	main  = .GlobalEnv$.humanVerse[["path"]]$github$main; 
+	main = str_replace("humanVerse","imdb", main);
+	main = paste0(main, "blob/main/imdb/inst/extdata/");
+	
+	# https://github.com/MonteShaffer/imdb/blob/main/imdb/inst/extdata/actors.byyear.gem50.rds
+	
+	raw  = .GlobalEnv$.humanVerse[["path"]]$github$raw; 
+	raw = str_replace("humanVerse","imdb", raw);
+	raw = paste0(raw, "blob/main/imdb/inst/extdata/");
+	
+	
+	imdb = list();
+    actors = list();
+  actors$all = data.cacheRDS(main, raw, "all.actors.rds");
+  actors$popular50 = data.cacheRDS(main, raw,  "actors.byyear.popular50.rds");
+  actors$gem50 = data.cacheRDS(main, raw,  "actors.byyear.gem50.rds");
+  actors$headliners = data.cacheRDS(main, raw,  "actors.headliners.rds");
+  actors$top250 = data.cacheRDS(main, raw,  "actors.top250.rds");
+  actors$nm5000 = data.cacheRDS(main, raw,  "actors.nm5000.rds");
+  actors$tt5000 = data.cacheRDS(main, raw,  "actors.tt5000.rds");
+
+    movies = list();
+  movies$all = data.cacheRDS(main, raw,  "all.movies.rds");
+  movies$popular50 = data.cacheRDS(main, raw,  "movies.byyear.popular50.rds");
+  movies$gem50 = data.cacheRDS(main, raw,  "movies.byyear.gem50.rds");
+  movies$top250 = data.cacheRDS(main, raw,  "movies.top250.rds");
+  movies$tt5000 = data.cacheRDS(main, raw,  "movies.tt5000.rds");
+
+  movies.df = list();
+  movies.df$cast = data.cacheRDS(main, raw,  "movies-cast.rds");
+  movies.df$text = data.cacheRDS(main, raw,  "movies-text.rds");
+  movies.df$info = data.cacheRDS(main, raw,  "movies-info.rds");
+
+  headliners = list();
+  # headliner is a top actor, director, writer, or company
+  # to be in this list, the said person/institution must have been
+  # a headliner on at least 15 movies.
+    headliners$companies = readRDS(
+      system.file("extdata", "headliners.companies.rds");
+    headliners$directors = readRDS(
+      system.file("extdata", "headliners.directors.rds");
+    headliners$writers = readRDS(
+      system.file("extdata", "headliners.writers.rds");
+    headliners$actors = actors$headliners;
+
+  glue = list();
+    # this was original seed to determine `headliners` above
+    # from this seed, those additional pages were collected in
+    # all.actors and all.movies ...
+    glue$movies.creatives = data.cacheRDS(main, raw,  "glue.movies.headliners.rds");
+
+    imdb$all.movies.creatives = data.cacheRDS(main, raw,  "all.movies.creatives.rds");
+    imdb$all.movies.companies = data.cacheRDS(main, raw,  "all.movies.companies.rds");
+    # imdb$all.movies.extra = readRDS(
+    # system.file("extdata", "all.movies.extra.rds");
+    imdb$all.movies.actors.characters = data.cacheRDS(main, raw,  "all.movies.actors.characters.rds");
+
+    imdb$all.actors.rank = data.cacheRDS(main, raw,  "all.actors.rank.rds");
+    imdb$all.actors.movies = data.cacheRDS(main, raw,  "all.actors.movies.rds");
+    imdb$all.actors.info = data.cacheRDS(main, raw,  "all.actors.info.rds");
+
+    imdb$moviecount.byyear = data.cacheRDS(main, raw,  "moviecount.byyear.rds");
+
+    imdb$actors = actors;
+    imdb$glue = glue;
+    imdb$headliners = headliners;
+    imdb$movies = movies;
+    imdb$movies.df = movies.df;
+
+  .GlobalEnv$imdb.data = imdb;
+	
+	}

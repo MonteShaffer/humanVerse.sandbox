@@ -1,0 +1,61 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+packages = (.packages());
+info = list();
+for(package in packages)
+{
+  info[[package]] = functions.listFromPackage(package);
+  
+}
+
+# https://stackoverflow.com/questions/25978301/how-to-retrieve-formals-of-a-primitive-function
+
+has.na = NULL;
+for(package in packages)
+{
+  pinfo = info[[package]];
+  pn = length(pinfo$public);
+  for(i in 1:pn)
+  {
+    fn = pinfo$public[i];
+    fn.obj = suppressError( eval(parse(text=fn)), show.notice=FALSE); 
+    if(!is.error(fn.obj))
+    {
+      if(is.function(fn.obj))
+        {
+      x = suppressError( formals( fn.obj ), show.notice=FALSE); 
+      if(!is.error(x))
+      {
+      
+          if(is.primitive(fn.obj)) { x = formals(args(fn.obj)); }
+          if("na.rm" %in% names(x) )
+          {
+            row = c(package, fn, x$na.rm);
+            has.na = rbind(has.na, row);
+          }
+        }
+      }
+    }
+  }
+  #  x = formals(.DollarNames)
+}
+
+
+
+
+
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.

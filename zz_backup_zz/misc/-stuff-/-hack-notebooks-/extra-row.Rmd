@@ -1,0 +1,112 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+
+```{r}
+a = 5; b=6; c=7;
+
+cat("\n","a = ", a, "\t", "b = ", b, "\t", "c = ", c, "\n" );
+
+for(i in 1:10)
+{
+  p = rand(1,10, n=3);
+  m = list("a"=p[1], "b"=p[2], "c" = p[3]);
+  # extractList(m, envir=.GlobalEnv);
+  # extractList(m, envir=environment());
+  extractList(m);
+  cat("\n","a = ", a, "\t", "b = ", b, "\t", "c = ", c, "\n");
+  
+  x = a + b + c;
+  print(x);
+  
+  
+}
+
+cat("\n","a = ", a, "\t", "b = ", b, "\t", "c = ", c, "\n" );
+
+
+
+
+```
+
+```{r}
+a = 5; b=6; c=7;
+
+
+doobee = function()
+{
+for(i in 1:10)
+{
+  p = rand(1,10, n=3);
+  m = list("a"=p[1], "b"=p[2], "c" = p[3]);
+  # extractList(m, envir=.GlobalEnv);
+  extractList(m, envir=environment());
+  # extractList(m);
+  cat("\n","a = ", a, "\t", "b = ", b, "\t", "c = ", c, "\n");
+  
+  x = a + b + c;
+  print(x);
+  
+  
+}
+}
+
+
+getSrcDirectory(doobee)
+
+cat("\n","a = ", a, "\t", "b = ", b, "\t", "c = ", c, "\n" );
+
+doobee();
+
+cat("\n","a = ", a, "\t", "b = ", b, "\t", "c = ", c, "\n" );
+
+
+
+
+```
+
+
+
+
+
+```{r}
+
+cat("\n", "========");
+str ( (tt = tryCatch( eval(parse(text = "monte[[1]]")), msg = "ERROR", error = identity) ) );
+if(is.null(tt)) { cat("\n", "====  NULL  ===="); }
+cat("\n", "========");
+  typeof(tt);
+cat("\n", "========");
+cat("\n\n\n");
+```
+
+```{r}
+
+cat("\n", "========");
+str ( (tt = tryCatch( eval(parse(text = "monte[[1234545]]")), msg = "ERROR", error = identity) ) );
+if(is.null(tt)) { cat("\n", "====  NULL  ===="); }
+cat("\n", "========");
+  typeof(tt);
+cat("\n", "========");
+cat("\n\n\n");
+
+```
+
+
+
+```{r}
+obj.str = "monte$jk$m";
+
+
+aa = tryCatch( obj.access(obj.str), error = identity);
+
+str(aa);
+
+aa;
+
+
+```
+
