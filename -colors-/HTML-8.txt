@@ -1,0 +1,9 @@
+library|idx|hex.color|color|red|green|blue|alpha
+HTML-8|1|#00FFFF|aqua|0|255|255|255
+HTML-8|2|#000000|black|0|0|0|255
+HTML-8|3|#0000FF|blue|0|0|255|255
+HTML-8|4|#FF00FF|fuchsia|255|0|255|255
+HTML-8|5|#808080|gray|128|128|128|255
+HTML-8|6|#008000|green|0|128|0|255
+HTML-8|7|#00FF00|lime|0|255|0|255
+HTML-8|8|#800000|maroon|128|0|0|255

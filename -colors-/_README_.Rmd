@@ -1,0 +1,321 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+
+```{r}
+
+folderizeURL = function(url = "https://en.wikipedia.org/wiki/Columbia_Falls,_Montana")
+  {
+	# could be multivariate?
+  # TODO: update to explodeMe and str_replace
+  info = strsplit(url, "//", fixed=TRUE);
+	str = info[[1]][2];
+	prot = str.replace(":","", info[[1]][1]);
+
+    #find = c("/",".",",");
+    #replace = c("_-_","^","+");
+	
+	find = c("/",",");
+    replace = c("^","+");
+    n.find = length(find);
+  for(i in 1:n.find)
+    {
+    str = gsub(find[i],replace[i],str,fixed=TRUE);
+    }
+	str = paste0("__",prot,"__", str);
+  str;
+  }
+```
+
+
+
+```{r}
+writeToPipe = function(df, filename, header=TRUE, quote="", sep="|", row.names=FALSE)
+  {
+  if(quote == "") { quote = FALSE; }
+  # fp = file(filename, open="wt");
+  # writeLines("# comments #");
+  # write.csv(df, fp);
+  # close(fp);
+  # open connection, write # comment header #, nearest data, write 
+  # date types ... if row.names = TRUE, do what ... if they wanted row.names, make it a column
+  # so I restore types ... as-is on dataframe 
+  utils::write.table(df, file=filename, quote=quote, col.names=header, row.names=row.names, sep=sep);
+  }
+
+```
+
+
+```{r}
+
+library = "R-657";
+
+colors = grDevices::colors(); 
+				x = col2rgb(colors);
+				hexcolors = rgb2col(x); 
+				
+				xt = as.data.frame( t(x) );
+				if(!is.set(xt$alpha)) { xt$alpha = 255; }
+				xt$color = colors;
+				xt$hex.color = hexcolors;
+				
+				## rownames(xt) = NULL;  # DOESN'T WORK
+				## xt = property.set("row.names", xt, NULL, as.null=TRUE); ## ALSO not working, 8/10/22 one of those days
+				xt$library = library;
+				xt$idx = 1:length(xt$library);
+				cols = c("library", "idx", "hex.color", "color", "red", "green", "blue", "alpha");
+				xt = df.setColumnOrder(xt, cols);
+        xt = xt[order(xt$color),]
+				
+setwd("C:/_git_/github/MonteShaffer/humanVerse/-data-/-colors-")
+writeToPipe(xt, paste0(library, ".txt"));
+				
+
+
+```
+
+
+
+```{r}
+# HTML-16
+
+url = "http://c.mshaffer.com/js/colorpicker/colorpicker.colors.js";
+  out = folderizeURL(url);
+download.file(url, out)
+
+# I copied and pasted into variable using jsonlite::parse
+html = jsonlite::parse_json('{
+"00FFFF":{"color":"00FFFF","name":"aqua","row":"1","column":"1"},
+"000000":{"color":"000000","name":"black","row":"1","column":"2"},
+"0000FF":{"color":"0000FF","name":"blue","row":"1","column":"3"},
+"FF00FF":{"color":"FF00FF","name":"fuchsia","row":"1","column":"4"},
+"808080":{"color":"808080","name":"gray","row":"2","column":"1"},
+"008000":{"color":"008000","name":"green","row":"2","column":"2"},
+"00FF00":{"color":"00FF00","name":"lime","row":"2","column":"3"},
+"800000":{"color":"800000","name":"maroon","row":"2","column":"4"},
+"000080":{"color":"000080","name":"navy","row":"3","column":"1"},
+"808000":{"color":"808000","name":"olive","row":"3","column":"2"},
+"800080":{"color":"800080","name":"purple","row":"3","column":"3"},
+"FF0000":{"color":"FF0000","name":"red","row":"3","column":"4"},
+"C0C0C0":{"color":"C0C0C0","name":"silver","row":"4","column":"1"},
+"008080":{"color":"008080","name":"teal","row":"4","column":"2"},
+"FFFFFF":{"color":"FFFFFF","name":"white","row":"4","column":"3"},
+"FFFF00":{"color":"FFFF00","name":"yellow","row":"4","column":"4"}
+}');  
+
+
+```
+
+```{r}
+hexstr = checkHEX( names(html) );
+color.names = unlist( list.getElements(html,2) )
+
+
+x = col2rgb(hexstr);
+				hexcolors = rgb2col(x);  # hexcolors == hexstr;
+
+xt = as.data.frame( t(x) );
+				if(!is.set(xt$alpha)) { xt$alpha = 255; }
+				xt$color = color.names;
+				xt$hex.color = toupper(hexcolors);
+				
+				## rownames(xt) = NULL;  # DOESN'T WORK
+				## xt = property.set("row.names", xt, NULL, as.null=TRUE); ## ALSO not working, 8/10/22 one of those days
+				
+				xt$library = "HTML-16";
+				xt$idx = 1:length(xt$library);
+				cols = c("library", "idx", "hex.color", "color", "red", "green", "blue", "alpha");
+				xt = df.setColumnOrder(xt, cols);
+        xt = xt[order(xt$color),]
+				
+setwd("C:/_git_/github/MonteShaffer/humanVerse/-data-/-colors-")
+writeToPipe(xt, "HTML-16.txt")
+
+```
+
+```{r}
+hexstr = checkHEX( names(html) );
+color.names = unlist( list.getElements(html,2) )
+
+
+x = col2rgb(hexstr);
+				hexcolors = rgb2col(x);  # hexcolors == hexstr;
+
+xt = as.data.frame( t(x) );
+				if(!is.set(xt$alpha)) { xt$alpha = 255; }
+				xt$color = color.names;
+				xt$hex.color = toupper(hexcolors);
+				
+				## rownames(xt) = NULL;  # DOESN'T WORK
+				## xt = property.set("row.names", xt, NULL, as.null=TRUE); ## ALSO not working, 8/10/22 one of those days
+				
+				xt$library = "HTML-8";
+				xt$idx = 1:length(xt$library);
+				cols = c("library", "idx", "hex.color", "color", "red", "green", "blue", "alpha");
+				xt = df.setColumnOrder(xt, cols);
+				xt = xt[1:8, ];
+        xt = xt[order(xt$color),]
+				
+setwd("C:/_git_/github/MonteShaffer/humanVerse/-data-/-colors-")
+writeToPipe(xt, "HTML-8.txt")
+
+
+```
+
+
+
+
+
+
+
+```{r}
+# X11-140
+
+library = "X11-141";
+
+## jsonlite::parse() from colors.mshaffer.com
+hexstr = checkHEX( names(x11) );
+color.names = unlist( list.getElements(x11,2) )
+color.class = unlist( list.getElements(x11,3) )
+
+####
+x = col2rgb(hexstr);
+				hexcolors = rgb2col(x);  # hexcolors == hexstr;
+
+xt = as.data.frame( t(x) );
+				if(!is.set(xt$alpha)) { xt$alpha = 255; }
+				xt$color = color.names;
+				xt$hex.color = toupper(hexcolors);
+				xt$class = color.class;
+				
+				
+## //"FFA07A":{"color":"FFA07A","name":"LightSalmon","class":"Orange"},
+##//"FFA07A":{"color":"FFA07A","name":"LightSalmon","class":"Red"},     which is it
+## put in two records, one for each class
+	
+				row = xt[which(xt$color == "LightSalmon"),];
+				row$class = "Orange";   #insert between
+				
+				xt = rbind(xt, row);
+				
+				## rownames(xt) = NULL;  # DOESN'T WORK
+				## xt = property.set("row.names", xt, NULL, as.null=TRUE); ## ALSO not working, 8/10/22 one of those days
+				
+				xt$library = library;
+				xt$idx = 1:length(xt$library);
+				cols = c("library", "idx", "hex.color", "color", "red", "green", "blue", "alpha", "class");
+				xt = df.setColumnOrder(xt, cols);
+				xt = xt[order(xt$color),]
+				
+
+				
+setwd("C:/_git_/github/MonteShaffer/humanVerse/-data-/-colors-")
+writeToPipe(xt, paste0(library, ".txt"));
+
+```
+
+
+
+
+
+
+
+```{r}
+# WEB-216
+
+
+library = "WEB-216";
+
+
+## jsonlite::parse() from colors.mshaffer.com
+hexstr = checkHEX( names(web) );
+color.names = paste0( "WEB.", 1:216);
+
+####
+x = col2rgb(hexstr);
+				hexcolors = rgb2col(x);  # hexcolors == hexstr;
+
+xt = as.data.frame( t(x) );
+				if(!is.set(xt$alpha)) { xt$alpha = 255; }
+				xt$color = color.names;
+				xt$hex.color = toupper(hexcolors);
+				
+				## rownames(xt) = NULL;  # DOESN'T WORK
+				## xt = property.set("row.names", xt, NULL, as.null=TRUE); ## ALSO not working, 8/10/22 one of those days
+				
+				xt$library = library;
+				xt$idx = 1:length(xt$library);
+				cols = c("library", "idx", "hex.color", "color", "red", "green", "blue", "alpha");
+				xt = df.setColumnOrder(xt, cols);
+        xt = xt[order(xt$color),]
+				
+setwd("C:/_git_/github/MonteShaffer/humanVerse/-data-/-colors-")
+writeToPipe(xt, paste0(library, ".txt"));
+
+
+
+
+```
+
+
+
+
+```{r}
+# ANSI
+
+url = "http://www.calmar.ws/vim/256-xterm-24bit-rgb-color-chart.html";
+  out = folderizeURL(url);
+download.file(url, out)
+
+
+str = readChar(out, 99999);
+
+tmp = str.explode('</b>', str);   #library(humanVerse)
+tmp2 = str.explode('<b>', tmp);
+
+# color.numbers = as.integer(list.getElements(tmp2, 2))[-c(.end)];
+color.numbers = as.integer(list.getElements(tmp2, 2))[1:256];
+
+tmp3 = str.explode('</span>', tmp);
+
+color.hex = str.trim(list.getElements(tmp3, 1))[-c(1)];
+```
+
+
+```{r}
+####
+
+library = "ANSI-256";
+
+## jsonlite::parse() from colors.mshaffer.com
+hexstr = checkHEX( color.hex );
+color.names = paste0( "ANSI.", color.numbers);
+
+####
+x = col2rgb(hexstr);
+				hexcolors = rgb2col(x);  # hexcolors == hexstr;
+
+xt = as.data.frame( t(x) );
+				if(!is.set(xt$alpha)) { xt$alpha = 255; }
+				xt$color = color.names;
+				xt$hex.color = toupper(hexcolors);
+				
+				## rownames(xt) = NULL;  # DOESN'T WORK
+				## xt = property.set("row.names", xt, NULL, as.null=TRUE); ## ALSO not working, 8/10/22 one of those days
+				
+				xt$library = library;
+				xt$idx = 1:length(xt$library);
+				cols = c("library", "idx", "hex.color", "color", "red", "green", "blue", "alpha");
+				xt = df.setColumnOrder(xt, cols);
+        xt = xt[order(xt$color),]
+				
+setwd("C:/_git_/github/MonteShaffer/humanVerse/-data-/-colors-")
+writeToPipe(xt, paste0(library, ".txt"));
+
+
+
+
+```
