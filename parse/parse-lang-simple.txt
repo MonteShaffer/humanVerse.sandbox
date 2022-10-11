@@ -1,0 +1,15 @@
+
+if( ( TYPE == "EXP" || TYPE == "POW") && any(df$y<=0) )
+        {
+        msg = prep.msg(
+            "\n\n\t\t\t", 
+            "For \"TRENDLINE\" type [",type,'] you can\'t have any data', 
+            "\n\t\t\t\t",  
+            "(currently [",n,"] rows) in [y] that is <= 0 (less than or equal to zero) ...", 
+            "\n\t\t\t\t",  
+            "the \\\"*SYSTEM*\\\" is REMOVING ROWS and trying to COMPUTE", 
+            "\n\n");
+
+		}
+		
+		

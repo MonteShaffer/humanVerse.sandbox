@@ -1,0 +1,123 @@
+#............   START -INI- LOG ENTRY   ............###{humanVerse}#####
+2022-10-07\./23:44:49 GMT+0000
+2022-10-07
+1665186289.356587.171d9
+--FUNCTION_INFO--
+list(envir = "<environment>", call = c("ini.parseFiles(n.files, master = n.rds, use.cache = use.cache, ", 
+"    smart.num = FALSE)"), fn.info = list(fn = "ini.parseFiles", 
+    dot.data = structure(list(NA_character_), names = NA_character_), 
+    params = list(inifilesORDERmatters = "n.files", master = "n.rds", 
+        use.cache = "use.cache", smart.num = "FALSE"), map = list(
+        inifilesORDERmatters = "C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/80-number.ini", 
+        master = "C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/number.rds", 
+        use.cache = FALSE, smart.num = FALSE, ... = structure(list(
+            NA_character_), names = NA_character_)), formals = list(
+        inifilesORDERmatters = "--EMPTY--", master = "cache/ini/master.rds", 
+        use.cache = TRUE, smart.num = TRUE, ... = "--EMPTY--")))
+--FILES--
+"C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/80-number.ini"
+LOOP [i] :1
+		now.start : 1665186289.51496
+		stem : 80-number
+		source : C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/80-number.ini
+		out : C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/80-number.rds
+		out.copy : C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/-backups-/2022-10-07/1665186289.356587.171d9_80-number.rds
+		checksum : cf29cdb3a5a6ec626235819f5b19c7ba
+		checksum.file : C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/-backups-/80-number_cf29cdb3a5a6ec626235819f5b19c7ba.info
+		checksum.exists : TRUE
+
+
+			now.end : 1665186289.5469
+			parse.time [secs] : 0.0319430828094482
+
+C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/-backups-/2022-10-07/1665186289.356587.171d9_number.rds
+C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/number.rds
+
+
+
+####{R}###..................   END -INI- LOG ENTRY   ..................#
+
+
+
+#............   START -INI- LOG ENTRY   ............###{humanVerse}#####
+2022-10-07\./23:58:45 GMT+0000
+2022-10-07
+1665187125.326345.7edd0
+--FUNCTION_INFO--
+list(envir = "<environment>", call = c("ini.parseFiles(n.files, master = n.rds, use.cache = use.cache, ", 
+"    smart.num = FALSE)"), fn.info = list(fn = "ini.parseFiles", 
+    dot.data = structure(list(NA_character_), names = NA_character_), 
+    params = list(inifilesORDERmatters = "n.files", master = "n.rds", 
+        use.cache = "use.cache", smart.num = "FALSE"), map = list(
+        inifilesORDERmatters = "C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/80-number.ini", 
+        master = "C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/number.rds", 
+        use.cache = FALSE, smart.num = FALSE, ... = structure(list(
+            NA_character_), names = NA_character_)), formals = list(
+        inifilesORDERmatters = "--EMPTY--", master = "cache/ini/master.rds", 
+        use.cache = TRUE, smart.num = TRUE, ... = "--EMPTY--")))
+--FILES--
+"C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/80-number.ini"
+LOOP [i] :1
+		now.start : 1665187125.49887
+		stem : 80-number
+		source : C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/80-number.ini
+		out : C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/80-number.rds
+		out.copy : C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/-backups-/2022-10-07/1665187125.326345.7edd0_80-number.rds
+		checksum : cf29cdb3a5a6ec626235819f5b19c7ba
+		checksum.file : C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/-backups-/80-number_cf29cdb3a5a6ec626235819f5b19c7ba.info
+		checksum.exists : TRUE
+
+
+			now.end : 1665187125.51623
+			parse.time [secs] : 0.0173649787902832
+
+C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/-backups-/2022-10-07/1665187125.326345.7edd0_number.rds
+C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/number.rds
+
+
+
+####{R}###..................   END -INI- LOG ENTRY   ..................#
+
+
+
+#............   START -INI- LOG ENTRY   ............###{humanVerse}#####
+2022-10-07\./23:58:49 GMT+0000
+2022-10-07
+1665187129.664839.488f2
+--FUNCTION_INFO--
+list(envir = "<environment>", call = c("ini.parseFiles(n.files, master = n.rds, use.cache = use.cache, ", 
+"    smart.num = FALSE)"), fn.info = list(fn = "ini.parseFiles", 
+    dot.data = structure(list(NA_character_), names = NA_character_), 
+    params = list(inifilesORDERmatters = "n.files", master = "n.rds", 
+        use.cache = "use.cache", smart.num = "FALSE"), map = list(
+        inifilesORDERmatters = "C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/80-number.ini", 
+        master = "C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/number.rds", 
+        use.cache = FALSE, smart.num = FALSE, ... = structure(list(
+            NA_character_), names = NA_character_)), formals = list(
+        inifilesORDERmatters = "--EMPTY--", master = "cache/ini/master.rds", 
+        use.cache = TRUE, smart.num = TRUE, ... = "--EMPTY--")))
+--FILES--
+"C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/80-number.ini"
+LOOP [i] :1
+		now.start : 1665187129.80743
+		stem : 80-number
+		source : C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/80-number.ini
+		out : C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/80-number.rds
+		out.copy : C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/-backups-/2022-10-07/1665187129.664839.488f2_80-number.rds
+		checksum : cf29cdb3a5a6ec626235819f5b19c7ba
+		checksum.file : C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/-backups-/80-number_cf29cdb3a5a6ec626235819f5b19c7ba.info
+		checksum.exists : TRUE
+
+
+			now.end : 1665187129.82083
+			parse.time [secs] : 0.0134079456329346
+
+C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/-backups-/2022-10-07/1665187129.664839.488f2_number.rds
+C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/number.rds
+
+
+
+####{R}###..................   END -INI- LOG ENTRY   ..................#
+
+
+

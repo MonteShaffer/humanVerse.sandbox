@@ -1,0 +1,190 @@
+#............   START -INI- LOG ENTRY   ............###{humanVerse}#####
+2022-10-04\./04:22:15 GMT+0000
+2022-10-04
+1664857335.159761.40de0
+--FUNCTION_INFO--
+list(envir = "<environment>", call = "alias.init()", fn.info = list(
+    fn = "ini.parseFiles", dot.keys = NULL, dot.vals = NULL, 
+    params = list(inifilesORDERmatters = "a.files", master = "a.rds", 
+        use.cache = "use.cache", smart.num = NA_character_), 
+    map = list(inifilesORDERmatters = "a.files", master = "a.rds", 
+        use.cache = "use.cache"), formals = list(inifilesORDERmatters = "--EMPTY--", 
+        master = "cache/ini/master.rds", use.cache = TRUE, smart.num = TRUE, 
+        ... = "--EMPTY--")))
+--FILES--
+"C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/alias/88-alias.ini"
+LOOP [i] :1
+		now.start : 1664857335.46998
+		stem : 88-alias.i
+		source : C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/alias/88-alias.ini
+		out : C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/alias/alias/88-alias.i.rds
+		out.copy : C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/alias/alias-backups-/2022-10-04/1664857335.159761.40de0_88-alias.i.rds
+		checksum : 163aaa53558eaeb95bc910a2864c4640
+		checksum.file : C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/alias/alias-backups-/88-alias.i_163aaa53558eaeb95bc910a2864c4640.info
+		checksum.exists : FALSE
+
+
+			now.end : 1664857337.10388
+			parse.time [secs] : 1.63389611244202
+
+C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/alias/alias-backups-/2022-10-04/1664857335.159761.40de0__/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/alias/alias.rds
+C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/alias/alias.rds
+
+
+
+####{R}###..................   END -INI- LOG ENTRY   ..................#
+
+
+
+#............   START -INI- LOG ENTRY   ............###{humanVerse}#####
+2022-10-04\./04:23:04 GMT+0000
+2022-10-04
+1664857384.338650.86f50
+--FUNCTION_INFO--
+list(envir = "<environment>", call = "ini.parseFiles(a.files, a.rds, use.cache)", 
+    fn.info = list(fn = "ini.parseFiles", dot.keys = NULL, dot.vals = NULL, 
+        params = list(inifilesORDERmatters = "a.files", master = "a.rds", 
+            use.cache = "use.cache", smart.num = NA_character_), 
+        map = list(inifilesORDERmatters = "a.files", master = "a.rds", 
+            use.cache = "use.cache"), formals = list(inifilesORDERmatters = "--EMPTY--", 
+            master = "cache/ini/master.rds", use.cache = TRUE, 
+            smart.num = TRUE, ... = "--EMPTY--")))
+--FILES--
+"C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/alias/88-alias.ini"
+LOOP [i] :1
+		now.start : 1664857384.10239
+		stem : 88-alias.i
+		source : C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/alias/88-alias.ini
+		out : C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/alias/alias/88-alias.i.rds
+		out.copy : C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/alias/alias-backups-/2022-10-04/1664857384.338650.86f50_88-alias.i.rds
+		checksum : 163aaa53558eaeb95bc910a2864c4640
+		checksum.file : C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/alias/alias-backups-/88-alias.i_163aaa53558eaeb95bc910a2864c4640.info
+		checksum.exists : FALSE
+
+
+			now.end : 1664857385.36161
+			parse.time [secs] : 1.25921607017517
+
+C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/alias/alias-backups-/2022-10-04/1664857384.338650.86f50__/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/alias/alias.rds
+C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/alias/alias.rds
+
+
+
+####{R}###..................   END -INI- LOG ENTRY   ..................#
+
+
+
+#............   START -INI- LOG ENTRY   ............###{humanVerse}#####
+2022-10-04\./04:26:55 GMT+0000
+2022-10-04
+1664857615.281323.0c40d
+--FUNCTION_INFO--
+list(envir = "<environment>", call = "alias.init()", fn.info = list(
+    fn = "ini.parseFiles", dot.keys = NULL, dot.vals = NULL, 
+    params = list(inifilesORDERmatters = "a.files", master = "a.rds", 
+        use.cache = "use.cache", smart.num = NA_character_), 
+    map = list(inifilesORDERmatters = "a.files", master = "a.rds", 
+        use.cache = "use.cache"), formals = list(inifilesORDERmatters = "--EMPTY--", 
+        master = "cache/ini/master.rds", use.cache = TRUE, smart.num = TRUE, 
+        ... = "--EMPTY--")))
+--FILES--
+"C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/alias/88-alias.ini"
+LOOP [i] :1
+		now.start : 1664857615.34591
+		stem : 88-alias.i
+		source : C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/alias/88-alias.ini
+		out : C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/alias/alias/88-alias.i.rds
+		out.copy : C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/alias/alias-backups-/2022-10-04/1664857615.281323.0c40d_88-alias.i.rds
+		checksum : 163aaa53558eaeb95bc910a2864c4640
+		checksum.file : C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/alias/alias-backups-/88-alias.i_163aaa53558eaeb95bc910a2864c4640.info
+		checksum.exists : FALSE
+
+
+			now.end : 1664857616.59867
+			parse.time [secs] : 1.25276589393616
+
+C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/alias/alias-backups-/2022-10-04/1664857615.281323.0c40d__/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/alias/alias.rds
+C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/alias/alias.rds
+
+
+
+####{R}###..................   END -INI- LOG ENTRY   ..................#
+
+
+
+#............   START -INI- LOG ENTRY   ............###{humanVerse}#####
+2022-10-04\./04:33:12 GMT+0000
+2022-10-04
+1664857992.514111.365fb
+--FUNCTION_INFO--
+list(envir = "<environment>", call = "alias.init()", fn.info = list(
+    fn = "ini.parseFiles", dot.keys = NULL, dot.vals = NULL, 
+    params = list(inifilesORDERmatters = "a.files", master = "a.rds", 
+        use.cache = "use.cache", smart.num = NA_character_), 
+    map = list(inifilesORDERmatters = "a.files", master = "a.rds", 
+        use.cache = "use.cache"), formals = list(inifilesORDERmatters = "--EMPTY--", 
+        master = "cache/ini/master.rds", use.cache = TRUE, smart.num = TRUE, 
+        ... = "--EMPTY--")))
+--FILES--
+"C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/alias/88-alias.ini"
+LOOP [i] :1
+		now.start : 1664857992.56891
+		stem : 88-alias.i
+		source : C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/alias/88-alias.ini
+		out : C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/alias/alias/88-alias.i.rds
+		out.copy : C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/alias/alias-backups-/2022-10-04/1664857992.514111.365fb_88-alias.i.rds
+		checksum : 163aaa53558eaeb95bc910a2864c4640
+		checksum.file : C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/alias/alias-backups-/88-alias.i_163aaa53558eaeb95bc910a2864c4640.info
+		checksum.exists : FALSE
+
+
+			now.end : 1664857993.87045
+			parse.time [secs] : 1.30153298377991
+
+C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/alias/alias-backups-/2022-10-04/1664857992.514111.365fb__/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/alias/alias.rds
+C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/alias/alias.rds
+
+
+
+####{R}###..................   END -INI- LOG ENTRY   ..................#
+
+
+
+#............   START -INI- LOG ENTRY   ............###{humanVerse}#####
+2022-10-04\./04:42:58 GMT+0000
+2022-10-04
+1664858578.841020.07091
+--FUNCTION_INFO--
+list(envir = "<environment>", call = "alias.init()", fn.info = list(
+    fn = "ini.parseFiles", dot.keys = NULL, dot.vals = NULL, 
+    params = list(inifilesORDERmatters = "a.files", master = "a.rds", 
+        use.cache = "use.cache", smart.num = NA_character_), 
+    map = list(inifilesORDERmatters = "a.files", master = "a.rds", 
+        use.cache = "use.cache"), formals = list(inifilesORDERmatters = "--EMPTY--", 
+        master = "cache/ini/master.rds", use.cache = TRUE, smart.num = TRUE, 
+        ... = "--EMPTY--")))
+--FILES--
+"C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/alias/88-alias.ini"
+LOOP [i] :1
+		now.start : 1664858578.90152
+		stem : 88-alias.i
+		source : C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/alias/88-alias.ini
+		out : C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/alias/alias/88-alias.i.rds
+		out.copy : C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/alias/alias-backups-/2022-10-04/1664858578.841020.07091_88-alias.i.rds
+		checksum : b3700b31a22a4ddf54a80d4b8fa95db8
+		checksum.file : C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/alias/alias-backups-/88-alias.i_b3700b31a22a4ddf54a80d4b8fa95db8.info
+		checksum.exists : FALSE
+
+
+			now.end : 1664858580.2886
+			parse.time [secs] : 1.38707184791565
+
+C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/alias/alias-backups-/2022-10-04/1664858578.841020.07091__/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/alias/alias.rds
+C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/alias/alias.rds
+
+
+
+####{R}###..................   END -INI- LOG ENTRY   ..................#
+
+
+

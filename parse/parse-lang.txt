@@ -1,0 +1,29 @@
+
+
+if( ( TYPE == "EXP" || TYPE == "POW") && any(df$y<=0) )
+		{
+		msg = prep.msg(
+			"\n\n\t\t\t", 
+			"Welcome to the", 
+			"<i>humanVerse</i>", 
+			"\n\n\t\t\t", 
+			"For \"TRENDLINE\" type [",type,'] you can\'t have any data', 
+			"\n\t\t\t\t",  
+			"(currently [",n,"] rows) in [y] that is <= 0 (less than or equal to zero) ...", 
+			"\n\t\t\t\t",  
+			"the \\\"*SYSTEM*\\\" is REMOVING ROWS and trying to COMPUTE", 
+			"\n\n");
+		cat.warning(msg);
+		# cat.warning("\n\n\t\t\t For TRENDLINE type [",type,"] you cannot have any data (currently [",n,"] rows) \n\t\t\t\t in [y] that is <= 0 (less than or equal to zero) ... \n\t\t\t\t REMOVING ROWS and trying to COMPUTE \n\n");
+		df = subset(df, y > 0);
+		n = nrow(df);
+
+
+
+
+
+
+
+
+
+

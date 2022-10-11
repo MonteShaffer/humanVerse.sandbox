@@ -1,0 +1,346 @@
+=====> HARDSTOP ;;; a way to TRUNCATE an INI file so comments can live below ... 5 EQUALS + > at the beginning of the line ...  
+
+;;; CONFIG.INI parser CAN'T HAVE these CONSTANTS ... MUST BE HARDCODED ... 
+
+; "\\./" 		= list(
+[\\./]
+PRIME_AXIOM 		= "There are '10' types of people in the {humanVerse}: those that understand mathematics *and* those that do not.",
+PRIME_BASIS 		= "Members of the {humanVerse} have innate desires that 'intrinsically' motivate:  self-determined control, self-perceived competency, and self-to-other connectedness.",
+PRIME_CHOICE		= "The greatest power members of the {humanVerse} possess is the ability to act as a ==free== agent.",
+PRIME_DIRECTIVE 	= "As a semi-sentient being, I may want to *share* =freely= any perspective, understanding, knowledge, experience, or wisdom that I believe I possess.",	
+PRIME_GOAL 			= "Advancing (or restoring) the human conditon for the benefit of ALL.",
+PRIME_KISS 			= "Transcending simplicity on THIS side of complexity to reveal simplicity on the OTHER side of complexity. [Break on through to the OTHER side.]",
+PRIME_DICHO 		= "¡Del dicho al hecho hay mucho estrecho!",
+PRIME_ADMONICION 	= "¡Oh, que tenga sabiduría! ¿Qué más puedo decir?",
+PRIME_QUESTION 		= "What are you listening for?", 
+PRIME_ANSWER 		= 5,
+PRIME_SEPARATOR 	=R `VSEP`,
+PRIME_SHLOKA 		= "gopi bhagya madhuvrata, srngiso dadhi sandhiga, khala jivita khatava, gala hala rasandara",
+PRIME_SADHGURU		= "I am more than this body.  I *am even* more than this mind.",
+PRIME_TZU 			= "Silence is strength.",
+PRIME_CHANGE 		= "You and the river are always changing.  For the better.", 
+PRIME_TREEBEARD 	= "Break the damns.  Release the rivers.  Let the salmon run home so we can 'fillet' them.",
+PRIME_LEGEND 		= "{an ee} {na fee} {a la} {al ma} {ee ma} {mer men}",  # 12, not 10? ... linguistic lessons WE COULD HAVE LEARNED about language de-evolution (degression)
+PRIME_GALILEO 		= "E pur, si muove",
+PRIME_IDIOT 		=R `c("ID-10-T error", "SCSI buffer underrun")`,
+PRIME_MONTE			= "Monte from Montana is a strong, sober mind that likes to solve problems in order to help people.",
+PRIME_MARKETING		= "The purpose of a business is to serve its customers, to put them on a pedestal remembering that indeed they 'are always right'.", 
+PRIME_ENTREPRENUER	= "Great spirits often suffer violent opposition from mediocre minds as they endeavor to innovate: introducing the {humanVerse} to new economic shores.", 
+PRIME_ECONOMICS		= "The {humanVerse} is naturally an economy of abundance and *not* scarcity.  Work we must, but lunch is free.",
+PRIME_SOCIETY		= "The {humanVerse} is naturally designed to operate as a merit-based society where access to fundamental needs are ==freely== available to all and where currency is personal fiat of good will.",
+
+PRIME_READING 		= "Combine letters to form words.  Combine words to form sentences.  Top to bottom.  Left to right.",
+PRIME_SPEAKING 		= "Combine sounds to form words.  Combine words to form ideas.  Beginning to end.",
+PRIME_BEGINNING 	= "{ab} {ra} {ωet}",  # Gen 1:1, correctly
+PRIME_WHAT 			= "sais quoi", # {se} {kwa} , TWINS: what is that?
+PRIME_TAMIL 		= "எல்லாம் நல்லதே", # is that a double quote? # {ee lam} {na la de} ? # ee as in SEE # de as in DAY (spanish e) ... # ord(str) ... as.hexmode(ord(str)) ... get back to U+values ... 
+PRIME_GUARANI		= "che loco", # che ==> {чe} ... # loco ==> {lo ko}
+PRIME_NAMETAG 		= "Welcome to the {humanVerse}!"
+PRIME_TIME			= "Most of us perceive our environment in 3-D, maybe 3 1/2 dimensions if we include time.  By changing our perception of time-space-reality, we can ascend to a 5-D reality and beyond.  Flatland can become more by simply restoring the TIMES and SEASONS to the align with ancient traditions (most especially Egypt and China).  For a brief twelve years (the great and TRUE constitutional republic), the French made an effort that today must be renewed.  The XELA calendar is an effort to demonstrate to the universe that the {humanVerse} is 'trying' to remember its beautiful heritage.", 
+PRIME_WHERE_TO_BEGIN = "Look at the stars.  Look up.  Walk barefoot.  Look down.  Look all around.  Then close your eyes and feel.  Feel up.  Feel down.  Feel all around.  Then look at your hands.  Your left hand.  Your right hand.  The answer was always there.  And the answer is 5.  That is the beginning of unshackling from the great façade.  Freedom.  True freedom is remembering who you are.  Know Thyself and Live Free.", 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[UNICODE][MATH]
+U_TIMES			= "U+00D7",
+U_CHI 			= "U+1D6D8", 
+U_BETA			= "U+03B2",
+U_GAMMA			= "U+0393",
+U_THETA			= "U+1D6C9",
+U_ALPHA			= "U+03B1",
+U_EPSILON		= "U+03B5",
+U_SQRT			= "U+221A",
+U_ROOT2			= "U+221A",
+U_ROOT3			= "U+221B",
+U_ROOT4			= "U+221C",
+U_PROPORTIONAL	= "U+221D",
+U_INFINITY		= "U+221E",
+# https://www.compart.com/en/unicode/U+2245
+U_APPROXIMATELY	= "U+2245",
+
+U_MATH			=R `c("U+002B", "U+2212", "U+00D7", "U+00F7")`,
+U_SUP_09	=R `c("U+2070", "U+00B9", "U+00B2", "U+00B3", "U+2074", "U+2075", "U+2076", "U+2077", "U+2078", "U+2079")`,
+# maybe do letters/LETTERS in SUPer and SUBscripts
+U_POWER		=R `c("ᵉ","ᴱ", "⁺", "⁻")`,  # what are codes? no SUPERSCRIPT TIMES ???
+
+.U_NULL		= "U+EA07",   # 59911
+.U_NA		= "U+EA08",   # 59912
+.U_INF_		= "U+E007",   # 57351	# NEGATIVE INFINITY
+.U_INF		= "U+E008"    # 57352  
+
+
+[UNICODE][SYSTEM]
+U_SNAIL			= "U+1F40C",
+U_CDOTS			= "U+22EF",
+U_LYING			= "U+1F925", 
+U_ARROW_UP		= "U+2191",
+U_ARROW_LEFT	= "U+27FD",
+U_EURO			= "U+20AC",
+U_POUND			= "U+00A3",
+U_STAIR			= "U+1328D", # Egyptian  ... sort by ASC/DESC ; collision below, repeat ... 
+U_N_QUESTION 	= "U+00BF", 		# upside-down ?
+U_N_EXCLAMATION = "U+00A1", 	# upside-down !
+U_RU_R_ 		= "U+042F",  # cyrillic omeaga, olala
+
+
+[UNICODE][ESOTERIC]
+# https://en.wikipedia.org/wiki/Astrological_symbols#Signs_of_the_zodiac
+U_ZODIAC 		=R `list("Aries" = "U+2648", "Taurus" = "U+2649", "Gemini" = "U+264A", "Cancer" = "U+264B", "Leo" = "U+264C", "Virgo" = "U+264D", "Libra" = "U+264E", "Scorpio" = "U+264F", "Sagittarius" = "U+2650", "Capricorn" = "U+2651", "Aquarius" = "U+2652", "Pisces" = "U+2653")`,
+U_ZODIAC_CHINA 	=R `list("")`, # 12 signs, 5 elements (yin/yang)
+# https://en.wikipedia.org/wiki/Lichun
+# DEMO "wiki" parser on that page, grab other planets 
+# https://pages.ucsd.edu/~dkjordan/resources/unicodemaker.html
+# https://hanzicraft.com/character/%E7%89%9B%E4%B8%91
+U_STAIR			= "U+1328D", # Egyptian  ... sort by ASC/DESC
+U_EGY_N			= "U+13216",  # water (not m?)
+# https://en.wikipedia.org/wiki/Mem
+U_EGY_FIVE1 	= "U+132B0",
+U_EGY_FIVE2 	= "U+132B1",
+U_EGY_ONE		= "U+133FA",
+U_EGY_NUMBER_LINE 	= "U+13416",
+U_EGY_CROSS 	= "U+133F6",
+U_EGY_TAV		= "U+13384",  # intersect/union member of in this group 
+U_EGY_THIRDS 	= "U+13279", # third part
+U_PERSIAN_RUG 	= "U+13254", 
+U_STAR			= "U+131FD", # http://www.alanwood.net/unicode/egyptian-hieroglyphs.html
+U_EYE			= "U+13080", # Egyptian Fractions (how to reflect ... U+XX to mirror reflect?)
+U_PHALLUS		= "U+130B8",		# Egyptian 
+U_OX			= "U+130FE",		# OLD HEBREW 
+U_CROSS			= "U+5341",			# CHINESE "10"
+
+U_SCHOLAR		= "U+58EB",
+U_EARTH			= "U+571F",
+
+U_ARAB_NO		= "U+10A7F",
+U_CHINA_SUNDAY 	= "U+65E5", 
+
+
+# https://en.wikipedia.org/wiki/Proto-Sinaitic_script
+# https://codepoints.net/U+10A67?lang=en
+# OX ... 
+
+					
+					
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# use PI for NULL, NA use MT 
+						# 227878880988633599116081923.863353016082155991131414420509144729353502223
+						NULL_NUM = 227878880988633599116081923.863353016082155991131414420509144729353502223,
+						# CURRENTLY EQUAL ... NULL_NUM == NULL_INT
+						# TOO BIG ... can't cast as.integer/as.numeric 
+						## too big even to cast to INTEGER ... 2^31 
+						## can't manipulate very EASILY ...
+						# NULL_INT = 227878880988633599116081923,
+						#                       
+						NULL_INT = 863353016082155991131414420509144729353502223,
+						#                      1559911314
+						#                      1550059912
+						# maybe swithc NULL / INF ... 57... don't like 7 
+						NULL_CHAR = "U+EA07",  # PUA ... do I need NULL_FN? [BIGFORK]
+						FAKE_NA = "`[NA]`",
+						# NA_NUM == NA_INT ... FALSE, GOOD 
+						#NA_NUM = 59912001001550.4068925815,
+						NA_NUM = 1550059912.4068925815,
+						# 1550059912 is rather random, not found in 1 MILLION of PI 
+						NA_INT = 1550059912,
+						# > NA_NUM == NA_INT ... [1] FALSE
+						# > as.integer(NA_NUM) == NA_INT [1] TRUE
+
+						NA_CHAR = "U+EA08",	# could do same for NA ... 
+						# what about +/- INF 
+						# https://www.facade.com/legacy/amiinpi/?thenum=57351
+						# search my pi.dec.txt DATA file 
+						# WHY IS NOTEPAD++ not finidng 57351
+						# 22199658207573513157075923.592169694573513122969929
+						#                                    1550059912
+						# 2350141441973568548161361157352552133.62258218781200116285735213380860436525201235
+						# playing off of JAMES BOND 007 .... 
+						# maybe just use  60000 ... use one number for INF, make - for -INF
+						# "U+EA60" 
+						#.U_INF_		= "U+E007",   # 57351	# NEGATIVE INFINITY
+						#.U_INF		= "U+E008"    # 57352  
+						
+						OP = "(", 			# OPEN_PARENTHESSDFJlkd
+						CP = ")",
+						# alex amazon buy now ... lol 
+						
+						"\\./" 		= list(
+										
+										PRIME_AXIOM = "There are '10' types of people in this world: those that understand mathematics *and* those that do not.",
+										PRIME_DIRECTIVE = "As a semi-sentient being, I am 'intrisically motivated' to *share* =freely= any perspective, understanding, knowledge, experience, or wisdom that I believe I possess.",	
+										PRIME_GOAL = "To advance (or restore) the human conditon for the benefit of ALL.",
+										PRIME_KISS = "Transcending simplicity on THIS side of complexity to reveal simplicity on the OTHER side of complexity. [Break on through to the OTHER side.]",
+										PRIME_DICHO = "¡Del dicho al hecho hay mucho estrecho!",
+										PRIME_ADMONICION = "¡Oh, que tenga sabiduría! ¿Qué más puedo decir?",
+										PRIME_QUESTION = "What are you listening for?", 
+										PRIME_ANSWER = 5,
+										PRIME_SEPARATOR = "\\./",
+										# LIST (this.key) ... VSEP ... key from above ...
+										# maybe make a smart.list function that does this for a list ... 
+										# smart.list = (...) ... 
+										# allow trailing comma --> is that possible?
+										# if we trap it before it throws an error 
+										# looks like we can TRAP ... 
+										# check.type( x=3,y=4, ) 
+
+										
+										# https://www.youtube.com/watch?v=Tktvu_J1grI
+										# https://hinduism.stackexchange.com/questions/6777/was-value-of-pi-really-defined-in-a-sloka
+										# https://web.archive.org/web/20041114092424/http://www.pa.uky.edu:80/~ameya/pi.html
+										# 
+										PRIME_SHLOKA = "gopi bhagya madhuvrata, srngiso dadhi sandhiga, khala jivita khatava, gala hala rasandara",
+										PRIME_TZU = "Silence is strength.",
+										PRIME_CHANGE = "You and the river are always changing.  For the better.", 
+										PRIME_TREEBEARD = "Break the damns.  Release the rivers.  Let the salmon run home so we can 'fillet' them.",
+										PRIME_LEGEND = "{an ee} {na fee} {a la} {al ma} {ee ma} {mer men}",  # 12, not 10? ... linguistic lessons WE COULD HAVE LEARNED about language de-evolution (degression)
+										PRIME_GALILEO = "E pur, si muove",
+										PRIME_IDIOT = c("ID-10-T error", "SCSI buffer underrun"),
+										PRIME_READING = "Combine letters to form words.  Combine words to form sentences.  Top to bottom.  Left to right.",
+										PRIME_SPEAKING = "Combine sounds to form words.  Combine words to form ideas.  Beginning to end.",
+										PRIME_BEGINNING = "{ab} {ra} {ωet}",
+										PRIME_WHAT = "sais quoi", # {se} {kwa}
+										# http://billposer.org/Software/tamilconverters.html
+										# where is a transliterator ...
+										# I want it as simple ascii SOUNDS ... 
+										PRIME_TAMIL = "எல்லாம் நல்லதே",
+										# {ee lam} {na la de} ? 
+										# ee as in SEE 
+										# de as in DAY (spanish e)
+										# by default, (a e i o u) are SPANISH 
+										# lam is CORRECT 
+										# lAm is LAMB (open the mouth)
+										# keep it simple, based on common language, use AVERAGE to advtange ... 
+										# https://phoible.org/parameters
+										# ONE SOUND, one letter 
+										# che ==> чe ... 
+										# loco ==> lo ko
+										# DOES the "c" disappear or use as s (RUSSIAN)
+										# c => C ... good scaling 
+										# "s" looks like a 5 ... maybe kill it ...
+										# salaam vs shalaam ...
+										# z
+										# sha ... ωa ... 
+										# CASE shouldn't change symbol, just scale it
+										# maybe use a BOLD/BRIGHT feature 
+										# s => S ... GOOD 
+										# a => A ... BAD 
+										# j => J ... good 
+										# 1,1,1 on 9-numerology above ...
+										# avoid dislexisak possibilities 
+										# if (b) ... no (d)
+										# if (d) ... no (b) 
+										# avoid COMBOS that are not possible in child development or for some other linguists
+										# [th]ree ... not a good combo ... [t]ree easier ... RU: tree ... ES: tres ... ee is easier to recognize that SPANISH "i" even though that is the sound ... acute/grave ...
+										# https://www.quora.com/What-is-the-difference-between-e-%C3%A8-%C3%A9-%C3%AA-%C3%AB-%C4%93-%C4%97-and-%C4%99
+										# e_ as ee? where _ is under the e (not above) [e over _ in latex?] ... 
+										# allow accents [syllabization/rhythm] above, symbology below ... wouldn't work for j ... how to address ___ underline ?
+										# 
+										# have optional sounds
+										# [r]ruffles have [r]ridges ... you can roll the r if you want ... your CHOICE ...
+										# 
+										# [a] vs [ɑ] ... typing vs handwriting 
+										# double-storey a and single-storey ɑ. 
+										# letter users define sha ... 0x1d222 or 0x1d788 or  0x3c9 ... doesn't work ("U+3c9") or ("U+03c9") ... has to be ("U+03C9")
+										
+										PRIME_NAMETAG = "Welcome to the {humanVerse}!"
+										
+											)
+					);
+					
+
+

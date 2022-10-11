@@ -1,0 +1,38 @@
+
+
+
+		 windows.info ::  wmic bios list /format:csv 
+
+
+
+
+
+		 windows.info ::  wmic cpu list /format:csv 
+
+
+
+
+
+		 windows.info ::  wmic diskdrive list /format:csv 
+
+
+
+
+
+		 windows.info ::  wmic logicaldisk list /format:csv 
+
+
+
+
+
+		 windows.info ::  wmic memorychip list /format:csv 
+
+
+
+
+
+		 windows.info ::  wmic nic list /format:csv 
+
+
+[1] "C:/_R_/-humanVerse-/SYSTEM/cache/"
+[1] "C:/_R_/-humanVerse-/SYSTEM/cache/-history-/"

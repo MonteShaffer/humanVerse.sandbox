@@ -1,0 +1,643 @@
+f = "good-5808.rds";
+
+good = readRDS(f);
+color.plot(good, size=1, thick=1, z=0.9);
+
+y = "#FFFF00";  # 97.14%   ... 60
+p = "#FF00FF";  # 60.50%   ... 300
+
+hex2lab(y);  hex2hsl(y);
+hex2lab(p);  hex2hsl(p);
+
+css = color.css()$color.hex;
+R = color.default()$hex;
+
+color.plot(css, size=1, thick=1, z=0.9, a=-60, fh=FALSE, fv=TRUE);  # flip vertical ... y vals are negative 
+
+DEFAULTS
+
+color.plot(css) # do you see the 'X'
+
+Looks like a petri dish 
+
+sunrise = east ... yellow-ish ... CALC yellow based on math, not based on mapping to 2^24 ... FFFF00
+
+opposite is BLUE ... UKRAINE ... dark of night is blue, not black ... 
+
+stairway to heaven, white is ISOLATE !0
+
+1st quadrant is harsh ... false ...
+2nd quadrant is heaven... TRUE
+
+3rd/4th are beautiful mother EARTH, TRUE & TRUE 
+
+
+f = "good-6000.rds";
+
+good = readRDS(f);
+
+color.plot(good);
+
+I don't believe I will have any "TRUE" grays ... another contrived CS calculation ... not tied to the MATHs of color...
+
+36 color names, CRAYOLA might be useful...
+
+name the L= 0.5 color ... or  0,1,2,3,4,[5],6,7,8,9
+
+Lv = seq(5, 95, 10);
+Lv[6] which is [5] above is L = 0.55 ... nice choice ...
+
+
+36 color names ... with an idx ... red0, red1, red[5] {DEFAULT}
+
+represents getting to 5-D ... so eventually we can get to 9-D, then we can cast-the-nines and JUMP to white !0
+
+Reading TESLA, he was 'plugged in' ... m = E/c^2 ... not E = mc^2 ... ORDER matters ... mass is a function of E ...
+
+Does this "white angle" align with Ghiza pyramid, 153?
+
+Now do my 8 'black colors'?
+
+NSEW will align with 36 ... Ne,Nw,Se,Sw will not ... teaches that times != seasons ... 
+
+#### 
+
+offset so Yellow is +/-5 degrees ... median color in the region... by definition, is this not [5] ... Lab = 0.55?
+
+Maybe do a ninther backdrop colororing...  shows the seasons ... 
+
+36 / 9 = 4 per group ... 360 / 40 days = 9 ... 3 subs of 3 seasons  ...
+
+36 color names 
+9 class names 
+
++1 xela class has !0 ... !9
+
+
+7 +/- 2 ... memory tools ... 
+
+serendiptity to nth power, my form
+
+nth.power = function(n) { exp(exp(n)); }
+
+nth.power(0:5)
+
+
+[1] 2.718282e+00 1.515426e+01 1.618178e+03 5.284913e+08 5.148436e+23
+[6] 2.851124e+64
+
+# doesn't go 'bad'
+
+nth.power(-1*10^(0:15));
+
+
+> hex2lab( color.col2hex("red", "yellow", "blue", "green", "purple", "brown") )
+   #FF0000   #FFFF00    #0000FF   #00FF00   #A020F0  #A52A2A
+L 53.48418  97.14950   32.24075  87.63799  45.43146 37.67044
+a 80.01027 -21.36677   78.82042 -86.44767  78.44416 49.69238
+b 67.38407  94.42044 -107.93632  83.00071 -77.25138 30.73090
+> hex2hsl( color.col2hex("red", "yellow", "blue", "green", "purple", "brown") )
+  #FF0000 #FFFF00 #0000FF #00FF00     #A020F0   #A52A2A
+h     0.0    60.0   240.0   120.0 276.9230769 0.0000000
+s     1.0     1.0     1.0     1.0   0.8739496 0.5942029
+l     0.5     0.5     0.5     0.5   0.5333333 0.4058824
+> color.polar( 72*(1:5), 0.55 )
+Error in color.polar(72 * (1:5), 0.55) : 
+  could not find function "color.polar"
+> color.polar( 60*(1:12), 0.55 )
+Error in color.polar(60 * (1:12), 0.55) : 
+  could not find function "color.polar"
+> chinese ... 5 and 12 ... metal => purple ... water => blue ... earth => green ... wood => brown ... fire = red/yellow
+Error: unexpected symbol in "chinese ..."
+> 
+
+
+DO NOT ENTER ... BRAZIL ... mouse on "d" in Monday ...
+
+"Alex" says D ... circle marks the SPOT ... "n" may also be something secondary ... D = njt ... which "n", I guess the NOT one ... did you see that.
+
+colorist ... yellow is creative colors ...
+
+earth colors:  browns, blues, greens 
+
+nonagon = 9
+pentagon = 5
+
+fermat prime = 5
+
+construction of nonagon with compass / ruler ... who added the straight edge rule?
+
+17 is next fermat prime...
+
+Q sent me ...
+
+I am Q
+
+... A-Z ...
+
+OPTIMUS_NULL = 0;
+
+!0
+
+                     9
+                8          7
+            6                 5
+                4          3
+                   2   1
+
+Teaches odd/even ... 9 color families ...
+shape like crayons with triangular quadrilateral
+
+
+3.14151926535897932384626
+
+color games of light/sound to PI 
+
+FROM notes 11:49-ish AM
+
+IS color # 1
+
+AXIOMs
+- There are 360 degrees in a cirlce
+- white light is ALL color (%) == INF , sideways 8
+- black is NOT light (!)
+
+Definition
+- Any color can be defined as:  C = f(H,L)
+- or C = f(THETA,V) where THETA is angle (degrees) and V is the length or magnitude of the vector V
+- V = 1 implies white, everywhere, we will map to 120degrees or 30degrees west of north
+- V = 0 implies black, interior 'inner darkness'
+
+Naming (36/9/0)
+- dekkans as 1/10th of a circle/TRUE year
+- homage to Nikolai Tesla ... 36 / 9 / 0
+- 36 color sets of 10 / 9 as color sets of black (actually 10) and 0 as the INFINITY color white
+- 26 letters plus 10 numeric digits = 36  A-Z0-9
+- order to be determined ... 
+- represent fixed forms of THETA ... angles on the circle
+- depth is the V which is also using 0-9
+- !not operator for 10 shades of black (not 50 shades of greay)
+
+360 colors
+ 10   !light colors 
+  1   ALL color
+===
+371
+
+3+7+1 = 11 = 1+1 = 2
+11 ... Christ Number?
+
+1:57:57 ... 
+
+> 11/7
+[1] 1.571429
+> num.toFrac(1.5714285757)
+
+[1] "1073459170603/683110379436"
+attr(,"x")
+[1] 1.571429
+attr(,"error.percent")
+[1] 0
+
+
+THERE are GHOSTS in the MACHINES ... I'Robot
+
+GTG .. g2g ... ggg
+
+We are at 66^ .. maybe not ^^ %
+
+^ for to INFINITY and beyond ... 
+
+v!9 - close to black in 9th district (hunger games, district 9 movie?)
+v!0 = black
+v^ = white 
+
+vA9
+vA0
+
+v00
+
+back to a 3-digit color scheme 
+
+v^^
+v%^
+v%%
+v^%
+v% ... variants of allowed white ...
+
+This is part of my v.color ... smart.color function, to be written ...
+
+x^^ ... smile clan ...
+
+maybe v is for the formula
+
+vHL or vH,L ... where the angle and intensity are entered
+
+xela colors ... xA9 ... bit confusing with hex notation 0x ... RFC, not my problem DIRK ...
+
+
+71% ... not a lot of yellow or left-to-right action
+
+is it a HEX bias?  I think so ... 
+
+FUTRE schema can have zoom in feature, to pick a color at whatever resolution you want, get in a neighboarhood, up the precission, fractal scales ! ... 
+
+x bias ...
+color.plot( color.default()$hex )
+color.plot( color.css()$color.hex )
+
+# need to do ansi, web216
+
+R loves its gray ... ironic LOGO blue is not in color set ...
+X is less pronucnced...
+
+THEY.hat(tinfoil)... ukraine color programming 
+
+I believe R can handle colors outside 24-bit with Lab?  Or not?
+
+Using D65 for LAB ...
+
+1973 ... 
+
+what is that angle ... 0 by 53.48 ... 55 is a nice visual color ... The X is forming a 30 degree / 150 degree set of angles ... 
+
+
+hex2lab( color.col2hex("red") ); hex2hsl( color.col2hex("red") );
+
+
+# don't need to take a spatial stats class in the SOILS department (BROWN = soils !!!) to see the bias in the color we are being presented...
+
+Now go outside, look at nature.   What do you see?
+
+Look up.  Don't Look up.  Red moon ... TysonD.ID-10-T (not the good ID10t)
+
+id10t ... good one 
+ID-10-T
+DI-01-F
+
+id
+bi01f ... floib .. flobi ... {flow}-{bee} ... 
+
+TYSOND, the flobi ... {tie}-{sun}-{dee} {flow}-{bee} ... 5
+
+The answer is always 5.
+
+Tyson Chicken, Mike Tyson, Tyson (new fighter) Fury? ... TyW ... beat me at chess ... SHAFF-DOG
+
+walk.the.dog 
+
+MUTT-LEEB ... {mut}-{lee} ... ending with vowel is work... not very clear to annunciaciate ...
+
+
+
+chess in SF, union square ...
+angry one-eyed man ...
+the player RU
+
+applied math (me) ... angry math (dad-character) ... adebo math (grand-dad-character) ... 
+
+%% was at .299 when I paused, just had to look... 1:43 ... :43
+
+85% ... KA ... YELLOW ... LEO the lion ...
+
+
+KA
+LM
+MA
+ST
+T
+
+left side ... 
+T is separate session ... 
+
+KA-LM..MA-ST..T
+
+right side ...
+WAITS ... WATCHER ... ANALYSIS ... INSTALL ... TAIL ... SEARCH ... 
+
+1457...
+14,57... indian notation ?
+
++
+
+1:53 .. 1^3 + 5^3 + 3^3 ====> ???
+
+
+this is freaking awesome ... freaking genius ... lone genius ... nikolai tesla ....
+
+
+153 Giza ... Dinosaur evangleist ... maybe ... 
+
+3-6-9 ... Nikolai was channeling ... area .. TREES/MOUNTAINS ... CROATIA/SERBIA ... land of the mystics ... 
+
+20$ in my poket ... increibles ... 1:55 ... 10/10/2022
+
+
+unit-circle color ... too easy ... infinite ... [maui-queue you're welcome]
+
+
+gtg .. g2g 
+
++
+
+
+place chinese colors on the map and color code ...
+
++/- ... earth ... this rotation 
+
+eight (divided)
+human ... uniform ... and broken form ... 
+seven 
+
+base glyph radical in a circle ?
+
+
+
+士 ... cousin
+knight, paladin, scholar, warrior
+
+
+讀書人
+intellectual, scholar
+
+土 ... different U+code 
+
+冂 (upside down box)
+
+the world is an upside down box ... 
+
+NICHOLASVILLE ... windows ... birds .. round metal to square wood... American Sniper ...
+
+林
+
+
+八 => 八 (eight/divide)
+
+十 => 十 (ten)
+
+A tree is eighteen? ... or divided ten ... LATTER 
+
+DAY SAINTS ... lol 
+
+7 did it ... the smoking gun ... killing guardian of deep, stealing blood and semen, poisoning the seas ...
+
+7 uninvited sisters came to help, uninvited to even help... good intentions, still not invited ... still, it's ALL good ....
+
+
+OPERATION SE ... live, learn (and maybe love)
+
+
+readRDS/writeRDS / saveRDS
+readFile/writeFile ...
+load/save 
+
+language confusion ... at it's finishest
+
+2:07PM ... 7 did it :47 
+
+
+几 => 几 (table)
+月 => 月 (moon)
+
+六 => 亠 (lid), 八 (eight/divide)
+
+six as put a lid on eight ... repair the firmament ...
+
+
+table/moon/8 ... aries blood moon
+
+areis ... sirea ... syria ... syriosna ... syria ... dogstar ... wag the dog ... syrius ...
+
+seari ... arise ... [a la] ... EGYPTIAN ... to spring forth ... 
+
+arise and shout ... 
+
+2:55:55 ... 2:10 ... 10/10/2022 
+
+金 => 金 (metal/gold)
+
+The FALSE pyramids ... only ONE true GIZA
+
+https://hanzicraft.com/character/%E7%8E%8B
+
+JADE ... green-eyed mansion ... 3 types of women ...
+
+Hag Sophia TRUE GOLD ... not tower 
+
+字 => 宀 (roof), 子 (child)
+
+raping a child ... bad news ... not green-eyed mansion
+
+tagola .. tower .. 塔
+
+荅 => 艹 (grass), 人 (human), 一 (one), 口 (mouth)
+
+'to agree' ... eat this fruit ...
+
+TRICKERY 
+
+ta3 - pagoda/tower/minaret/stupa (abbr. loanword from Sanskrit tapo)/CL:座[zuo4]
+
+The "earth agrees" ?
+
+
+座 => 广 (house on cliff), 土 (earth), 从 (N/A)
+
+yep... house on a cliff .. two humans [divided] N/A
+
+A = Adam
+N = NotAdam?
+
+WOMAN ... MAN ... man literally comes out of woman ... 
+
+WO[MAN] ...
+
+5 > 3 ... QED 
+
+The answer is always 5.  Q sent me.  I am Q...
+
+Oh shit, it's 2:17PM
+
+
+精 => 米 (rice), 青 (green/blue)
+
+essence/extract/vitality/energy/semen/sperm
+
+EGGMAN =. or woman ... cousin juanita 
+
+
+
+神 => 礻 (sign), 日 (sun/day), 丨 (line)
+
+walk the line ... stay in 'godly ways' ... soft borders
+
+shen2 - God/unusual/mysterious/soul/spirit/divine essence/lively/spiritual being/CL:個|个[ge4]/abbr. for 神舟[Shen2 zhou1]
+
+https://hanzicraft.com/character/%E7%B2%BE%E7%A5%9E
+
+冎 => 冂 (upside down box), ㇆ (N/A), 冂 (upside down box)
+
+bone of my bone ... flesh of my fles ...
+double-upside down ... is that right side up?
+
+
+
+https://hanzicraft.com/character/%E6%B8%85%E6%98%8E
+
+blue-green fresh water EARTH
+
+清 => 氵 (water), 青 (green/blue)
+
+Chinese Festival Calendar - Chinasagehttps://www.chinasage.info › chinese-festivals
+The Chinese 节气 jié qì solar calendar has been used for farming as the date of sowing, ... 5th April 2023 Bright and Clear Festival (Qīngmíng 清明)
+
+明 => 日 (sun/day), 月 (moon)
+
+
+solar >= lunar ... lunar is a mirror of solar's light 
+
+sun < moon IN UPSIDE DOWN world ...
+
+The 'SUN' of righteousness ... come on man ...
+
+2:22 ... 10/10/2022
+
+g2g ...
+
+green/blue is moon again ...
+
+sun ... moon^2
+
+fertile plump ... 1 + 2 ... 3 plus "|" pipe to GOD ...
+
+513 .. 153 ... col 22
+
+I thought JADE would be there in this EVENT ...
+
+'cannibalism' .. I don't think so...
+
+sweeping out the TOMBS for ancestors, holiday of TRUE LIGHT ... sure thing...
+
+5 April-ish ... 7BC ... SuperNOVA ... 8BC?  
+
+WHAT-EVER
+
+2:25 ... 15^2
+
+moon = 15?
+
+not 28.13 ... should be 30 ...
+
+
+816,416 
+
+
+2:26
+
+
+where is "TAIL" ... gitbash 
+
+
+
+1665414884.835144.60dcf|2022-10-10 15:14:44 +0000|1665414884.8371|1665425811.62396|10926.7868518829
+
+1665414884.835144.60dcf|2022-10-10 15:14:44 +0000|1665414884.8371
+
+
+> 10926.7868518829 / 3600
+[1] 3.035219
+
+
+3 hours ... 
+
+> options(digits = 22)
+> 10926.7868518829 / 3600
+[1] 3.03521856996747230184
+
+
+ghosts in the machine 
+
+23
+84
+3669663
+
+926....8829
+
+it's a game ... where in the world is carmen sandiego
+
+or is it cozumel... playa carmen to sandiego TIJUANA...
+
+perla ... carmen ... NORTH, SOUTH ... 'go get her' ... go-getter 
+
+DISCUSSION BOARD ... cancun/carmen
+
+0:16777215
+(2^8)^3 - 1
+
+last chunk had garbage ...
+
+editor should just hold part of file in memory ... line shift on binary blocks ...
+
+how to delete lines 1-2 from head ...
+how to delete lines 1-100 from tail ...
+
+f.removeLines = function(f, skip=0, lines=1:2, head=TREU)
+
+ERDO
+
+TRUE-DOE ... biodlsa  ... flobi 
+
+
+7BDE9C is perfectly 140 ... nice soft green ... LAB was 81.2^24-1 ish
+
+
+is there a pattern on HEX like WP48?
+
+x(THETA,MAGNITUDE)
+
+v!0 ... colornames ... v^^ is white ... v^v is also white ... v% is white ... 
+
+if(str.contains ... %^ ==> white 
+if(str.contains ... ! ==> black 
+
+else charAt(1) is A-Z0-9 and charAt(2) is 0-9
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

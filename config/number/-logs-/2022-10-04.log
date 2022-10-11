@@ -1,0 +1,346 @@
+#............   START -INI- LOG ENTRY   ............###{humanVerse}#####
+2022-10-04\./23:06:09 GMT+0000
+2022-10-04
+1664924769.842838.0c28b
+--FUNCTION_INFO--
+list(envir = "<environment>", call = "number.init()", fn.info = list(
+    fn = "ini.parseFiles", dot.keys = NULL, dot.vals = NULL, 
+    params = list(inifilesORDERmatters = "n.files", master = "n.rds", 
+        use.cache = "use.cache", smart.num = FALSE), map = list(
+        inifilesORDERmatters = "n.files", master = "n.rds", use.cache = "use.cache", 
+        smart.num = "smart.num"), formals = list(inifilesORDERmatters = "--EMPTY--", 
+        master = "cache/ini/master.rds", use.cache = TRUE, smart.num = TRUE, 
+        ... = "--EMPTY--")))
+--FILES--
+"C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/80-number.ini"
+#............   START -INI- LOG ENTRY   ............###{humanVerse}#####
+2022-10-04\./23:06:58 GMT+0000
+2022-10-04
+1664924818.861929.195a3
+--FUNCTION_INFO--
+list(envir = "<environment>", call = "ini.parseFiles(n.files, n.rds, use.cache, smart.num = FALSE)", 
+    fn.info = list(fn = "ini.parseFiles", dot.keys = NULL, dot.vals = NULL, 
+        params = list(inifilesORDERmatters = "n.files", master = "n.rds", 
+            use.cache = "use.cache", smart.num = FALSE), map = list(
+            inifilesORDERmatters = "n.files", master = "n.rds", 
+            use.cache = "use.cache", smart.num = "smart.num"), 
+        formals = list(inifilesORDERmatters = "--EMPTY--", master = "cache/ini/master.rds", 
+            use.cache = TRUE, smart.num = TRUE, ... = "--EMPTY--")))
+--FILES--
+"C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/80-number.ini"
+#............   START -INI- LOG ENTRY   ............###{humanVerse}#####
+2022-10-04\./23:07:26 GMT+0000
+2022-10-04
+1664924846.361076.51968
+--FUNCTION_INFO--
+list(envir = "<environment>", call = "ini.parseFiles(n.files, n.rds, use.cache, smart.num = FALSE)", 
+    fn.info = list(fn = "ini.parseFiles", dot.keys = NULL, dot.vals = NULL, 
+        params = list(inifilesORDERmatters = "n.files", master = "n.rds", 
+            use.cache = "use.cache", smart.num = FALSE), map = list(
+            inifilesORDERmatters = "n.files", master = "n.rds", 
+            use.cache = "use.cache", smart.num = "smart.num"), 
+        formals = list(inifilesORDERmatters = "--EMPTY--", master = "cache/ini/master.rds", 
+            use.cache = TRUE, smart.num = TRUE, ... = "--EMPTY--")))
+--FILES--
+"C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/80-number.ini"
+#............   START -INI- LOG ENTRY   ............###{humanVerse}#####
+2022-10-04\./23:09:35 GMT+0000
+2022-10-04
+1664924956.453234.83c60
+--FUNCTION_INFO--
+--FILES--
+"C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/80-number.ini"
+LOOP [i] :1
+		now.start : 1664925020.99731
+		stem : 80-number
+		source : C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/80-number.ini
+		out : C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/80-number.rds
+		out.copy : C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/-backups-/2022-10-04/1664924956.453234.83c60_80-number.rds
+		checksum : 749e64436427ec31d1b4cd9597d3561a
+		checksum.file : C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/-backups-/80-number_749e64436427ec31d1b4cd9597d3561a.info
+		checksum.exists : FALSE
+
+
+			now.end : 1664925085.15701
+			parse.time [secs] : 64.1596939563751
+
+#............   START -INI- LOG ENTRY   ............###{humanVerse}#####
+2022-10-04\./23:12:32 GMT+0000
+2022-10-04
+1664925152.252798.69789
+--FUNCTION_INFO--
+list(envir = "<environment>", call = "ini.parseFiles(n.files, n.rds, use.cache, smart.num = FALSE)", 
+    fn.info = list(fn = "ini.parseFiles", dot.keys = NULL, dot.vals = NULL, 
+        params = list(inifilesORDERmatters = "n.files", master = "n.rds", 
+            use.cache = "use.cache", smart.num = FALSE), map = list(
+            inifilesORDERmatters = "n.files", master = "n.rds", 
+            use.cache = "use.cache", smart.num = "smart.num"), 
+        formals = list(inifilesORDERmatters = "--EMPTY--", master = "cache/ini/master.rds", 
+            use.cache = TRUE, smart.num = TRUE, ... = "--EMPTY--")))
+--FILES--
+"C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/80-number.ini"
+#............   START -INI- LOG ENTRY   ............###{humanVerse}#####
+2022-10-04\./23:17:05 GMT+0000
+2022-10-04
+1664925425.324789.77b07
+--FUNCTION_INFO--
+list(envir = "<environment>", call = "ini.parseFiles(n.files, n.rds, use.cache, smart.num = FALSE)", 
+    fn.info = list(fn = "ini.parseFiles", dot.keys = NULL, dot.vals = NULL, 
+        params = list(inifilesORDERmatters = "n.files", master = "n.rds", 
+            use.cache = "use.cache", smart.num = FALSE), map = list(
+            inifilesORDERmatters = "n.files", master = "n.rds", 
+            use.cache = "use.cache", smart.num = "smart.num"), 
+        formals = list(inifilesORDERmatters = "--EMPTY--", master = "cache/ini/master.rds", 
+            use.cache = TRUE, smart.num = TRUE, ... = "--EMPTY--")))
+--FILES--
+"C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/80-number.ini"
+#............   START -INI- LOG ENTRY   ............###{humanVerse}#####
+2022-10-04\./23:18:22 GMT+0000
+2022-10-04
+1664925501.950824.5e826
+--FUNCTION_INFO--
+list(envir = "<environment>", call = "ini.parseFiles(n.files, n.rds, use.cache, smart.num = FALSE)", 
+    fn.info = list(fn = "ini.parseFiles", dot.keys = NULL, dot.vals = NULL, 
+        params = list(inifilesORDERmatters = "n.files", master = "n.rds", 
+            use.cache = "use.cache", smart.num = FALSE), map = list(
+            inifilesORDERmatters = "n.files", master = "n.rds", 
+            use.cache = "use.cache", smart.num = "smart.num"), 
+        formals = list(inifilesORDERmatters = "--EMPTY--", master = "cache/ini/master.rds", 
+            use.cache = TRUE, smart.num = TRUE, ... = "--EMPTY--")))
+--FILES--
+"C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/80-number.ini"
+#............   START -INI- LOG ENTRY   ............###{humanVerse}#####
+2022-10-04\./23:20:05 GMT+0000
+2022-10-04
+1664925605.277841.5bb51
+--FUNCTION_INFO--
+list(envir = "<environment>", call = "ini.parseFiles(n.files, n.rds, use.cache, smart.num = FALSE)", 
+    fn.info = list(fn = "ini.parseFiles", dot.keys = NULL, dot.vals = NULL, 
+        params = list(inifilesORDERmatters = "n.files", master = "n.rds", 
+            use.cache = "use.cache", smart.num = FALSE), map = list(
+            inifilesORDERmatters = "n.files", master = "n.rds", 
+            use.cache = "use.cache", smart.num = "smart.num"), 
+        formals = list(inifilesORDERmatters = "--EMPTY--", master = "cache/ini/master.rds", 
+            use.cache = TRUE, smart.num = TRUE, ... = "--EMPTY--")))
+--FILES--
+"C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/80-number.ini"
+#............   START -INI- LOG ENTRY   ............###{humanVerse}#####
+2022-10-04\./23:20:51 GMT+0000
+2022-10-04
+1664925651.108681.0962c
+--FUNCTION_INFO--
+list(envir = "<environment>", call = "ini.parseFiles(n.files, n.rds, use.cache, smart.num = FALSE)", 
+    fn.info = list(fn = "ini.parseFiles", dot.keys = NULL, dot.vals = NULL, 
+        params = list(inifilesORDERmatters = "n.files", master = "n.rds", 
+            use.cache = "use.cache", smart.num = FALSE), map = list(
+            inifilesORDERmatters = "n.files", master = "n.rds", 
+            use.cache = "use.cache", smart.num = "smart.num"), 
+        formals = list(inifilesORDERmatters = "--EMPTY--", master = "cache/ini/master.rds", 
+            use.cache = TRUE, smart.num = TRUE, ... = "--EMPTY--")))
+--FILES--
+"C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/80-number.ini"
+#............   START -INI- LOG ENTRY   ............###{humanVerse}#####
+2022-10-04\./23:23:46 GMT+0000
+2022-10-04
+1664925826.431617.2fb63
+--FUNCTION_INFO--
+list(envir = "<environment>", call = "ini.parseFiles(n.files, n.rds, use.cache, smart.num = FALSE)", 
+    fn.info = list(fn = "ini.parseFiles", dot.keys = NULL, dot.vals = NULL, 
+        params = list(inifilesORDERmatters = "n.files", master = "n.rds", 
+            use.cache = "use.cache", smart.num = FALSE), map = list(
+            inifilesORDERmatters = "n.files", master = "n.rds", 
+            use.cache = "use.cache", smart.num = "smart.num"), 
+        formals = list(inifilesORDERmatters = "--EMPTY--", master = "cache/ini/master.rds", 
+            use.cache = TRUE, smart.num = TRUE, ... = "--EMPTY--")))
+--FILES--
+"C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/80-number.ini"
+#............   START -INI- LOG ENTRY   ............###{humanVerse}#####
+2022-10-04\./23:25:21 GMT+0000
+2022-10-04
+1664925921.572380.37356
+--FUNCTION_INFO--
+list(envir = "<environment>", call = "ini.parseFiles(n.files, n.rds, use.cache, smart.num = FALSE)", 
+    fn.info = list(fn = "ini.parseFiles", dot.keys = NULL, dot.vals = NULL, 
+        params = list(inifilesORDERmatters = "n.files", master = "n.rds", 
+            use.cache = "use.cache", smart.num = FALSE), map = list(
+            inifilesORDERmatters = "n.files", master = "n.rds", 
+            use.cache = "use.cache", smart.num = "smart.num"), 
+        formals = list(inifilesORDERmatters = "--EMPTY--", master = "cache/ini/master.rds", 
+            use.cache = TRUE, smart.num = TRUE, ... = "--EMPTY--")))
+--FILES--
+"C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/80-number.ini"
+LOOP [i] :1
+		now.start : 1664925921.46732
+		stem : 80-number
+		source : C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/80-number.ini
+		out : C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/80-number.rds
+		out.copy : C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/-backups-/2022-10-04/1664925921.572380.37356_80-number.rds
+		checksum : 749e64436427ec31d1b4cd9597d3561a
+		checksum.file : C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/-backups-/80-number_749e64436427ec31d1b4cd9597d3561a.info
+		checksum.exists : TRUE
+
+
+			now.end : 1664925921.47708
+			parse.time [secs] : 0.00975704193115234
+
+C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/-backups-/2022-10-04/1664925921.572380.37356_number.rds
+C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/number.rds
+
+
+
+####{R}###..................   END -INI- LOG ENTRY   ..................#
+
+
+
+#............   START -INI- LOG ENTRY   ............###{humanVerse}#####
+2022-10-04\./23:28:13 GMT+0000
+2022-10-04
+1664926092.939161.8d99e
+--FUNCTION_INFO--
+list(envir = "<environment>", call = "ini.parseFiles(n.files, n.rds, use.cache, smart.num = FALSE)", 
+    fn.info = list(fn = "ini.parseFiles", dot.keys = NULL, dot.vals = NULL, 
+        params = list(inifilesORDERmatters = "n.files", master = "n.rds", 
+            use.cache = "use.cache", smart.num = FALSE), map = list(
+            inifilesORDERmatters = "n.files", master = "n.rds", 
+            use.cache = "use.cache", smart.num = "smart.num"), 
+        formals = list(inifilesORDERmatters = "--EMPTY--", master = "cache/ini/master.rds", 
+            use.cache = TRUE, smart.num = TRUE, ... = "--EMPTY--")))
+--FILES--
+"C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/80-number.ini"
+LOOP [i] :1
+		now.start : 1664926093.43299
+		stem : 80-number
+		source : C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/80-number.ini
+		out : C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/80-number.rds
+		out.copy : C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/-backups-/2022-10-04/1664926092.939161.8d99e_80-number.rds
+		checksum : 749e64436427ec31d1b4cd9597d3561a
+		checksum.file : C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/-backups-/80-number_749e64436427ec31d1b4cd9597d3561a.info
+		checksum.exists : TRUE
+
+
+			now.end : 1664926093.44264
+			parse.time [secs] : 0.00964808464050293
+
+C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/-backups-/2022-10-04/1664926092.939161.8d99e_number.rds
+C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/number.rds
+
+
+
+####{R}###..................   END -INI- LOG ENTRY   ..................#
+
+
+
+#............   START -INI- LOG ENTRY   ............###{humanVerse}#####
+2022-10-04\./23:29:33 GMT+0000
+2022-10-04
+1664926173.780119.235a1
+--FUNCTION_INFO--
+list(envir = "<environment>", call = "number.init()", fn.info = list(
+    fn = "ini.parseFiles", dot.keys = NULL, dot.vals = NULL, 
+    params = list(inifilesORDERmatters = "n.files", master = "n.rds", 
+        use.cache = "use.cache", smart.num = FALSE), map = list(
+        inifilesORDERmatters = "n.files", master = "n.rds", use.cache = "use.cache", 
+        smart.num = "smart.num"), formals = list(inifilesORDERmatters = "--EMPTY--", 
+        master = "cache/ini/master.rds", use.cache = TRUE, smart.num = TRUE, 
+        ... = "--EMPTY--")))
+--FILES--
+"C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/80-number.ini"
+LOOP [i] :1
+		now.start : 1664926173.84629
+		stem : 80-number
+		source : C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/80-number.ini
+		out : C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/80-number.rds
+		out.copy : C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/-backups-/2022-10-04/1664926173.780119.235a1_80-number.rds
+		checksum : 749e64436427ec31d1b4cd9597d3561a
+		checksum.file : C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/-backups-/80-number_749e64436427ec31d1b4cd9597d3561a.info
+		checksum.exists : TRUE
+
+
+			now.end : 1664926173.85238
+			parse.time [secs] : 0.00609302520751953
+
+C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/-backups-/2022-10-04/1664926173.780119.235a1_number.rds
+C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/number.rds
+
+
+
+####{R}###..................   END -INI- LOG ENTRY   ..................#
+
+
+
+#............   START -INI- LOG ENTRY   ............###{humanVerse}#####
+2022-10-04\./23:30:46 GMT+0000
+2022-10-04
+1664926246.610120.70d52
+--FUNCTION_INFO--
+list(envir = "<environment>", call = "number.init()", fn.info = list(
+    fn = "ini.parseFiles", dot.keys = NULL, dot.vals = NULL, 
+    params = list(inifilesORDERmatters = "n.files", master = "n.rds", 
+        use.cache = "use.cache", smart.num = FALSE), map = list(
+        inifilesORDERmatters = "n.files", master = "n.rds", use.cache = "use.cache", 
+        smart.num = "smart.num"), formals = list(inifilesORDERmatters = "--EMPTY--", 
+        master = "cache/ini/master.rds", use.cache = TRUE, smart.num = TRUE, 
+        ... = "--EMPTY--")))
+--FILES--
+"C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/80-number.ini"
+LOOP [i] :1
+		now.start : 1664926246.1083
+		stem : 80-number
+		source : C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/80-number.ini
+		out : C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/80-number.rds
+		out.copy : C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/-backups-/2022-10-04/1664926246.610120.70d52_80-number.rds
+		checksum : 749e64436427ec31d1b4cd9597d3561a
+		checksum.file : C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/-backups-/80-number_749e64436427ec31d1b4cd9597d3561a.info
+		checksum.exists : TRUE
+
+
+			now.end : 1664926246.11444
+			parse.time [secs] : 0.00613999366760254
+
+C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/-backups-/2022-10-04/1664926246.610120.70d52_number.rds
+C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/number.rds
+
+
+
+####{R}###..................   END -INI- LOG ENTRY   ..................#
+
+
+
+#............   START -INI- LOG ENTRY   ............###{humanVerse}#####
+2022-10-04\./23:32:19 GMT+0000
+2022-10-04
+1664926339.222903.5445c
+--FUNCTION_INFO--
+list(envir = "<environment>", call = "number.init()", fn.info = list(
+    fn = "ini.parseFiles", dot.keys = NULL, dot.vals = NULL, 
+    params = list(inifilesORDERmatters = "n.files", master = "n.rds", 
+        use.cache = "use.cache", smart.num = FALSE), map = list(
+        inifilesORDERmatters = "n.files", master = "n.rds", use.cache = "use.cache", 
+        smart.num = "smart.num"), formals = list(inifilesORDERmatters = "--EMPTY--", 
+        master = "cache/ini/master.rds", use.cache = TRUE, smart.num = TRUE, 
+        ... = "--EMPTY--")))
+--FILES--
+"C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/80-number.ini"
+LOOP [i] :1
+		now.start : 1664926339.27601
+		stem : 80-number
+		source : C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/80-number.ini
+		out : C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/80-number.rds
+		out.copy : C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/-backups-/2022-10-04/1664926339.222903.5445c_80-number.rds
+		checksum : cf29cdb3a5a6ec626235819f5b19c7ba
+		checksum.file : C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/-backups-/80-number_cf29cdb3a5a6ec626235819f5b19c7ba.info
+		checksum.exists : FALSE
+
+
+			now.end : 1664926340.09655
+			parse.time [secs] : 0.820533037185669
+
+C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/-backups-/2022-10-04/1664926339.222903.5445c_number.rds
+C:/_git_/github/MonteShaffer/humanVerse/humanVerse/inst/R/config/number/number.rds
+
+
+
+####{R}###..................   END -INI- LOG ENTRY   ..................#
+
+
+
